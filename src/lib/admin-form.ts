@@ -112,3 +112,11 @@ export function handleActionError(err: unknown): ActionState {
   console.error("[admin action]", err);
   return { error: "Something went wrong while saving. Please try again." };
 }
+
+/** Aligns stored file visibility with each document's public/internal flag. */
+export async function syncDocumentVisibility(docs: ParsedMedia[]) {
+  const priv = docs.filter((d) => d.flag === false).map((d) => d.mediaId);
+  const pub = docs.filter((d) => d.flag !== false).map((d) => d.mediaId);
+  if (priv.length) await db.mediaAsset.updateMany({ where: { id: { in: priv } }, data: { visibility: "PRIVATE", url: null } });
+  if (pub.length) await db.mediaAsset.updateMany({ where: { id: { in: pub }, visibility: "PRIVATE" }, data: { visibility: "PUBLIC" } });
+}

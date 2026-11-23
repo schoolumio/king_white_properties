@@ -1,12 +1,17 @@
 "use client";
 
-import { createContext, useActionState, useContext, useEffect, useRef } from "react";
-import { useFormStatus } from "react-dom";
+import { createContext, startTransition, useActionState, useContext, useEffect, useRef } from "react";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 import type { ActionState } from "@/app/admin/actions/types";
 import { cn } from "@/lib/utils";
 
 const FieldErrors = createContext<Record<string, string>>({});
+const Pending = createContext(false);
+
+/**
+ * Submits via onSubmit (rather than the form `action` prop) so React does not
+ * reset uncontrolled fields — users keep their input when validation fails.
+ */
 
 /** Wraps a server action with pending/error/success feedback. */
 export function ActionForm({
@@ -20,14 +25,26 @@ export function ActionForm({
   className?: string;
   resetOnSuccess?: boolean;
 }) {
-  const [state, formAction] = useActionState(action, null);
+  const [state, formAction, pending] = useActionState(action, null);
   const ref = useRef<HTMLFormElement>(null);
   useEffect(() => {
     if (state?.success && resetOnSuccess) ref.current?.reset();
   }, [state, resetOnSuccess]);
   return (
+    <Pending.Provider value={pending}>
     <FieldErrors.Provider value={state?.fieldErrors ?? {}}>
-      <form ref={ref} action={formAction} className={className} noValidate>
+      <form
+        ref={ref}
+        className={className}
+        noValidate
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (pending) return;
+          const submitter = (e.nativeEvent as SubmitEvent).submitter as HTMLButtonElement | null;
+          const data = new FormData(e.currentTarget, submitter);
+          startTransition(() => formAction(data));
+        }}
+      >
         {state?.error && (
           <div role="alert" className="mb-5 flex items-start gap-2 border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
             <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" /> {state.error}
@@ -41,6 +58,7 @@ export function ActionForm({
         {children}
       </form>
     </FieldErrors.Provider>
+    </Pending.Provider>
   );
 }
 
@@ -118,7 +136,7 @@ export function Checkbox({ label, name, defaultChecked, help, value = "true" }: 
 }
 
 export function SubmitButton({ children, variant = "primary", className, name, value }: { children: React.ReactNode; variant?: "primary" | "secondary" | "danger"; className?: string; name?: string; value?: string }) {
-  const { pending } = useFormStatus();
+  const pending = useContext(Pending);
   return (
     <button
       type="submit"
@@ -141,7 +159,7 @@ export function SubmitButton({ children, variant = "primary", className, name, v
 
 /** Button that submits only after a confirmation prompt (for destructive actions). */
 export function ConfirmSubmit({ children, message, variant = "danger", name, value }: { children: React.ReactNode; message: string; variant?: "primary" | "secondary" | "danger"; name?: string; value?: string }) {
-  const { pending } = useFormStatus();
+  const pending = useContext(Pending);
   return (
     <button
       type="submit"

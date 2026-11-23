@@ -206,6 +206,12 @@ export async function storeFile(
 }
 
 export async function readStoredFile(asset: Pick<MediaAsset, "driver" | "storageKey" | "url">) {
+  if (asset.driver === "remote") {
+    if (!asset.url) throw new Error("File unavailable");
+    const res = await fetch(asset.url);
+    if (!res.ok) throw new Error("File unavailable");
+    return Buffer.from(await res.arrayBuffer());
+  }
   if (asset.driver === "cloudinary") {
     const [, type] = asset.storageKey.split(":");
     if (type === "upload" && asset.url) {

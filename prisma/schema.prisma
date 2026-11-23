@@ -161,6 +161,7 @@ model MediaAsset {
 
   @@index([folder])
   @@index([visibility])
+  @@index([storageKey])
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
