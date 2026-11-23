@@ -1,4 +1,4 @@
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, "");
+import { SITE_URL } from "./site-url";
 
 export function absoluteUrl(path: string) {
   if (/^https?:\/\//.test(path)) return path;

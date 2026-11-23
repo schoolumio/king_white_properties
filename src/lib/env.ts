@@ -1,8 +1,9 @@
 import "server-only";
+import { SITE_URL } from "./site-url";
 
 /** Centralised, typed access to environment configuration. */
 export const env = {
-  siteUrl: (process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000").replace(/\/$/, ""),
+  siteUrl: SITE_URL,
   appSecret: process.env.APP_SECRET || "development-only-secret",
   isProduction: process.env.NODE_ENV === "production",
   storage: {
