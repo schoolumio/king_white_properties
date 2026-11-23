@@ -1,8 +1,8 @@
-# Integrated Enterprise Platform
+# King White — Integrated Enterprise Platform
 
 Corporate web platform for a group operating two divisions — **Real Estate & Infrastructure** and **Automotive & Mobility** — under one parent identity, with a shared CRM, CMS, investor-relations channel and administration portal.
 
-> Company details are placeholders (`[COMPANY NAME]`) until supplied. Every corporate fact — name, contacts, address, leadership, policies, opportunities — is entered through the admin portal. Nothing about the business is invented in code.
+> The company name is set to **King White** (editable in Admin → Website content → Company information). Other corporate facts — legal name, contacts, address, leadership, policies, opportunities — are entered through the admin portal. Nothing about the business is invented in code.
 
 ---
 
@@ -213,7 +213,7 @@ The smoke test (Playwright) loads every public page, checks client-side validati
 
 These need information or credentials from the company and are deliberately **not** filled in:
 
-- [ ] Company name, legal name, registration statement, contact details, address, social links — *Admin → Website content → Company information*
+- [ ] Registered legal name, registration statement, contact details, address, social links — *Admin → Website content → Company information*
 - [ ] Logo files (light and dark) — same section (a wordmark is generated until supplied)
 - [ ] **Photography.** The default hero/section images reference Unsplash stock photography as placeholders and are labelled as such in the CMS. They could not be visually verified in the build environment; replace every image with commissioned or licensed company photography in *Website content*. Pages fall back to a branded graphic if an image fails to load.
 - [ ] Company profile, vision, mission, values, governance framework, compliance text

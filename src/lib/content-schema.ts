@@ -95,7 +95,7 @@ export const CONTENT_SECTIONS: SectionDef[] = [
       },
     ],
     defaults: {
-      companyName: "[COMPANY NAME]",
+      companyName: "King White",
       legalName: "",
       registration: "",
       tagline: "Building Value. Enabling Mobility. Shaping Tomorrow.",
@@ -432,7 +432,7 @@ export const CONTENT_SECTIONS: SectionDef[] = [
       heading: "An integrated enterprise for assets, investment and mobility.",
       lead: "We bring together real estate, infrastructure and automotive capabilities under one corporate group, with independent divisions and shared standards.",
       profile:
-        "[COMPANY NAME] is a corporate group operating across Real Estate & Infrastructure and Automotive & Mobility.\n\nThe Real Estate & Infrastructure division is responsible for residential and commercial property, land acquisition and sales, property development, leasing, property management and development partnerships.\n\nThe Automotive & Mobility division supplies new and pre-owned vehicles, premium and luxury automobiles, commercial vehicles and corporate fleet solutions, including sourcing, leasing and acquisition support.\n\n*Replace this profile with the company's approved corporate narrative in Admin → Content → Company profile.*",
+        "King White is a corporate group operating across Real Estate & Infrastructure and Automotive & Mobility.\n\nThe Real Estate & Infrastructure division is responsible for residential and commercial property, land acquisition and sales, property development, leasing, property management and development partnerships.\n\nThe Automotive & Mobility division supplies new and pre-owned vehicles, premium and luxury automobiles, commercial vehicles and corporate fleet solutions, including sourcing, leasing and acquisition support.\n\n*Replace this profile with the company's approved corporate narrative in Admin → Content → Company profile.*",
       vision: "To be a trusted enterprise creating lasting value through quality assets, dependable mobility and enduring partnerships.",
       mission:
         "To develop, supply and manage real estate and automotive assets with discipline and transparency, serving individuals, organisations and institutions over the long term.",
