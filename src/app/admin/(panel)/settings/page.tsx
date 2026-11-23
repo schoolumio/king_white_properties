@@ -38,8 +38,8 @@ export default async function Settings() {
               ["Legal pages", "Privacy policy, terms and other pages.", "/admin/pages"],
             ].map(([t, d, h]) => (
               <li key={h}>
-                <Link href={h} className="block py-3 hover:bg-[#fafaf8]">
-                  <span className="font-medium text-navy">{t}</span>
+                <Link href={h} className="block py-3 hover:bg-[#f8faf9]">
+                  <span className="font-medium text-primary">{t}</span>
                   <span className="block text-[13px] text-ink/55">{d}</span>
                 </Link>
               </li>
@@ -52,7 +52,7 @@ export default async function Settings() {
               <li key={i.name} className="flex items-start gap-3 text-[13.5px]">
                 {i.configured ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600" /> : <CircleAlert className="mt-0.5 h-4 w-4 shrink-0 text-amber-600" />}
                 <span>
-                  <span className="font-medium text-navy">{i.name}</span>
+                  <span className="font-medium text-primary">{i.name}</span>
                   <span className="block text-ink/55">{i.detail}</span>
                 </span>
               </li>
@@ -62,7 +62,7 @@ export default async function Settings() {
       </div>
 
       <div className="mt-6">
-        <h2 className="mb-3 font-display text-[15px] font-semibold text-navy">Notification log</h2>
+        <h2 className="mb-3 font-display text-[15px] font-semibold text-primary">Notification log</h2>
         <Table>
           <thead>
             <tr>
@@ -84,7 +84,7 @@ export default async function Settings() {
                   <span className={l.status === "SENT" ? "text-emerald-700" : l.status === "FAILED" ? "text-rose-700" : "text-ink/55"}>{humanize(l.status)}</span>
                   {l.error && <span className="block max-w-72 truncate text-xs text-ink/45" title={l.error}>{l.error}</span>}
                 </Td>
-                <Td>{l.enquiry ? <Link className="text-navy underline" href={`/admin/enquiries/${l.enquiry.id}`}>{l.enquiry.reference}</Link> : "—"}</Td>
+                <Td>{l.enquiry ? <Link className="text-primary underline" href={`/admin/enquiries/${l.enquiry.id}`}>{l.enquiry.reference}</Link> : "—"}</Td>
               </tr>
             ))}
           </tbody>

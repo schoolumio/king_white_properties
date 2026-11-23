@@ -56,15 +56,15 @@ export default async function AdminLeadership() {
           <details key={l.id}>
             <summary className="flex cursor-pointer items-center gap-3 p-4">
               <span className="flex-1">
-                <span className="font-medium text-navy">{l.name}</span>
+                <span className="font-medium text-primary">{l.name}</span>
                 <span className="block text-xs text-ink/50">
                   {l.position} · {groups.find((g) => g.value === l.group)?.label}
                 </span>
               </span>
               <Pill className={l.published ? "bg-emerald-100 text-emerald-800" : "bg-slate-100 text-slate-700"}>{l.published ? "Published" : "Hidden"}</Pill>
-              <span className="text-xs text-navy underline">Edit</span>
+              <span className="text-xs text-primary underline">Edit</span>
             </summary>
-            <div className="border-t border-line bg-[#fafaf8] p-4">
+            <div className="border-t border-line bg-[#f8faf9] p-4">
               <LeaderForm l={l} />
             </div>
           </details>

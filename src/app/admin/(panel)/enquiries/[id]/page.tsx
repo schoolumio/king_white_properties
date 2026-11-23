@@ -88,17 +88,17 @@ export default async function EnquiryDetail({ params }: { params: Promise<{ id: 
           <Panel title="Contact">
             <div className="grid gap-5 sm:grid-cols-2">
               <div>
-                <p className="font-display text-lg font-semibold text-navy">{e.name}</p>
+                <p className="font-display text-lg font-semibold text-primary">{e.name}</p>
                 {(e.position || e.organisation) && <p className="text-sm text-ink/60">{[e.position, e.organisation].filter(Boolean).join(", ")}</p>}
                 {e.country && <p className="text-sm text-ink/50">{e.country}</p>}
               </div>
               <div className="space-y-2 text-sm">
-                <a href={`mailto:${e.email}?subject=${encodeURIComponent(`Re: ${e.reference}`)}`} className="flex items-center gap-2 text-navy hover:underline">
-                  <Mail className="h-4 w-4 text-gold-deep" /> {e.email}
+                <a href={`mailto:${e.email}?subject=${encodeURIComponent(`Re: ${e.reference}`)}`} className="flex items-center gap-2 text-primary hover:underline">
+                  <Mail className="h-4 w-4 text-accent-deep" /> {e.email}
                 </a>
                 {e.phone && (
-                  <a href={`tel:${e.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 text-navy hover:underline">
-                    <Phone className="h-4 w-4 text-gold-deep" /> {e.phone}
+                  <a href={`tel:${e.phone.replace(/\s/g, "")}`} className="flex items-center gap-2 text-primary hover:underline">
+                    <Phone className="h-4 w-4 text-accent-deep" /> {e.phone}
                   </a>
                 )}
                 <p className="text-xs text-ink/45">Privacy consent: {e.consent ? "given" : "not recorded"}</p>
@@ -115,7 +115,7 @@ export default async function EnquiryDetail({ params }: { params: Promise<{ id: 
                   .map(([k, v]) => (
                     <div key={k} className="flex justify-between gap-4 border-b border-line py-2 text-[13.5px]">
                       <dt className="text-ink/55">{k}</dt>
-                      <dd className="text-right font-medium text-navy">{v}</dd>
+                      <dd className="text-right font-medium text-primary">{v}</dd>
                     </div>
                   ))}
               </dl>
@@ -132,8 +132,8 @@ export default async function EnquiryDetail({ params }: { params: Promise<{ id: 
               <div className="mt-6 border-t border-line pt-4">
                 <p className="mb-2 text-xs font-semibold tracking-wide text-ink/55 uppercase">Confidential attachments</p>
                 {e.attachments.map((a) => (
-                  <a key={a.id} href={`/api/files/${a.mediaId}?download=1`} className="flex items-center gap-2 py-1 text-sm text-navy hover:underline">
-                    <FileText className="h-4 w-4 text-gold-deep" /> {a.media.originalName} <span className="text-ink/45">({formatBytes(a.media.size)})</span>
+                  <a key={a.id} href={`/api/files/${a.mediaId}?download=1`} className="flex items-center gap-2 py-1 text-sm text-primary hover:underline">
+                    <FileText className="h-4 w-4 text-accent-deep" /> {a.media.originalName} <span className="text-ink/45">({formatBytes(a.media.size)})</span>
                   </a>
                 ))}
               </div>
@@ -146,7 +146,7 @@ export default async function EnquiryDetail({ params }: { params: Promise<{ id: 
               <ActionForm action={updateEnquiry} className="mb-6" resetOnSuccess>
                 <input type="hidden" name="id" value={e.id} />
                 <input type="hidden" name="op" value="note" />
-                <textarea name="note" rows={3} placeholder="Add an internal note (not visible to the client)…" className="w-full border border-line px-3 py-2 text-[14px] outline-none focus:border-navy" />
+                <textarea name="note" rows={3} placeholder="Add an internal note (not visible to the client)…" className="w-full border border-line px-3 py-2 text-[14px] outline-none focus:border-primary" />
                 <div className="mt-2 flex justify-end">
                   <SubmitButton>Add note</SubmitButton>
                 </div>
@@ -155,7 +155,7 @@ export default async function EnquiryDetail({ params }: { params: Promise<{ id: 
             <ol className="relative space-y-5 border-l border-line pl-5">
               {e.activities.map((a) => (
                 <li key={a.id} className="relative">
-                  <span className={`absolute top-1.5 -left-[23.5px] h-2 w-2 ${a.type === "NOTE" ? "bg-gold" : "bg-navy/40"}`} />
+                  <span className={`absolute top-1.5 -left-[23.5px] h-2 w-2 ${a.type === "NOTE" ? "bg-accent" : "bg-primary/40"}`} />
                   <p className="text-[13.5px] text-ink/85">
                     {a.type === "NOTE" ? (
                       <span className="whitespace-pre-wrap">{a.message}</span>
@@ -248,7 +248,7 @@ export default async function EnquiryDetail({ params }: { params: Promise<{ id: 
               ].map(([k, v]) => (
                 <div key={k} className="flex justify-between gap-3">
                   <dt className="text-ink/55">{k}</dt>
-                  <dd className="text-right font-medium text-navy">{v}</dd>
+                  <dd className="text-right font-medium text-primary">{v}</dd>
                 </div>
               ))}
             </dl>
@@ -258,7 +258,7 @@ export default async function EnquiryDetail({ params }: { params: Promise<{ id: 
               <ul className="space-y-2 text-[13px]">
                 {e.assignments.map((a) => (
                   <li key={a.id} className="flex justify-between gap-3">
-                    <span className="text-navy">{a.user.name}</span>
+                    <span className="text-primary">{a.user.name}</span>
                     <span className="text-ink/50">
                       {formatDate(a.assignedAt, "short")}
                       {a.endedAt ? ` – ${formatDate(a.endedAt, "short")}` : " – current"}
@@ -275,7 +275,7 @@ export default async function EnquiryDetail({ params }: { params: Promise<{ id: 
               <ul className="space-y-2 text-[12.5px]">
                 {e.notifications.map((n) => (
                   <li key={n.id}>
-                    <span className="text-navy">{n.recipient}</span>
+                    <span className="text-primary">{n.recipient}</span>
                     <span className={`ml-2 ${n.status === "SENT" ? "text-emerald-700" : n.status === "FAILED" ? "text-rose-700" : "text-ink/50"}`}>{humanize(n.status)}</span>
                     {n.error && <span className="block text-ink/45">{n.error}</span>}
                   </li>
@@ -291,12 +291,12 @@ export default async function EnquiryDetail({ params }: { params: Promise<{ id: 
 
 function RelatedLink({ admin, site, label }: { admin: string; site?: string; label: string }) {
   return (
-    <span className="inline-flex items-center gap-2 border border-line bg-[#fafaf8] px-3 py-1.5">
-      <Link href={admin} className="text-navy hover:underline">
+    <span className="inline-flex items-center gap-2 border border-line bg-[#f8faf9] px-3 py-1.5">
+      <Link href={admin} className="text-primary hover:underline">
         {label}
       </Link>
       {site && (
-        <Link href={site} target="_blank" aria-label="View on website" className="text-ink/40 hover:text-navy">
+        <Link href={site} target="_blank" aria-label="View on website" className="text-ink/40 hover:text-primary">
           <ExternalLink className="h-3.5 w-3.5" />
         </Link>
       )}

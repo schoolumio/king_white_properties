@@ -66,7 +66,7 @@ export default async function PropertiesPage({ searchParams }: { searchParams: S
   return (
     <>
       <PageHero eyebrow="Property Marketplace" title="Properties" statement="Residential, commercial, industrial, land and mixed-use property for sale and lease." crumbs={[{ label: "Real Estate", href: "/real-estate" }, { label: "Properties" }]} size="sm" />
-      <section className="bg-ivory py-12 sm:py-16">
+      <section className="bg-surface py-12 sm:py-16">
         <div className="shell">
           <FilterBar
             action="/real-estate/properties"

@@ -6,13 +6,13 @@ export function PageHeader({ title, description, actions, back }: { title: strin
   return (
     <div className="mb-8">
       {back && (
-        <Link href={back.href} className="mb-3 inline-flex items-center gap-1 text-[13px] text-ink/55 hover:text-navy">
+        <Link href={back.href} className="mb-3 inline-flex items-center gap-1 text-[13px] text-ink/55 hover:text-primary">
           <ChevronLeft className="h-3.5 w-3.5" /> {back.label}
         </Link>
       )}
       <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
         <div>
-          <h1 className="font-display text-2xl font-semibold text-navy sm:text-[1.7rem]">{title}</h1>
+          <h1 className="font-display text-2xl font-semibold text-primary sm:text-[1.7rem]">{title}</h1>
           {description && <p className="mt-1 max-w-2xl text-sm text-ink/60">{description}</p>}
         </div>
         {actions && <div className="flex flex-wrap gap-2">{actions}</div>}
@@ -27,7 +27,7 @@ export function Panel({ title, description, children, className, actions }: { ti
       {(title || actions) && (
         <div className="flex items-start justify-between gap-4 border-b border-line px-5 py-4">
           <div>
-            {title && <h2 className="font-display text-[15px] font-semibold text-navy">{title}</h2>}
+            {title && <h2 className="font-display text-[15px] font-semibold text-primary">{title}</h2>}
             {description && <p className="mt-0.5 text-[13px] text-ink/55">{description}</p>}
           </div>
           {actions}
@@ -61,7 +61,7 @@ export function Table({ children }: { children: React.ReactNode }) {
 }
 
 export function Th({ children, className }: { children?: React.ReactNode; className?: string }) {
-  return <th className={cn("border-b border-line bg-[#fafaf8] px-4 py-3 text-[11px] font-semibold tracking-[0.08em] text-ink/55 uppercase", className)}>{children}</th>;
+  return <th className={cn("border-b border-line bg-[#f8faf9] px-4 py-3 text-[11px] font-semibold tracking-[0.08em] text-ink/55 uppercase", className)}>{children}</th>;
 }
 
 export function Td({ children, className }: { children?: React.ReactNode; className?: string }) {
@@ -93,12 +93,12 @@ export function AdminPager({ page, pageCount, basePath, params }: { page: number
       </span>
       <div className="flex gap-2">
         {page > 1 && (
-          <Link href={href(page - 1)} className="inline-flex items-center gap-1 border border-line bg-white px-3 py-1.5 hover:border-navy">
+          <Link href={href(page - 1)} className="inline-flex items-center gap-1 border border-line bg-white px-3 py-1.5 hover:border-primary">
             <ChevronLeft className="h-4 w-4" /> Previous
           </Link>
         )}
         {page < pageCount && (
-          <Link href={href(page + 1)} className="inline-flex items-center gap-1 border border-line bg-white px-3 py-1.5 hover:border-navy">
+          <Link href={href(page + 1)} className="inline-flex items-center gap-1 border border-line bg-white px-3 py-1.5 hover:border-primary">
             Next <ChevronRight className="h-4 w-4" />
           </Link>
         )}
@@ -113,7 +113,7 @@ export function AdminButtonLink({ href, children, variant = "primary" }: { href:
       href={href}
       className={cn(
         "inline-flex h-10 items-center gap-2 px-4 text-[13.5px] font-semibold",
-        variant === "primary" ? "bg-navy text-white hover:bg-navy-deep" : "border border-line bg-white text-navy hover:border-navy",
+        variant === "primary" ? "bg-primary text-white hover:bg-primary-deep" : "border border-line bg-white text-primary hover:border-primary",
       )}
     >
       {children}
@@ -125,8 +125,8 @@ export function FilterForm({ children, action }: { children: React.ReactNode; ac
   return (
     <form action={action} method="get" className="mb-4 flex flex-wrap items-end gap-3 border border-line bg-white p-3">
       {children}
-      <button className="h-9 bg-navy px-4 text-[13px] font-semibold text-white">Filter</button>
-      <Link href={action} className="h-9 px-2 text-[13px] leading-9 text-ink/55 hover:text-navy">
+      <button className="h-9 bg-primary px-4 text-[13px] font-semibold text-white">Filter</button>
+      <Link href={action} className="h-9 px-2 text-[13px] leading-9 text-ink/55 hover:text-primary">
         Reset
       </Link>
     </form>

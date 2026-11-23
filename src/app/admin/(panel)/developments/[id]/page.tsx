@@ -40,7 +40,7 @@ export default async function EditDevelopment({ params, searchParams }: { params
             <PublishPill status={p.publishStatus} />
             {p.isDemo && <DemoBadge />}
             {p.publishStatus === "PUBLISHED" && (
-              <Link href={`/real-estate/developments/${p.slug}`} target="_blank" className="inline-flex items-center gap-1 text-[13px] text-navy underline">
+              <Link href={`/real-estate/developments/${p.slug}`} target="_blank" className="inline-flex items-center gap-1 text-[13px] text-primary underline">
                 View on website <ExternalLink className="h-3.5 w-3.5" />
               </Link>
             )}
@@ -63,13 +63,13 @@ export default async function EditDevelopment({ params, searchParams }: { params
                   <details>
                     <summary className="flex cursor-pointer items-center justify-between gap-3 text-sm">
                       <span>
-                        <span className="font-medium text-navy">{u.name}</span>
+                        <span className="font-medium text-primary">{u.name}</span>
                         <span className="block text-xs text-ink/50">
                           {formatPrice(u)} · {UNIT_STATUS_LABELS[u.status]}
                           {u.availableUnits !== null && ` · ${u.availableUnits}/${u.totalUnits ?? "?"} available`}
                         </span>
                       </span>
-                      <span className="text-xs text-navy underline">Edit</span>
+                      <span className="text-xs text-primary underline">Edit</span>
                     </summary>
                     <UnitForm projectId={p.id} unit={u} unitStatus={unitStatus} />
                   </details>
@@ -77,7 +77,7 @@ export default async function EditDevelopment({ params, searchParams }: { params
               ))}
             </ul>
             <details>
-              <summary className="cursor-pointer text-sm font-semibold text-navy">+ Add unit type</summary>
+              <summary className="cursor-pointer text-sm font-semibold text-primary">+ Add unit type</summary>
               <UnitForm projectId={p.id} unitStatus={unitStatus} />
             </details>
           </Panel>
@@ -100,7 +100,7 @@ export default async function EditDevelopment({ params, searchParams }: { params
               {p.updates.map((u) => (
                 <li key={u.id} className="flex items-start justify-between gap-3 py-3">
                   <span className="text-sm">
-                    <span className="font-medium text-navy">{u.title}</span>
+                    <span className="font-medium text-primary">{u.title}</span>
                     <span className="block text-xs text-ink/50">
                       {formatDate(u.publishedAt)} · {u.published ? "Published" : "Hidden"}
                     </span>
@@ -132,7 +132,7 @@ function UnitForm({
   unitStatus: { value: string; label: string }[];
 }) {
   return (
-    <ActionForm action={saveUnit} className="mt-3 grid grid-cols-2 gap-3 bg-[#fafaf8] p-3" resetOnSuccess={!unit}>
+    <ActionForm action={saveUnit} className="mt-3 grid grid-cols-2 gap-3 bg-[#f8faf9] p-3" resetOnSuccess={!unit}>
       <input type="hidden" name="projectId" value={projectId} />
       {unit && <input type="hidden" name="unitId" value={unit.id} />}
       <TextInput label="Unit type" name="name" defaultValue={unit?.name} className="col-span-2" />

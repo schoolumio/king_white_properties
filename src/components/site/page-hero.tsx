@@ -23,11 +23,11 @@ export function Breadcrumbs({ items, light = true }: { items: Crumb[]; light?: b
             <li key={i} className="flex items-center gap-1.5">
               {i > 0 && <ChevronRight className="h-3 w-3" aria-hidden />}
               {c.href && i < all.length - 1 ? (
-                <Link href={c.href} className={light ? "hover:text-white" : "hover:text-navy"}>
+                <Link href={c.href} className={light ? "hover:text-white" : "hover:text-primary"}>
                   {c.label}
                 </Link>
               ) : (
-                <span aria-current={i === all.length - 1 ? "page" : undefined} className={light ? "text-white/80" : "text-navy"}>
+                <span aria-current={i === all.length - 1 ? "page" : undefined} className={light ? "text-white/80" : "text-primary"}>
                   {c.label}
                 </span>
               )}
@@ -49,7 +49,7 @@ export function PageHero({
   crumbs,
   children,
   size = "md",
-  tone = "navy",
+  tone = "primary",
 }: {
   eyebrow?: string;
   title: string;
@@ -59,14 +59,14 @@ export function PageHero({
   crumbs?: Crumb[];
   children?: React.ReactNode;
   size?: "sm" | "md" | "lg";
-  tone?: "navy" | "graphite";
+  tone?: "primary" | "evergreen";
 }) {
   return (
-    <section className={cn("relative isolate overflow-hidden text-white", tone === "graphite" ? "bg-graphite" : "bg-navy")}>
+    <section className={cn("relative isolate overflow-hidden text-white", tone === "evergreen" ? "bg-evergreen" : "bg-primary")}>
       {image && (
         <>
           <Photo src={image} alt={imageAlt ?? ""} className="absolute inset-0 -z-10" imgClassName="hero-zoom" priority sizes="100vw" />
-          <div className={cn("absolute inset-0 -z-10", tone === "graphite" ? "bg-gradient-to-r from-graphite via-graphite/85 to-graphite/30" : "bg-gradient-to-r from-navy via-navy/85 to-navy/30")} />
+          <div className={cn("absolute inset-0 -z-10", tone === "evergreen" ? "bg-gradient-to-r from-evergreen via-evergreen/85 to-evergreen/30" : "bg-gradient-to-r from-primary via-primary/85 to-primary/30")} />
         </>
       )}
       {!image && <div className="grain absolute inset-0 -z-10 opacity-40" aria-hidden />}

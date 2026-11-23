@@ -24,8 +24,8 @@ export default async function AboutPage() {
         <div className="shell grid gap-14 lg:grid-cols-12">
           <Reveal className="lg:col-span-4">
             <p className="eyebrow">Company Profile</p>
-            <h2 className="display-md mt-6 text-navy">{site.companyName}</h2>
-            <p className="mt-6 font-serif text-xl text-gold-deep italic">{site.tagline}</p>
+            <h2 className="display-md mt-6 text-primary">{site.companyName}</h2>
+            <p className="mt-6 font-serif text-xl text-accent-deep italic">{site.tagline}</p>
           </Reveal>
           <Reveal className="lg:col-span-7 lg:col-start-6" delay={100}>
             <Markdown className="text-lg">{about.profile}</Markdown>
@@ -33,13 +33,13 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-navy py-24 text-white sm:py-32">
+      <section className="bg-primary py-24 text-white sm:py-32">
         <div className="shell grid gap-px bg-white/10 lg:grid-cols-2">
           {[
             { label: "Vision", text: about.vision },
             { label: "Mission", text: about.mission },
           ].map((b, i) => (
-            <Reveal key={b.label} delay={i * 120} className="bg-navy p-8 sm:p-14">
+            <Reveal key={b.label} delay={i * 120} className="bg-primary p-8 sm:p-14">
               <p className="eyebrow eyebrow-light">{b.label}</p>
               <p className="mt-8 font-serif text-2xl leading-snug sm:text-[2rem]">{b.text}</p>
             </Reveal>
@@ -47,18 +47,18 @@ export default async function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-ivory py-24 sm:py-32">
+      <section className="bg-surface py-24 sm:py-32">
         <div className="shell grid gap-16 lg:grid-cols-12">
           <Reveal className="lg:col-span-5">
-            <Photo src={about.image2} alt={about.image2Alt} className="aspect-[4/5] bg-navy" sizes="(min-width:1024px) 40vw, 100vw" />
+            <Photo src={about.image2} alt={about.image2Alt} className="aspect-[4/5] bg-primary" sizes="(min-width:1024px) 40vw, 100vw" />
           </Reveal>
           <div className="lg:col-span-6 lg:col-start-7">
             <p className="eyebrow">Our Values</p>
-            <h2 className="display-md mt-6 text-navy">The standards we hold ourselves to.</h2>
+            <h2 className="display-md mt-6 text-primary">The standards we hold ourselves to.</h2>
             <dl className="mt-12 border-t border-line">
               {about.values.map((v, i) => (
                 <Reveal key={v.title} delay={i * 80} className="grid gap-2 border-b border-line py-7 sm:grid-cols-[12rem_1fr] sm:gap-8">
-                  <dt className="font-display text-lg font-semibold text-navy">{v.title}</dt>
+                  <dt className="font-display text-lg font-semibold text-primary">{v.title}</dt>
                   <dd className="text-[15.5px] leading-relaxed text-ink/65">{v.description}</dd>
                 </Reveal>
               ))}
@@ -74,8 +74,8 @@ export default async function AboutPage() {
             { t: "Automotive & Mobility", d: "Vehicle sales, fleet, sourcing and leasing.", h: "/automotive", l: "Explore the division" },
             { t: "Leadership & Governance", d: "Leadership, structure, compliance and policies.", h: "/about/governance", l: "View governance" },
           ].map((c) => (
-            <div key={c.t} className="border-t-2 border-navy pt-6">
-              <h3 className="font-display text-xl font-semibold text-navy">{c.t}</h3>
+            <div key={c.t} className="border-t-2 border-primary pt-6">
+              <h3 className="font-display text-xl font-semibold text-primary">{c.t}</h3>
               <p className="mt-2 text-ink/60">{c.d}</p>
               <div className="mt-6">
                 <ArrowLink href={c.h}>{c.l}</ArrowLink>

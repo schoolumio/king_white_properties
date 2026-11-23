@@ -47,7 +47,7 @@ export default async function RealEstatePage() {
     <>
       <PageHero eyebrow="Division 01" title={c.heading} statement={c.statement} image={c.image} imageAlt={c.imageAlt} crumbs={[{ label: "Real Estate" }]} size="lg">
         <div className="flex flex-col gap-3 sm:flex-row">
-          <LinkButton href="/real-estate/properties" variant="gold" arrow>
+          <LinkButton href="/real-estate/properties" variant="accent" arrow>
             Browse properties
           </LinkButton>
           <LinkButton href="/real-estate/developments" variant="outline-light">
@@ -67,7 +67,7 @@ export default async function RealEstatePage() {
             ["Partnerships", "#partnerships"],
           ].map(([l, h]) => (
             <li key={h}>
-              <a href={h} className="block py-4 hover:text-navy">
+              <a href={h} className="block py-4 hover:text-primary">
                 {l}
               </a>
             </li>
@@ -83,8 +83,8 @@ export default async function RealEstatePage() {
           </Reveal>
           <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:col-span-7">
             {c.capabilities.map((cap, i) => (
-              <Reveal key={cap.title} delay={(i % 2) * 100} className="border-t border-navy pt-5">
-                <h3 className="font-display text-lg font-semibold text-navy">{cap.title}</h3>
+              <Reveal key={cap.title} delay={(i % 2) * 100} className="border-t border-primary pt-5">
+                <h3 className="font-display text-lg font-semibold text-primary">{cap.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink/60">{cap.description}</p>
               </Reveal>
             ))}
@@ -92,7 +92,7 @@ export default async function RealEstatePage() {
         </div>
       </section>
 
-      <section className="bg-ivory py-24 sm:py-32">
+      <section className="bg-surface py-24 sm:py-32">
         <div className="shell">
           <SectionHeader eyebrow="Developments" heading="Featured developments" align="split" action={<ArrowLink href="/real-estate/developments">Full development portfolio</ArrowLink>} />
           <div className="mt-14">
@@ -126,7 +126,7 @@ export default async function RealEstatePage() {
         </div>
       </section>
 
-      <section className="bg-navy py-24 text-white sm:py-32">
+      <section className="bg-primary py-24 text-white sm:py-32">
         <div className="shell">
           <SectionHeader light eyebrow="Investment" heading="Real estate investment opportunities" intro="Company-approved opportunities for qualified investors and partners." align="split" action={<ArrowLink href="/real-estate/investment-opportunities" light>All opportunities</ArrowLink>} />
           <div className="mt-12">
@@ -143,19 +143,19 @@ export default async function RealEstatePage() {
         </div>
       </section>
 
-      <section id="management" className="bg-ivory py-24 sm:py-32">
+      <section id="management" className="bg-surface py-24 sm:py-32">
         <div className="shell grid gap-16 lg:grid-cols-12 lg:items-center">
           <Reveal className="lg:col-span-6">
-            <Photo src={c.image2} alt={c.image2Alt} className="aspect-[4/3] bg-navy" sizes="(min-width:1024px) 50vw, 100vw" />
+            <Photo src={c.image2} alt={c.image2Alt} className="aspect-[4/3] bg-primary" sizes="(min-width:1024px) 50vw, 100vw" />
           </Reveal>
           <div className="lg:col-span-5 lg:col-start-8">
             <p className="eyebrow">Services</p>
-            <h2 className="display-md mt-6 text-navy">{c.managementHeading}</h2>
+            <h2 className="display-md mt-6 text-primary">{c.managementHeading}</h2>
             <p className="mt-5 text-lg text-ink/65">{c.managementBody}</p>
             <ul className="mt-8 space-y-3">
               {c.managementServices.map((s) => (
                 <li key={s} className="flex items-center gap-3 text-ink/80">
-                  <span className="h-px w-5 bg-gold" aria-hidden /> {s}
+                  <span className="h-px w-5 bg-accent" aria-hidden /> {s}
                 </li>
               ))}
             </ul>
@@ -172,7 +172,7 @@ export default async function RealEstatePage() {
         <div className="shell flex flex-col justify-between gap-10 border-y border-line py-14 lg:flex-row lg:items-center">
           <div className="max-w-2xl">
             <p className="eyebrow">Development partnerships</p>
-            <h2 className="display-md mt-5 text-navy">{c.partnershipHeading}</h2>
+            <h2 className="display-md mt-5 text-primary">{c.partnershipHeading}</h2>
             <p className="mt-4 text-lg text-ink/65">{c.partnershipBody}</p>
           </div>
           <div className="flex flex-col gap-3 sm:flex-row">

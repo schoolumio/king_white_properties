@@ -29,7 +29,7 @@ export default async function EditProperty({ params, searchParams }: { params: P
             <PublishPill status={p.publishStatus} />
             {p.isDemo && <DemoBadge />}
             {p.publishStatus === "PUBLISHED" && (
-              <Link href={`/real-estate/properties/${p.slug}`} target="_blank" className="inline-flex items-center gap-1 text-[13px] text-navy underline">
+              <Link href={`/real-estate/properties/${p.slug}`} target="_blank" className="inline-flex items-center gap-1 text-[13px] text-primary underline">
                 View on website <ExternalLink className="h-3.5 w-3.5" />
               </Link>
             )}
@@ -40,7 +40,7 @@ export default async function EditProperty({ params, searchParams }: { params: P
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border border-line bg-white p-4">
         <p className="text-sm text-ink/60">
           {p._count.enquiries} linked enquir{p._count.enquiries === 1 ? "y" : "ies"} ·{" "}
-          <Link href={`/admin/enquiries?q=${encodeURIComponent(p.title)}`} className="text-navy underline">
+          <Link href={`/admin/enquiries?q=${encodeURIComponent(p.title)}`} className="text-primary underline">
             view in CRM
           </Link>
         </p>

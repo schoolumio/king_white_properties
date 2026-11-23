@@ -48,7 +48,7 @@ export default async function Page({ searchParams }: { searchParams: Promise<Rec
               </ul>
             )}
           </div>
-          <p className="mt-12 max-w-3xl border-l-2 border-gold pl-5 text-sm text-ink/55">{page.disclaimer}</p>
+          <p className="mt-12 max-w-3xl border-l-2 border-accent pl-5 text-sm text-ink/55">{page.disclaimer}</p>
         </div>
       </section>
     </>

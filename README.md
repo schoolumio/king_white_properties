@@ -27,7 +27,7 @@ Corporate web platform for a group operating two divisions — **Real Estate & I
 | Layer | Choice |
 | --- | --- |
 | Framework | Next.js 15 (App Router, Server Components, Server Actions), TypeScript |
-| Styling | Tailwind CSS v4 with runtime-configurable brand tokens |
+| Styling | Tailwind CSS v4 with runtime-configurable brand tokens — King White green & white palette: primary `#0F3D2E`, evergreen `#13241D`, surface `#F2F6F3`, accent `#4CB87A`, muted `#66766E` (editable in Admin → Website content → Brand colours) |
 | Typography | Manrope (headings), Inter (body), Playfair Display (editorial accents) via `next/font` |
 | Data | PostgreSQL + Prisma ORM 6 |
 | Auth | Database-backed sessions (httpOnly cookie, SHA-256 hashed tokens), bcrypt passwords, role-based permissions |

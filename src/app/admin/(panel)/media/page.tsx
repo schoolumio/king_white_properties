@@ -45,7 +45,7 @@ export default async function MediaLibrary({ searchParams }: { searchParams: Pro
               </a>
             )}
             <div className="space-y-2 p-3">
-              <p className="truncate text-[13px] font-medium text-navy" title={a.originalName}>
+              <p className="truncate text-[13px] font-medium text-primary" title={a.originalName}>
                 {a.originalName}
               </p>
               <p className="text-[11.5px] text-ink/50">

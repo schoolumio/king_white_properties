@@ -43,7 +43,7 @@ export default async function AdminRoles() {
           <details key={r.id} className="border border-line bg-white">
             <summary className="flex cursor-pointer flex-wrap items-center gap-3 p-4">
               <span className="flex-1">
-                <span className="font-medium text-navy">{r.name}</span>
+                <span className="font-medium text-primary">{r.name}</span>
                 <span className="block text-xs text-ink/50">{r.description}</span>
               </span>
               <span className="text-xs text-ink/50">

@@ -66,10 +66,10 @@ export default async function HomePage() {
       />
 
       {/* ─────────────────────────── 1. Hero */}
-      <section className="relative isolate min-h-[100svh] overflow-hidden bg-navy text-white" aria-labelledby="hero-heading">
+      <section className="relative isolate min-h-[100svh] overflow-hidden bg-primary text-white" aria-labelledby="hero-heading">
         <div className="absolute inset-0 lg:left-auto lg:w-[52%]">
           <Photo src={hero.imagePrimary} alt={hero.imagePrimaryAlt} className="h-full w-full" imgClassName="hero-zoom" priority sizes="(min-width:1024px) 52vw, 100vw" />
-          <div className="absolute inset-0 bg-gradient-to-t from-navy via-navy/75 to-navy/40 lg:bg-gradient-to-r lg:from-navy lg:via-navy/25 lg:to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/75 to-primary/40 lg:bg-gradient-to-r lg:from-primary lg:via-primary/25 lg:to-transparent" />
         </div>
         <div className="grain absolute inset-0 opacity-30" aria-hidden />
 
@@ -81,7 +81,7 @@ export default async function HomePage() {
                 {hero.headline.map((line, i) => (
                   <span
                     key={i}
-                    className={`rise block ${i === hero.headline.length - 1 ? "serif-accent text-gold-soft" : ""}`}
+                    className={`rise block ${i === hero.headline.length - 1 ? "serif-accent text-accent-soft" : ""}`}
                     style={{ animationDelay: `${150 + i * 120}ms` }}
                   >
                     {line}
@@ -92,7 +92,7 @@ export default async function HomePage() {
                 {hero.statement}
               </p>
               <div className="rise mt-10 flex flex-col gap-3 sm:flex-row" style={{ animationDelay: "680ms" }}>
-                <LinkButton href={hero.primaryCta.href} variant="gold" size="lg" arrow>
+                <LinkButton href={hero.primaryCta.href} variant="accent" size="lg" arrow>
                   {hero.primaryCta.label}
                 </LinkButton>
                 <LinkButton href={hero.secondaryCta.href} variant="outline-light" size="lg">
@@ -103,8 +103,8 @@ export default async function HomePage() {
 
             <div className="relative hidden lg:col-span-5 lg:block">
               <div className="rise absolute right-0 -bottom-44 w-[78%]" style={{ animationDelay: "800ms" }}>
-                <div className="absolute -top-3 -left-3 h-full w-full border border-gold/60" aria-hidden />
-                <Photo src={hero.imageSecondary} alt={hero.imageSecondaryAlt} className="aspect-[4/3] bg-graphite shadow-2xl shadow-black/40" sizes="30vw" priority />
+                <div className="absolute -top-3 -left-3 h-full w-full border border-accent/60" aria-hidden />
+                <Photo src={hero.imageSecondary} alt={hero.imageSecondaryAlt} className="aspect-[4/3] bg-evergreen shadow-2xl shadow-black/40" sizes="30vw" priority />
               </div>
             </div>
           </div>
@@ -114,9 +114,9 @@ export default async function HomePage() {
               { n: "01", label: "Real Estate & Infrastructure", href: "/real-estate" },
               { n: "02", label: "Automotive & Mobility", href: "/automotive" },
             ].map((d) => (
-              <Link key={d.href} href={d.href} className="group flex items-center justify-between gap-4 py-5 pr-6 transition-colors hover:text-gold-soft">
+              <Link key={d.href} href={d.href} className="group flex items-center justify-between gap-4 py-5 pr-6 transition-colors hover:text-accent-soft">
                 <span className="flex items-baseline gap-4">
-                  <span className="font-display text-xs text-gold-soft">{d.n}</span>
+                  <span className="font-display text-xs text-accent-soft">{d.n}</span>
                   <span className="font-display text-[15px] font-semibold">{d.label}</span>
                 </span>
                 <ArrowDownRight className="h-4 w-4 transition-transform duration-300 group-hover:-rotate-45" aria-hidden />
@@ -127,29 +127,29 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────────────────────── 2. Corporate introduction */}
-      <section className="bg-ivory py-24 sm:py-32" aria-labelledby="intro-heading">
+      <section className="bg-surface py-24 sm:py-32" aria-labelledby="intro-heading">
         <div className="shell grid gap-14 lg:grid-cols-12 lg:gap-10">
           <Reveal className="lg:col-span-5">
-            <Photo src={intro.image} alt={intro.imageAlt} className="aspect-[4/5] bg-navy" sizes="(min-width:1024px) 40vw, 100vw" />
-            <p className="mt-4 text-xs tracking-wide text-steel">{site.companyName} — {site.country}</p>
+            <Photo src={intro.image} alt={intro.imageAlt} className="aspect-[4/5] bg-primary" sizes="(min-width:1024px) 40vw, 100vw" />
+            <p className="mt-4 text-xs tracking-wide text-muted">{site.companyName} — {site.country}</p>
           </Reveal>
           <Reveal className="lg:col-span-6 lg:col-start-7 lg:pt-10" delay={120}>
             <p className="eyebrow">{intro.eyebrow}</p>
-            <h2 id="intro-heading" className="display-lg mt-6 text-navy">
+            <h2 id="intro-heading" className="display-lg mt-6 text-primary">
               {intro.heading}
             </h2>
-            <p className="mt-8 font-serif text-2xl leading-snug text-navy/85 italic sm:text-[1.7rem]">{intro.lead}</p>
+            <p className="mt-8 font-serif text-2xl leading-snug text-primary/85 italic sm:text-[1.7rem]">{intro.lead}</p>
             <div className="mt-8">
               <Markdown>{intro.body}</Markdown>
             </div>
             <div className="mt-10 grid grid-cols-2 border-t border-line">
               <div className="border-r border-line py-6 pr-6">
-                <p className="font-display text-xs text-gold-deep">01</p>
-                <p className="mt-2 font-display font-semibold text-navy">Real Estate & Infrastructure</p>
+                <p className="font-display text-xs text-accent-deep">01</p>
+                <p className="mt-2 font-display font-semibold text-primary">Real Estate & Infrastructure</p>
               </div>
               <div className="py-6 pl-6">
-                <p className="font-display text-xs text-gold-deep">02</p>
-                <p className="mt-2 font-display font-semibold text-navy">Automotive & Mobility</p>
+                <p className="font-display text-xs text-accent-deep">02</p>
+                <p className="mt-2 font-display font-semibold text-primary">Automotive & Mobility</p>
               </div>
             </div>
             <div className="mt-8">
@@ -173,7 +173,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────────────────────── 4. Featured developments */}
-      <section className="bg-ivory py-24 sm:py-32" aria-labelledby="developments-heading">
+      <section className="bg-surface py-24 sm:py-32" aria-labelledby="developments-heading">
         <div className="shell">
           <Reveal>
             <SectionHeader
@@ -210,7 +210,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────────────────────── 5. Featured vehicles */}
-      <section className="relative overflow-hidden bg-graphite py-24 text-white sm:py-32" aria-labelledby="vehicles-heading">
+      <section className="relative overflow-hidden bg-evergreen py-24 text-white sm:py-32" aria-labelledby="vehicles-heading">
         <div className="shell relative">
           <Reveal>
             <SectionHeader
@@ -244,7 +244,7 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────────────────────── 6. Investment & strategic opportunities */}
-      <section className="relative overflow-hidden bg-navy py-24 text-white sm:py-32" aria-labelledby="investment-heading">
+      <section className="relative overflow-hidden bg-primary py-24 text-white sm:py-32" aria-labelledby="investment-heading">
         <div className="grain absolute inset-0 opacity-40" aria-hidden />
         <div className="shell relative grid gap-16 lg:grid-cols-12">
           <Reveal className="lg:col-span-5">
@@ -254,20 +254,20 @@ export default async function HomePage() {
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-white/65">{investment.intro}</p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row lg:flex-col xl:flex-row">
-              <LinkButton href="/investments" variant="gold" arrow>
+              <LinkButton href="/investments" variant="accent" arrow>
                 Explore Investment Opportunities
               </LinkButton>
               <LinkButton href="/partnerships#proposal" variant="outline-light">
                 Submit a Partnership Proposal
               </LinkButton>
             </div>
-            <Photo src={investment.image} alt={investment.imageAlt} className="mt-14 hidden aspect-[16/10] bg-navy-deep lg:block" sizes="35vw" />
+            <Photo src={investment.image} alt={investment.imageAlt} className="mt-14 hidden aspect-[16/10] bg-primary-deep lg:block" sizes="35vw" />
           </Reveal>
           <div className="lg:col-span-6 lg:col-start-7">
             <ol className="border-t border-white/15">
               {investment.categories.map((c, i) => (
                 <Reveal as="li" key={c.title} delay={i * 60} className="group grid grid-cols-[3rem_1fr] gap-4 border-b border-white/15 py-7 sm:grid-cols-[4rem_1fr]">
-                  <span className="font-display text-sm text-gold-soft">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="font-display text-sm text-accent-soft">{String(i + 1).padStart(2, "0")}</span>
                   <div>
                     <h3 className="font-display text-lg font-semibold sm:text-xl">{c.title}</h3>
                     {c.description && <p className="mt-2 text-[15px] leading-relaxed text-white/55">{c.description}</p>}
@@ -291,9 +291,9 @@ export default async function HomePage() {
           <div className="mt-16 grid gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
             {principles.items.map((p, i) => (
               <Reveal key={p.title} delay={(i % 3) * 100}>
-                <div className="border-t border-navy pt-6">
-                  <span className="font-display text-xs font-semibold tracking-[0.2em] text-gold-deep">{String(i + 1).padStart(2, "0")}</span>
-                  <h3 className="mt-4 font-display text-xl font-semibold text-navy sm:text-2xl">{p.title}</h3>
+                <div className="border-t border-primary pt-6">
+                  <span className="font-display text-xs font-semibold tracking-[0.2em] text-accent-deep">{String(i + 1).padStart(2, "0")}</span>
+                  <h3 className="mt-4 font-display text-xl font-semibold text-primary sm:text-2xl">{p.title}</h3>
                   <p className="mt-3 text-[15px] leading-relaxed text-ink/65">{p.description}</p>
                 </div>
               </Reveal>
@@ -303,18 +303,18 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────────────────────── 8. Governance & leadership */}
-      <section className="bg-ivory py-24 sm:py-32" aria-labelledby="governance-heading">
+      <section className="bg-surface py-24 sm:py-32" aria-labelledby="governance-heading">
         <div className="shell grid gap-16 lg:grid-cols-12">
           <Reveal className="lg:col-span-5">
             <p className="eyebrow">{governance.eyebrow}</p>
-            <h2 id="governance-heading" className="display-lg mt-6 text-navy">
+            <h2 id="governance-heading" className="display-lg mt-6 text-primary">
               {governance.heading}
             </h2>
             <p className="mt-6 text-lg leading-relaxed text-ink/65">{governance.intro}</p>
             <ul className="mt-10 border-t border-line">
               {governance.pillars.map((p) => (
                 <li key={p.title} className="border-b border-line py-5">
-                  <h3 className="font-display font-semibold text-navy">{p.title}</h3>
+                  <h3 className="font-display font-semibold text-primary">{p.title}</h3>
                   <p className="mt-1 text-[14.5px] text-ink/60">{p.description}</p>
                 </li>
               ))}
@@ -335,8 +335,8 @@ export default async function HomePage() {
                 {executives.map((l, i) => (
                   <Reveal key={l.id} delay={i * 100} className={i % 2 === 1 ? "sm:mt-16" : ""}>
                     <Link href="/about/governance#leadership" className="group block">
-                      <Photo src={mediaUrl(l.photo)} alt={`Portrait of ${l.name}`} className="aspect-[4/5] bg-navy" tone="ivory" sizes="(min-width:1024px) 22vw, 50vw" imgClassName="grayscale transition duration-700 group-hover:grayscale-0" />
-                      <h3 className="mt-4 font-display text-lg font-semibold text-navy">{l.name}</h3>
+                      <Photo src={mediaUrl(l.photo)} alt={`Portrait of ${l.name}`} className="aspect-[4/5] bg-primary" tone="surface" sizes="(min-width:1024px) 22vw, 50vw" imgClassName="grayscale transition duration-700 group-hover:grayscale-0" />
+                      <h3 className="mt-4 font-display text-lg font-semibold text-primary">{l.name}</h3>
                       <p className="text-sm text-ink/60">{l.position}</p>
                     </Link>
                   </Reveal>
@@ -368,11 +368,11 @@ export default async function HomePage() {
                   {articles.slice(0, 2).map((a, i) => (
                     <Reveal key={a.id} delay={i * 100}>
                       <Link href={`/insights/${a.slug}`} className="group block">
-                        <Photo src={mediaUrl(a.cover)} alt={a.cover?.alt || a.title} className="aspect-[16/10] bg-ivory-deep" tone="ivory" sizes="(min-width:1024px) 30vw, 100vw" fallbackLabel={ARTICLE_TYPE_LABELS[a.type]} imgClassName="transition-transform duration-[1.4s] group-hover:scale-[1.03]" />
-                        <p className="mt-5 text-[11.5px] font-medium tracking-[0.14em] text-steel uppercase">
+                        <Photo src={mediaUrl(a.cover)} alt={a.cover?.alt || a.title} className="aspect-[16/10] bg-surface-deep" tone="surface" sizes="(min-width:1024px) 30vw, 100vw" fallbackLabel={ARTICLE_TYPE_LABELS[a.type]} imgClassName="transition-transform duration-[1.4s] group-hover:scale-[1.03]" />
+                        <p className="mt-5 text-[11.5px] font-medium tracking-[0.14em] text-muted uppercase">
                           {ARTICLE_TYPE_LABELS[a.type]} · {formatDate(a.publishedAt, "short")}
                         </p>
-                        <h3 className="mt-2 font-display text-xl leading-snug font-semibold text-navy group-hover:text-gold-deep">{a.title}</h3>
+                        <h3 className="mt-2 font-display text-xl leading-snug font-semibold text-primary group-hover:text-accent-deep">{a.title}</h3>
                         <p className="mt-3 line-clamp-2 text-[15px] text-ink/60">{a.excerpt}</p>
                       </Link>
                     </Reveal>
@@ -381,8 +381,8 @@ export default async function HomePage() {
               )}
             </div>
             <aside className="lg:col-span-4" aria-label="Corporate publications">
-              <div className="h-full bg-ivory p-8">
-                <h3 className="font-display text-[11px] font-semibold tracking-[0.28em] text-gold-deep uppercase">Corporate Publications</h3>
+              <div className="h-full bg-surface p-8">
+                <h3 className="font-display text-[11px] font-semibold tracking-[0.28em] text-accent-deep uppercase">Corporate Publications</h3>
                 {publications.length === 0 ? (
                   <p className="mt-6 text-[15px] leading-relaxed text-ink/60">Corporate profiles, brochures and policies will be available for download here.</p>
                 ) : (
@@ -390,12 +390,12 @@ export default async function HomePage() {
                     {publications.map((p) => (
                       <li key={p.id}>
                         <a href={downloadUrl(p.file)} className="group flex items-start gap-4 py-5">
-                          <FileText className="mt-0.5 h-5 w-5 shrink-0 text-gold-deep" strokeWidth={1.5} aria-hidden />
+                          <FileText className="mt-0.5 h-5 w-5 shrink-0 text-accent-deep" strokeWidth={1.5} aria-hidden />
                           <span className="flex-1">
-                            <span className="block font-display font-semibold text-navy group-hover:text-gold-deep">{p.title}</span>
-                            <span className="mt-1 block text-xs tracking-wide text-steel uppercase">{PUBLICATION_LABELS[p.category]} · PDF</span>
+                            <span className="block font-display font-semibold text-primary group-hover:text-accent-deep">{p.title}</span>
+                            <span className="mt-1 block text-xs tracking-wide text-muted uppercase">{PUBLICATION_LABELS[p.category]} · PDF</span>
                           </span>
-                          <Download className="h-4 w-4 text-navy/40 group-hover:text-navy" aria-hidden />
+                          <Download className="h-4 w-4 text-primary/40 group-hover:text-primary" aria-hidden />
                         </a>
                       </li>
                     ))}
@@ -411,18 +411,18 @@ export default async function HomePage() {
       </section>
 
       {/* ─────────────────────────── 10. Corporate call to action */}
-      <section className="relative isolate overflow-hidden bg-navy text-white" aria-labelledby="cta-heading">
+      <section className="relative isolate overflow-hidden bg-primary text-white" aria-labelledby="cta-heading">
         <Photo src={cta.image} alt={cta.imageAlt} className="absolute inset-0 -z-10" sizes="100vw" />
-        <div className="absolute inset-0 -z-10 bg-navy/85" />
+        <div className="absolute inset-0 -z-10 bg-primary/85" />
         <div className="shell py-28 sm:py-40">
           <Reveal className="mx-auto max-w-4xl text-center">
-            <div className="mx-auto mb-10 h-14 w-px bg-gold" aria-hidden />
+            <div className="mx-auto mb-10 h-14 w-px bg-accent" aria-hidden />
             <h2 id="cta-heading" className="display-lg">
               {cta.heading}
             </h2>
             <p className="mx-auto mt-8 max-w-2xl text-lg leading-relaxed text-white/70">{cta.statement}</p>
             <div className="mt-12 flex flex-col justify-center gap-3 sm:flex-row">
-              <LinkButton href={cta.primaryCta.href} variant="gold" size="lg" arrow>
+              <LinkButton href={cta.primaryCta.href} variant="accent" size="lg" arrow>
                 {cta.primaryCta.label}
               </LinkButton>
               <LinkButton href={cta.secondaryCta.href} variant="outline-light" size="lg">
@@ -439,9 +439,9 @@ export default async function HomePage() {
 function DivisionPanel({ n, block, href, cta, tone }: { n: string; block: DivisionBlock; href: string; cta: string; tone: "light" | "dark" }) {
   const dark = tone === "dark";
   return (
-    <Reveal delay={dark ? 150 : 0} className={dark ? "bg-graphite text-white" : "bg-ivory text-navy"}>
+    <Reveal delay={dark ? 150 : 0} className={dark ? "bg-evergreen text-white" : "bg-surface text-primary"}>
       <Link href={href} className="group relative block overflow-hidden" aria-label={cta}>
-        <Photo src={block.image} alt={block.imageAlt} className="aspect-[16/11] bg-navy" sizes="(min-width:1024px) 48vw, 100vw" imgClassName="transition-transform duration-[1.8s] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]" />
+        <Photo src={block.image} alt={block.imageAlt} className="aspect-[16/11] bg-primary" sizes="(min-width:1024px) 48vw, 100vw" imgClassName="transition-transform duration-[1.8s] ease-[var(--ease-out-expo)] group-hover:scale-[1.04]" />
         <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-transparent to-transparent" />
         <span className="absolute bottom-6 left-6 font-display text-6xl font-semibold text-white/90 sm:text-7xl">{n}</span>
       </Link>
@@ -451,7 +451,7 @@ function DivisionPanel({ n, block, href, cta, tone }: { n: string; block: Divisi
         <ul className="mt-8 grid gap-x-6 gap-y-3 sm:grid-cols-2">
           {block.capabilities.map((c) => (
             <li key={c} className={`flex items-center gap-3 text-[14.5px] ${dark ? "text-white/80" : "text-ink/80"}`}>
-              <span className={`h-px w-4 shrink-0 ${dark ? "bg-gold-soft" : "bg-gold"}`} aria-hidden />
+              <span className={`h-px w-4 shrink-0 ${dark ? "bg-accent-soft" : "bg-accent"}`} aria-hidden />
               {c}
             </li>
           ))}

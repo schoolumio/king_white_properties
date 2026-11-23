@@ -58,7 +58,7 @@ export function AdminShell({
       <div className="flex h-16 items-center justify-between border-b border-white/10 px-5">
         <Link href="/admin" className="min-w-0">
           <span className="block truncate font-display text-[12px] font-bold tracking-[0.2em] text-white uppercase">{companyName}</span>
-          <span className="block text-[10px] tracking-[0.24em] text-gold-soft uppercase">Administration</span>
+          <span className="block text-[10px] tracking-[0.24em] text-accent-soft uppercase">Administration</span>
         </Link>
         <button className="text-white/70 lg:hidden" onClick={() => setOpen(false)} aria-label="Close navigation">
           <X className="h-5 w-5" />
@@ -82,7 +82,7 @@ export function AdminShell({
                     >
                       <Icon className="h-4 w-4 shrink-0" strokeWidth={1.6} />
                       <span className="flex-1">{item.label}</span>
-                      {item.href === "/admin/enquiries" && newEnquiries > 0 && <span className="bg-gold px-1.5 py-0.5 text-[10px] font-bold text-navy">{newEnquiries}</span>}
+                      {item.href === "/admin/enquiries" && newEnquiries > 0 && <span className="bg-accent px-1.5 py-0.5 text-[10px] font-bold text-primary">{newEnquiries}</span>}
                     </Link>
                   </li>
                 );
@@ -92,7 +92,7 @@ export function AdminShell({
         ))}
       </nav>
       <div className="border-t border-white/10 p-4">
-        <Link href="/admin/account" className="block text-sm text-white hover:text-gold-soft">
+        <Link href="/admin/account" className="block text-sm text-white hover:text-accent-soft">
           {user.name}
           <span className="block text-xs text-white/45">{user.role}</span>
         </Link>
@@ -111,18 +111,18 @@ export function AdminShell({
   );
 
   return (
-    <div className="min-h-screen bg-[#f6f6f4] text-ink">
-      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 bg-navy lg:block">{sidebar}</aside>
+    <div className="min-h-screen bg-[#f4f7f5] text-ink">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 bg-primary lg:block">{sidebar}</aside>
       <div className={cn("fixed inset-0 z-50 lg:hidden", open ? "visible" : "invisible")}>
         <div className={cn("absolute inset-0 bg-black/50 transition-opacity", open ? "opacity-100" : "opacity-0")} onClick={() => setOpen(false)} />
-        <aside className={cn("absolute inset-y-0 left-0 w-72 bg-navy transition-transform", open ? "translate-x-0" : "-translate-x-full")}>{sidebar}</aside>
+        <aside className={cn("absolute inset-y-0 left-0 w-72 bg-primary transition-transform", open ? "translate-x-0" : "-translate-x-full")}>{sidebar}</aside>
       </div>
       <div className="lg:pl-64">
         <header className="sticky top-0 z-30 flex h-14 items-center gap-3 border-b border-line bg-white px-4 lg:hidden">
           <button onClick={() => setOpen(true)} aria-label="Open navigation" className="p-1">
             <Menu className="h-5 w-5" />
           </button>
-          <span className="font-display text-sm font-semibold text-navy">Administration</span>
+          <span className="font-display text-sm font-semibold text-primary">Administration</span>
         </header>
         <main className="mx-auto max-w-[1400px] px-4 py-8 sm:px-8">{children}</main>
       </div>

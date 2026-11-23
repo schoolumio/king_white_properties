@@ -43,16 +43,16 @@ export default async function AdminUsers() {
           <details key={u.id}>
             <summary className="flex cursor-pointer flex-wrap items-center gap-3 p-4">
               <span className="min-w-48 flex-1">
-                <span className="font-medium text-navy">
+                <span className="font-medium text-primary">
                   {u.name} {u.id === me.id && <span className="text-xs text-ink/45">(you)</span>}
                 </span>
                 <span className="block text-xs text-ink/50">{u.email}</span>
               </span>
-              <Pill className="bg-navy/5 text-navy">{u.role.name}</Pill>
+              <Pill className="bg-primary/5 text-primary">{u.role.name}</Pill>
               {!u.active && <Pill className="bg-rose-100 text-rose-800">Inactive</Pill>}
               <span className="w-40 text-right text-xs text-ink/45">{u.lastLoginAt ? `Last sign-in ${formatDate(u.lastLoginAt, "short")}` : "Never signed in"}</span>
             </summary>
-            <div className="border-t border-line bg-[#fafaf8] p-4">
+            <div className="border-t border-line bg-[#f8faf9] p-4">
               <UserForm u={u} roles={roleOpts} />
             </div>
           </details>

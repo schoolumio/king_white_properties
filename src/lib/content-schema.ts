@@ -137,15 +137,15 @@ export const CONTENT_SECTIONS: SectionDef[] = [
     key: "theme",
     title: "Brand colours",
     group: "Company",
-    description: "Corporate palette. Changes apply across the public website.",
+    description: "King White corporate palette (green and white). Changes apply across the website. Keep strong contrast between text and backgrounds.",
     fields: [
-      { name: "navy", label: "Midnight navy", type: "color" },
-      { name: "graphite", label: "Graphite", type: "color" },
-      { name: "ivory", label: "Warm ivory", type: "color" },
-      { name: "gold", label: "Champagne gold (accent)", type: "color" },
-      { name: "slate", label: "Slate grey", type: "color" },
+      { name: "primary", label: "Primary — forest green (headers, hero, buttons, headings)", type: "color" },
+      { name: "evergreen", label: "Evergreen — deepest green (automotive sections, body text)", type: "color" },
+      { name: "surface", label: "Surface — green-tinted white (alternating sections)", type: "color" },
+      { name: "accent", label: "Accent — leaf green (highlights and key buttons, used sparingly)", type: "color" },
+      { name: "muted", label: "Muted — grey-green (secondary text)", type: "color" },
     ],
-    defaults: { navy: "#101D32", graphite: "#20252C", ivory: "#F5F3EE", gold: "#B89A62", slate: "#727B87" },
+    defaults: { primary: "#0F3D2E", evergreen: "#13241D", surface: "#F2F6F3", accent: "#4CB87A", muted: "#66766E" },
   },
 
   // ───────────────────────── Homepage

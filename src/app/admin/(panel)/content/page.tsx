@@ -22,8 +22,8 @@ export default async function ContentIndex() {
             <ul className="grid gap-px border border-line bg-line sm:grid-cols-2 xl:grid-cols-3">
               {CONTENT_SECTIONS.filter((s) => s.group === g).map((s) => (
                 <li key={s.key}>
-                  <Link href={`/admin/content/${encodeURIComponent(s.key)}`} className="block h-full bg-white p-5 hover:bg-[#fafaf8]">
-                    <span className="font-display font-semibold text-navy">{s.title}</span>
+                  <Link href={`/admin/content/${encodeURIComponent(s.key)}`} className="block h-full bg-white p-5 hover:bg-[#f8faf9]">
+                    <span className="font-display font-semibold text-primary">{s.title}</span>
                     <span className="mt-1 block text-[13px] text-ink/55">{s.description}</span>
                     <span className="mt-3 block text-[11.5px] text-ink/40">{updated.get(s.key) ? `Edited ${formatDate(updated.get(s.key)!, "short")}` : "Using default content"}</span>
                   </Link>

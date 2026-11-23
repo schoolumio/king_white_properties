@@ -8,7 +8,7 @@ import { saveContent } from "@/app/admin/actions/content";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-const input = "w-full border border-line bg-white px-3 text-[14px] outline-none focus:border-navy";
+const input = "w-full border border-line bg-white px-3 text-[14px] outline-none focus:border-primary";
 
 export function ContentEditor({ sectionKey, fields, initial }: { sectionKey: string; fields: FieldDef[]; initial: Record<string, any> }) {
   const [value, setValue] = useState<Record<string, any>>(initial);
@@ -95,7 +95,7 @@ function FieldEditor({ field, value, onChange }: { field: FieldDef; value: any; 
     case "group":
       return (
         <fieldset className="border border-line p-4 sm:col-span-2">
-          <legend className="px-1 font-display text-sm font-semibold text-navy">{field.label}</legend>
+          <legend className="px-1 font-display text-sm font-semibold text-primary">{field.label}</legend>
           <div className="grid gap-4 sm:grid-cols-2">
             <Fields fields={field.fields} value={value ?? {}} onChange={onChange} />
           </div>
@@ -106,10 +106,10 @@ function FieldEditor({ field, value, onChange }: { field: FieldDef; value: any; 
       const update = (next: any[]) => onChange(next);
       return (
         <fieldset className="sm:col-span-2">
-          <legend className="mb-2 font-display text-sm font-semibold text-navy">{field.label}</legend>
+          <legend className="mb-2 font-display text-sm font-semibold text-primary">{field.label}</legend>
           <ol className="space-y-3">
             {list.map((item, i) => (
-              <li key={i} className="border border-line bg-[#fafaf8] p-4">
+              <li key={i} className="border border-line bg-[#f8faf9] p-4">
                 <div className="mb-3 flex items-center justify-between">
                   <span className="text-xs font-semibold text-ink/55">
                     {field.itemLabel ?? "Item"} {i + 1}
@@ -132,7 +132,7 @@ function FieldEditor({ field, value, onChange }: { field: FieldDef; value: any; 
               </li>
             ))}
           </ol>
-          <button type="button" onClick={() => update([...list, {}])} className="mt-3 inline-flex items-center gap-1.5 border border-line bg-white px-3 py-2 text-[13px] font-semibold text-navy hover:border-navy">
+          <button type="button" onClick={() => update([...list, {}])} className="mt-3 inline-flex items-center gap-1.5 border border-line bg-white px-3 py-2 text-[13px] font-semibold text-primary hover:border-primary">
             <Plus className="h-4 w-4" /> Add {field.itemLabel?.toLowerCase() ?? "item"}
           </button>
         </fieldset>
@@ -180,7 +180,7 @@ function ImageField({ field, value, onChange }: { field: FieldDef; value: string
         <div className="min-w-60 flex-1 space-y-2">
           <input className={`${input} h-10 text-[12.5px]`} value={value} placeholder="https://… or upload" onChange={(e) => onChange(e.target.value)} />
           <div className="flex gap-2">
-            <label className="inline-flex cursor-pointer items-center gap-1.5 border border-line bg-white px-3 py-1.5 text-[12.5px] font-semibold text-navy hover:border-navy">
+            <label className="inline-flex cursor-pointer items-center gap-1.5 border border-line bg-white px-3 py-1.5 text-[12.5px] font-semibold text-primary hover:border-primary">
               {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : <Upload className="h-3.5 w-3.5" />} Upload
               <input type="file" accept="image/jpeg,image/png,image/webp,image/avif" className="sr-only" onChange={(e) => upload(e.target.files?.[0])} />
             </label>

@@ -15,14 +15,14 @@ export function Photo({
   className,
   imgClassName,
   fallbackLabel,
-  tone = "navy",
+  tone = "primary",
   ...rest
 }: Omit<ImageProps, "src" | "alt"> & {
   src?: string | null;
   alt: string;
   imgClassName?: string;
   fallbackLabel?: string;
-  tone?: "navy" | "ivory" | "graphite";
+  tone?: "primary" | "surface" | "evergreen";
 }) {
   const [failed, setFailed] = useState(false);
   const show = src && !failed;
@@ -45,9 +45,9 @@ export function Photo({
   );
 }
 
-function Fallback({ tone, label }: { tone: "navy" | "ivory" | "graphite"; label?: string }) {
+function Fallback({ tone, label }: { tone: "primary" | "surface" | "evergreen"; label?: string }) {
   const id = useId().replace(/:/g, "");
-  const bg = tone === "ivory" ? "bg-ivory-deep text-navy/30" : tone === "graphite" ? "bg-graphite text-white/15" : "bg-navy text-white/15";
+  const bg = tone === "surface" ? "bg-surface-deep text-primary/30" : tone === "evergreen" ? "bg-evergreen text-white/15" : "bg-primary text-white/15";
   return (
     <div className={cn("absolute inset-0 flex items-end", bg)} role="presentation">
       <svg className="absolute inset-0 h-full w-full" preserveAspectRatio="none" aria-hidden>

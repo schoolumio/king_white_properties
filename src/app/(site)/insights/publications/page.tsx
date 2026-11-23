@@ -30,15 +30,15 @@ export default async function PublicationsPage() {
                   {g.items.map((p) => (
                     <li key={p.id}>
                       <a href={downloadUrl(p.file)} className="group grid gap-3 py-6 sm:grid-cols-[auto_1fr_auto] sm:items-center sm:gap-6">
-                        <FileText className="h-6 w-6 text-gold-deep" strokeWidth={1.4} aria-hidden />
+                        <FileText className="h-6 w-6 text-accent-deep" strokeWidth={1.4} aria-hidden />
                         <span>
-                          <span className="block font-display text-lg font-semibold text-navy group-hover:text-gold-deep">{p.title}</span>
+                          <span className="block font-display text-lg font-semibold text-primary group-hover:text-accent-deep">{p.title}</span>
                           {p.description && <span className="mt-1 block text-[15px] text-ink/60">{p.description}</span>}
-                          <span className="mt-1 block text-xs tracking-wide text-steel uppercase">
+                          <span className="mt-1 block text-xs tracking-wide text-muted uppercase">
                             {formatDate(p.publishedAt, "short")} · {formatBytes(p.file.size)}
                           </span>
                         </span>
-                        <span className="inline-flex items-center gap-2 text-sm font-semibold text-navy">
+                        <span className="inline-flex items-center gap-2 text-sm font-semibold text-primary">
                           <Download className="h-4 w-4" aria-hidden /> Download
                         </span>
                       </a>

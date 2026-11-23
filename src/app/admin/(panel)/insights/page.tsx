@@ -28,12 +28,12 @@ export default async function AdminInsights() {
         <tbody>
           {rows.length === 0 && <EmptyRow colSpan={5}>No articles yet.</EmptyRow>}
           {rows.map((a) => (
-            <tr key={a.id} className="hover:bg-[#fafaf8]">
+            <tr key={a.id} className="hover:bg-[#f8faf9]">
               <Td>
-                <Link href={`/admin/insights/${a.id}`} className="font-medium text-navy hover:underline">
+                <Link href={`/admin/insights/${a.id}`} className="font-medium text-primary hover:underline">
                   {a.title}
                 </Link>
-                {a.featured && <span className="ml-2 text-xs text-gold-deep">Featured</span>}
+                {a.featured && <span className="ml-2 text-xs text-accent-deep">Featured</span>}
                 {a.isDemo && <DemoBadge />}
               </Td>
               <Td>{ARTICLE_TYPE_LABELS[a.type]}</Td>

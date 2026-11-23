@@ -51,9 +51,9 @@ export default async function AutomotivePage() {
 
   return (
     <>
-      <PageHero eyebrow="Division 02" title={c.heading} statement={c.statement} image={c.image} imageAlt={c.imageAlt} crumbs={[{ label: "Automotive" }]} size="lg" tone="graphite">
+      <PageHero eyebrow="Division 02" title={c.heading} statement={c.statement} image={c.image} imageAlt={c.imageAlt} crumbs={[{ label: "Automotive" }]} size="lg" tone="evergreen">
         <div className="flex flex-col gap-3 sm:flex-row">
-          <LinkButton href="/automotive/vehicles" variant="gold" arrow>
+          <LinkButton href="/automotive/vehicles" variant="accent" arrow>
             View inventory
           </LinkButton>
           <LinkButton href="/automotive/fleet-solutions" variant="outline-light">
@@ -62,13 +62,13 @@ export default async function AutomotivePage() {
         </div>
       </PageHero>
 
-      <section className="bg-graphite pb-6 text-white">
+      <section className="bg-evergreen pb-6 text-white">
         <ul className="shell flex gap-2 overflow-x-auto border-t border-white/10 pt-6 pb-2">
           {categories.map((cat) => (
             <li key={cat.id}>
-              <Link href={`/automotive/vehicles?category=${cat.slug}`} className="flex items-center gap-2 border border-white/15 px-4 py-2.5 text-sm whitespace-nowrap text-white/75 transition-colors hover:border-gold-soft hover:text-white">
+              <Link href={`/automotive/vehicles?category=${cat.slug}`} className="flex items-center gap-2 border border-white/15 px-4 py-2.5 text-sm whitespace-nowrap text-white/75 transition-colors hover:border-accent-soft hover:text-white">
                 {cat.name}
-                {cat._count.vehicles > 0 && <span className="text-xs text-gold-soft">{cat._count.vehicles}</span>}
+                {cat._count.vehicles > 0 && <span className="text-xs text-accent-soft">{cat._count.vehicles}</span>}
               </Link>
             </li>
           ))}
@@ -83,8 +83,8 @@ export default async function AutomotivePage() {
           </Reveal>
           <div className="grid gap-x-10 gap-y-12 sm:grid-cols-2 lg:col-span-7">
             {c.capabilities.map((cap, i) => (
-              <Reveal key={cap.title} delay={(i % 2) * 100} className="border-t border-graphite pt-5">
-                <h3 className="font-display text-lg font-semibold text-navy">{cap.title}</h3>
+              <Reveal key={cap.title} delay={(i % 2) * 100} className="border-t border-evergreen pt-5">
+                <h3 className="font-display text-lg font-semibold text-primary">{cap.title}</h3>
                 <p className="mt-2 text-[15px] leading-relaxed text-ink/60">{cap.description}</p>
               </Reveal>
             ))}
@@ -92,7 +92,7 @@ export default async function AutomotivePage() {
         </div>
       </section>
 
-      <section className="bg-graphite py-24 text-white sm:py-32">
+      <section className="bg-evergreen py-24 text-white sm:py-32">
         <div className="shell">
           <SectionHeader light eyebrow="Featured" heading="Featured vehicles" align="split" action={<ArrowLink href="/automotive/vehicles" light>Full inventory</ArrowLink>} />
           <div className="mt-14">
@@ -123,7 +123,7 @@ export default async function AutomotivePage() {
       )}
 
       {(premium.length > 0 || commercial.length > 0) && (
-        <section className="bg-ivory py-24 sm:py-28">
+        <section className="bg-surface py-24 sm:py-28">
           <div className="shell space-y-20">
             {premium.length > 0 && (
               <div>
@@ -149,14 +149,14 @@ export default async function AutomotivePage() {
         </section>
       )}
 
-      <section className="relative isolate overflow-hidden bg-navy text-white">
+      <section className="relative isolate overflow-hidden bg-primary text-white">
         <div className="shell grid gap-0 lg:grid-cols-2">
           <div className="py-24 lg:py-32 lg:pr-16">
             <p className="eyebrow eyebrow-light">B2B Mobility</p>
             <h2 className="display-md mt-6">Corporate fleet solutions</h2>
             <p className="mt-5 text-lg text-white/65">Structured vehicle procurement for organisations — executive cars, commercial vehicles and full fleet programmes, quoted and delivered by one accountable team.</p>
             <div className="mt-10">
-              <LinkButton href="/automotive/fleet-solutions" variant="gold" arrow>
+              <LinkButton href="/automotive/fleet-solutions" variant="accent" arrow>
                 Explore fleet solutions
               </LinkButton>
             </div>
@@ -169,7 +169,7 @@ export default async function AutomotivePage() {
         <div className="shell grid gap-px bg-line lg:grid-cols-2">
           <div className="bg-white p-8 sm:p-12">
             <p className="eyebrow">Vehicle sourcing</p>
-            <h2 className="mt-5 font-display text-2xl font-semibold text-navy sm:text-3xl">{c.sourcingHeading}</h2>
+            <h2 className="mt-5 font-display text-2xl font-semibold text-primary sm:text-3xl">{c.sourcingHeading}</h2>
             <p className="mt-4 text-ink/65">{c.sourcingBody}</p>
             <div className="mt-8">
               <LinkButton href="/automotive/sourcing" arrow>
@@ -179,7 +179,7 @@ export default async function AutomotivePage() {
           </div>
           <div className="bg-white p-8 sm:p-12">
             <p className="eyebrow">Leasing</p>
-            <h2 className="mt-5 font-display text-2xl font-semibold text-navy sm:text-3xl">{c.leasingHeading}</h2>
+            <h2 className="mt-5 font-display text-2xl font-semibold text-primary sm:text-3xl">{c.leasingHeading}</h2>
             <p className="mt-4 text-ink/65">{c.leasingBody}</p>
             <div className="mt-8">
               <LinkButton href="/contact?topic=automotive" variant="outline" arrow>

@@ -2,25 +2,25 @@
 
 /* Brand tokens — overridden at runtime from Admin → Content → Brand colours */
 :root {
-  --brand-navy: #101d32;
-  --brand-graphite: #20252c;
-  --brand-ivory: #f5f3ee;
-  --brand-gold: #b89a62;
-  --brand-steel: #727b87;
+  --brand-primary: #0f3d2e; /* forest green */
+  --brand-evergreen: #13241d; /* deepest green */
+  --brand-surface: #f2f6f3; /* green-tinted white */
+  --brand-accent: #4cb87a; /* leaf green */
+  --brand-muted: #66766e; /* grey-green */
 }
 
 @theme inline {
-  --color-navy: var(--brand-navy);
-  --color-navy-deep: color-mix(in oklab, var(--brand-navy) 82%, black);
-  --color-graphite: var(--brand-graphite);
-  --color-ivory: var(--brand-ivory);
-  --color-ivory-deep: color-mix(in oklab, var(--brand-ivory) 92%, var(--brand-graphite));
-  --color-gold: var(--brand-gold);
-  --color-gold-soft: color-mix(in oklab, var(--brand-gold) 65%, white);
-  --color-gold-deep: color-mix(in oklab, var(--brand-gold) 70%, black);
-  --color-steel: var(--brand-steel);
-  --color-ink: var(--brand-graphite);
-  --color-line: color-mix(in oklab, var(--brand-graphite) 13%, transparent);
+  --color-primary: var(--brand-primary);
+  --color-primary-deep: color-mix(in oklab, var(--brand-primary) 82%, black);
+  --color-evergreen: var(--brand-evergreen);
+  --color-surface: var(--brand-surface);
+  --color-surface-deep: color-mix(in oklab, var(--brand-surface) 93%, var(--brand-primary));
+  --color-accent: var(--brand-accent);
+  --color-accent-soft: color-mix(in oklab, var(--brand-accent) 55%, white);
+  --color-accent-deep: color-mix(in oklab, var(--brand-accent) 55%, black);
+  --color-muted: var(--brand-muted);
+  --color-ink: var(--brand-evergreen);
+  --color-line: color-mix(in oklab, var(--brand-evergreen) 13%, transparent);
   --color-line-light: color-mix(in oklab, white 16%, transparent);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
@@ -46,11 +46,11 @@
     letter-spacing: -0.02em;
   }
   ::selection {
-    background: color-mix(in oklab, var(--brand-gold) 35%, white);
-    color: var(--brand-navy);
+    background: color-mix(in oklab, var(--brand-accent) 35%, white);
+    color: var(--brand-primary);
   }
   :focus-visible {
-    outline: 2px solid var(--brand-gold);
+    outline: 2px solid var(--brand-accent);
     outline-offset: 3px;
   }
   [id] {
@@ -63,14 +63,14 @@
     @apply mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-12;
   }
   .eyebrow {
-    @apply inline-flex items-center gap-3 font-display text-[11px] font-semibold uppercase tracking-[0.28em] text-gold-deep;
+    @apply inline-flex items-center gap-3 font-display text-[11px] font-semibold uppercase tracking-[0.28em] text-accent-deep;
   }
   .eyebrow::before {
     content: "";
     @apply block h-px w-8 bg-current;
   }
   .eyebrow-light {
-    @apply text-gold-soft;
+    @apply text-accent-soft;
   }
   .display-xl {
     @apply font-display text-[2.6rem] leading-[1.02] font-semibold tracking-[-0.035em] sm:text-6xl lg:text-[5.4rem];
@@ -110,10 +110,10 @@
     @apply mb-5;
   }
   .prose-corporate h2 {
-    @apply mt-10 mb-4 text-2xl font-semibold text-navy;
+    @apply mt-10 mb-4 text-2xl font-semibold text-primary;
   }
   .prose-corporate h3 {
-    @apply mt-8 mb-3 text-xl font-semibold text-navy;
+    @apply mt-8 mb-3 text-xl font-semibold text-primary;
   }
   .prose-corporate ul {
     @apply mb-5 list-none space-y-2 pl-0;
@@ -123,19 +123,19 @@
   }
   .prose-corporate ul li::before {
     content: "";
-    @apply absolute top-[0.8em] left-0 h-px w-3 bg-gold;
+    @apply absolute top-[0.8em] left-0 h-px w-3 bg-accent;
   }
   .prose-corporate ol {
     @apply mb-5 list-decimal space-y-2 pl-6;
   }
   .prose-corporate a {
-    @apply text-navy underline decoration-gold underline-offset-4;
+    @apply text-primary underline decoration-accent underline-offset-4;
   }
   .prose-corporate strong {
-    @apply font-semibold text-navy;
+    @apply font-semibold text-primary;
   }
   .prose-corporate blockquote {
-    @apply my-8 border-l-2 border-gold pl-6 font-serif text-xl text-navy italic;
+    @apply my-8 border-l-2 border-accent pl-6 font-serif text-xl text-primary italic;
   }
   .prose-invert {
     @apply text-white/75;

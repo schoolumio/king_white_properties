@@ -13,10 +13,10 @@ function Bars({ rows, total }: { rows: { label: string; value: number }[]; total
       {rows.map((r) => (
         <li key={r.label} className="grid grid-cols-[minmax(8rem,12rem)_1fr_3.5rem] items-center gap-3 text-[13px]">
           <span className="truncate text-ink/70">{r.label}</span>
-          <span className="h-2.5 bg-[#efeee9]">
-            <span className="block h-full bg-navy" style={{ width: `${(r.value / max) * 100}%` }} />
+          <span className="h-2.5 bg-[#e7eee9]">
+            <span className="block h-full bg-primary" style={{ width: `${(r.value / max) * 100}%` }} />
           </span>
-          <span className="text-right font-medium text-navy tabular-nums">
+          <span className="text-right font-medium text-primary tabular-nums">
             {r.value}
             <span className="ml-1 text-[11px] font-normal text-ink/40">{total ? Math.round((r.value / total) * 100) : 0}%</span>
           </span>
@@ -65,7 +65,7 @@ export default async function Reports() {
         ].map(([l, v]) => (
           <div key={l as string} className="bg-white p-5">
             <p className="text-[12px] text-ink/55">{l}</p>
-            <p className="mt-2 font-display text-3xl font-semibold text-navy">{v}</p>
+            <p className="mt-2 font-display text-3xl font-semibold text-primary">{v}</p>
           </div>
         ))}
       </div>
@@ -74,7 +74,7 @@ export default async function Reports() {
           {months.map((m) => (
             <div key={m.key} className="flex flex-1 flex-col items-center gap-1.5">
               <span className="text-[11px] text-ink/60 tabular-nums">{m.value || ""}</span>
-              <span className="w-full bg-navy" style={{ height: `${(m.value / maxMonth) * 140}px`, minHeight: m.value ? 2 : 0 }} />
+              <span className="w-full bg-primary" style={{ height: `${(m.value / maxMonth) * 140}px`, minHeight: m.value ? 2 : 0 }} />
               <span className="text-[10.5px] text-ink/50">{m.label}</span>
             </div>
           ))}

@@ -27,7 +27,7 @@ export default async function EditVehicle({ params, searchParams }: { params: Pr
             <PublishPill status={v.publishStatus} />
             {v.isDemo && <DemoBadge />}
             {v.publishStatus === "PUBLISHED" && (
-              <Link href={`/automotive/vehicles/${v.slug}`} target="_blank" className="inline-flex items-center gap-1 text-[13px] text-navy underline">
+              <Link href={`/automotive/vehicles/${v.slug}`} target="_blank" className="inline-flex items-center gap-1 text-[13px] text-primary underline">
                 View on website <ExternalLink className="h-3.5 w-3.5" />
               </Link>
             )}

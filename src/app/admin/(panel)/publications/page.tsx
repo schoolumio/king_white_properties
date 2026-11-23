@@ -53,15 +53,15 @@ export default async function AdminPublications() {
           <details key={p.id} className="group">
             <summary className="flex cursor-pointer flex-wrap items-center gap-3 p-4">
               <span className="flex-1">
-                <span className="font-medium text-navy">{p.title}</span>
+                <span className="font-medium text-primary">{p.title}</span>
                 <span className="block text-xs text-ink/50">
                   {PUBLICATION_LABELS[p.category]} · {formatBytes(p.file.size)} · {formatDate(p.publishedAt, "short") || "unscheduled"}
                 </span>
               </span>
               <PublishPill status={p.publishStatus} />
-              <span className="text-xs text-navy underline">Edit</span>
+              <span className="text-xs text-primary underline">Edit</span>
             </summary>
-            <div className="border-t border-line bg-[#fafaf8] p-4">
+            <div className="border-t border-line bg-[#f8faf9] p-4">
               <PublicationForm p={p} />
             </div>
           </details>

@@ -30,22 +30,22 @@ export function Gallery({ images, fallbackLabel, dark }: { images: GalleryImage[
   }, [open, go]);
 
   if (count === 0) {
-    return <Photo src={null} alt="" className="aspect-[16/10]" fallbackLabel={fallbackLabel ?? "Images to follow"} tone={dark ? "graphite" : "ivory"} />;
+    return <Photo src={null} alt="" className="aspect-[16/10]" fallbackLabel={fallbackLabel ?? "Images to follow"} tone={dark ? "evergreen" : "surface"} />;
   }
   const current = images[active];
   return (
     <div>
       <div className="group relative">
-        <Photo src={current.src} alt={current.alt} className={cn("aspect-[16/10]", dark ? "bg-graphite" : "bg-ivory-deep")} sizes="(min-width:1024px) 66vw, 100vw" priority tone={dark ? "graphite" : "ivory"} />
-        <button type="button" onClick={() => setOpen(true)} className="absolute right-4 bottom-4 flex items-center gap-2 bg-white/95 px-3 py-2 text-xs font-semibold text-navy" aria-label="Open full-screen gallery">
+        <Photo src={current.src} alt={current.alt} className={cn("aspect-[16/10]", dark ? "bg-evergreen" : "bg-surface-deep")} sizes="(min-width:1024px) 66vw, 100vw" priority tone={dark ? "evergreen" : "surface"} />
+        <button type="button" onClick={() => setOpen(true)} className="absolute right-4 bottom-4 flex items-center gap-2 bg-white/95 px-3 py-2 text-xs font-semibold text-primary" aria-label="Open full-screen gallery">
           <Expand className="h-3.5 w-3.5" aria-hidden /> {active + 1} / {count}
         </button>
         {count > 1 && (
           <>
-            <button type="button" onClick={() => go(-1)} className="absolute top-1/2 left-3 grid h-11 w-11 -translate-y-1/2 place-items-center bg-white/90 text-navy opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100" aria-label="Previous image">
+            <button type="button" onClick={() => go(-1)} className="absolute top-1/2 left-3 grid h-11 w-11 -translate-y-1/2 place-items-center bg-white/90 text-primary opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100" aria-label="Previous image">
               <ChevronLeft className="h-5 w-5" />
             </button>
-            <button type="button" onClick={() => go(1)} className="absolute top-1/2 right-3 grid h-11 w-11 -translate-y-1/2 place-items-center bg-white/90 text-navy opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100" aria-label="Next image">
+            <button type="button" onClick={() => go(1)} className="absolute top-1/2 right-3 grid h-11 w-11 -translate-y-1/2 place-items-center bg-white/90 text-primary opacity-100 transition sm:opacity-0 sm:group-hover:opacity-100" aria-label="Next image">
               <ChevronRight className="h-5 w-5" />
             </button>
           </>
@@ -55,8 +55,8 @@ export function Gallery({ images, fallbackLabel, dark }: { images: GalleryImage[
         <ul className="mt-3 grid grid-cols-4 gap-3 sm:grid-cols-6">
           {images.slice(0, 12).map((img, i) => (
             <li key={i}>
-              <button type="button" onClick={() => setActive(i)} className={cn("block w-full ring-offset-2 transition", i === active ? "ring-2 ring-gold" : "opacity-70 hover:opacity-100")} aria-label={`Show image ${i + 1}`} aria-current={i === active}>
-                <Photo src={img.src} alt="" className="aspect-[4/3]" sizes="120px" tone={dark ? "graphite" : "ivory"} />
+              <button type="button" onClick={() => setActive(i)} className={cn("block w-full ring-offset-2 transition", i === active ? "ring-2 ring-accent" : "opacity-70 hover:opacity-100")} aria-label={`Show image ${i + 1}`} aria-current={i === active}>
+                <Photo src={img.src} alt="" className="aspect-[4/3]" sizes="120px" tone={dark ? "evergreen" : "surface"} />
               </button>
             </li>
           ))}
@@ -73,7 +73,7 @@ export function Gallery({ images, fallbackLabel, dark }: { images: GalleryImage[
             </button>
           </div>
           <div className="relative flex-1">
-            <Photo src={current.src} alt={current.alt} className="absolute inset-4" imgClassName="!object-contain" sizes="100vw" tone="graphite" />
+            <Photo src={current.src} alt={current.alt} className="absolute inset-4" imgClassName="!object-contain" sizes="100vw" tone="evergreen" />
             {count > 1 && (
               <>
                 <button type="button" onClick={() => go(-1)} className="absolute top-1/2 left-4 grid h-12 w-12 -translate-y-1/2 place-items-center bg-white/10 text-white hover:bg-white/20" aria-label="Previous image">

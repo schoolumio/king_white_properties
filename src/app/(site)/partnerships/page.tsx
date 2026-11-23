@@ -20,7 +20,7 @@ export default async function PartnershipsPage() {
   return (
     <>
       <PageHero eyebrow="Institutional Engagement" title={page.heading} statement={page.intro} image={page.image} imageAlt={page.imageAlt} crumbs={[{ label: "Partnerships" }]} size="lg">
-        <LinkButton href="#proposal" variant="gold" arrow>
+        <LinkButton href="#proposal" variant="accent" arrow>
           Submit a partnership proposal
         </LinkButton>
       </PageHero>
@@ -30,7 +30,7 @@ export default async function PartnershipsPage() {
           <div className="grid gap-8 lg:grid-cols-12">
             <div className="lg:col-span-5">
               <p className="eyebrow">Partnership categories</p>
-              <h2 className="display-md mt-6 text-navy">Who we work with.</h2>
+              <h2 className="display-md mt-6 text-primary">Who we work with.</h2>
             </div>
             <p className="text-lg text-ink/60 lg:col-span-6 lg:col-start-7">
               Each partnership category has a dedicated review path. Tell us about your organisation and your proposal, and the relevant team will respond.
@@ -39,8 +39,8 @@ export default async function PartnershipsPage() {
           <ul className="mt-16 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-3">
             {page.categories.map((c, i) => (
               <Reveal as="li" key={c.title} delay={(i % 3) * 80} className="bg-white p-8 sm:p-10">
-                <span className="font-display text-xs font-semibold text-gold-deep">{String(i + 1).padStart(2, "0")}</span>
-                <h3 className="mt-5 font-display text-xl font-semibold text-navy">{c.title}</h3>
+                <span className="font-display text-xs font-semibold text-accent-deep">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="mt-5 font-display text-xl font-semibold text-primary">{c.title}</h3>
                 <p className="mt-3 text-[15px] leading-relaxed text-ink/60">{c.description}</p>
               </Reveal>
             ))}
@@ -48,15 +48,15 @@ export default async function PartnershipsPage() {
         </div>
       </section>
 
-      <section id="proposal" className="bg-ivory py-24 sm:py-32">
+      <section id="proposal" className="bg-surface py-24 sm:py-32">
         <div className="shell grid gap-14 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <p className="eyebrow">Proposal submission</p>
-            <h2 className="display-md mt-6 text-navy">Submit a partnership proposal.</h2>
+            <h2 className="display-md mt-6 text-primary">Submit a partnership proposal.</h2>
             <ol className="mt-10 space-y-5 text-[15px] text-ink/65">
               {["Complete the form with your organisation's details and proposal summary.", "Attach supporting documentation if available (confidential).", "Receive a reference number immediately.", "Our partnerships team reviews and responds."].map((s, i) => (
                 <li key={s} className="flex gap-4">
-                  <span className="font-display font-semibold text-gold-deep">{i + 1}.</span>
+                  <span className="font-display font-semibold text-accent-deep">{i + 1}.</span>
                   {s}
                 </li>
               ))}

@@ -42,9 +42,9 @@ export default async function AdminDevelopments({ searchParams }: { searchParams
         <tbody>
           {rows.length === 0 && <EmptyRow colSpan={8}>No developments yet.</EmptyRow>}
           {rows.map((p) => (
-            <tr key={p.id} className="hover:bg-[#fafaf8]">
+            <tr key={p.id} className="hover:bg-[#f8faf9]">
               <Td>
-                <Link href={`/admin/developments/${p.id}`} className="font-medium text-navy hover:underline">
+                <Link href={`/admin/developments/${p.id}`} className="font-medium text-primary hover:underline">
                   {p.name}
                 </Link>
                 <span className="block text-xs text-ink/50">

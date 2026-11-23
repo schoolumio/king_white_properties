@@ -20,7 +20,7 @@ export const ENQUIRY_CATEGORIES: Record<
 export const ENQUIRY_CATEGORY_KEYS = Object.keys(ENQUIRY_CATEGORIES) as EnquiryCategory[];
 
 export const ENQUIRY_STATUSES: { value: EnquiryStatus; label: string; tone: string }[] = [
-  { value: "NEW", label: "New", tone: "bg-gold/15 text-[#7a6235]" },
+  { value: "NEW", label: "New", tone: "bg-accent/15 text-accent-deep" },
   { value: "CONTACTED", label: "Contacted", tone: "bg-sky-100 text-sky-800" },
   { value: "UNDER_REVIEW", label: "Under Review", tone: "bg-indigo-100 text-indigo-800" },
   { value: "QUALIFIED", label: "Qualified", tone: "bg-emerald-100 text-emerald-800" },

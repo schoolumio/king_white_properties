@@ -139,10 +139,10 @@ export function MediaInput({ name, label, help, initial = [], accept, folder, vi
               <div className="flex gap-1">
                 {(!max || max > 1) && (
                   <>
-                    <button type="button" onClick={() => move(i, -1)} className="grid h-9 w-9 place-items-center border border-line hover:border-navy" aria-label="Move up">
+                    <button type="button" onClick={() => move(i, -1)} className="grid h-9 w-9 place-items-center border border-line hover:border-primary" aria-label="Move up">
                       <ArrowUp className="h-4 w-4" />
                     </button>
-                    <button type="button" onClick={() => move(i, 1)} className="grid h-9 w-9 place-items-center border border-line hover:border-navy" aria-label="Move down">
+                    <button type="button" onClick={() => move(i, 1)} className="grid h-9 w-9 place-items-center border border-line hover:border-primary" aria-label="Move down">
                       <ArrowDown className="h-4 w-4" />
                     </button>
                   </>
@@ -156,7 +156,7 @@ export function MediaInput({ name, label, help, initial = [], accept, folder, vi
         </ul>
       )}
       {(!max || items.length < max || max === 1) && (
-        <label className={cn("flex cursor-pointer items-center justify-center gap-2 border border-dashed border-navy/25 px-4 py-5 text-[13px] text-ink/70 hover:border-navy", busy > 0 && "pointer-events-none opacity-70")}>
+        <label className={cn("flex cursor-pointer items-center justify-center gap-2 border border-dashed border-primary/25 px-4 py-5 text-[13px] text-ink/70 hover:border-primary", busy > 0 && "pointer-events-none opacity-70")}>
           {busy > 0 ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
           {busy > 0 ? `Uploading ${busy} file${busy > 1 ? "s" : ""}…` : max === 1 && items.length ? "Replace file" : `Upload ${accept === "image" ? "images" : "files"}`}
           <input ref={inputRef} type="file" className="sr-only" accept={ACCEPT[accept]} multiple={!max || max > 1} onChange={(e) => upload(e.target.files)} />

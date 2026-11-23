@@ -37,7 +37,7 @@ export default async function DevelopmentsPage({ searchParams }: { searchParams:
   return (
     <>
       <PageHero eyebrow="Development Portfolio" title="Developments" statement="Our real estate projects — from upcoming schemes and developments under construction to completed assets and projects available for acquisition." crumbs={[{ label: "Real Estate", href: "/real-estate" }, { label: "Developments" }]} />
-      <section className="bg-ivory py-12 sm:py-16">
+      <section className="bg-surface py-12 sm:py-16">
         <div className="shell">
           <FilterBar
             action="/real-estate/developments"

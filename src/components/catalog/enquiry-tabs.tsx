@@ -20,7 +20,7 @@ export function EnquiryTabs({ tabs, relatedId }: { tabs: { key: string; label: s
             onClick={() => setActive(t.key)}
             className={cn(
               "-mb-px border-b-2 px-1 pb-4 font-display text-sm font-semibold transition-colors sm:text-[15px] [&+&]:ml-8",
-              active === t.key ? "border-gold text-navy" : "border-transparent text-ink/45 hover:text-navy",
+              active === t.key ? "border-accent text-primary" : "border-transparent text-ink/45 hover:text-primary",
             )}
           >
             {t.label}

@@ -28,7 +28,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export const viewport: Viewport = {
-  themeColor: "#101D32",
+  themeColor: "#0F3D2E",
   width: "device-width",
   initialScale: 1,
 };
@@ -37,9 +37,9 @@ const HEX = /^#[0-9a-fA-F]{6}$/;
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const theme = await getContent<Record<string, string>>("theme");
-  const vars = (["navy", "graphite", "ivory", "gold", "steel"] as const)
+  const vars = (["primary", "evergreen", "surface", "accent", "muted"] as const)
     .map((k) => {
-      const value = k === "steel" ? theme.slate : theme[k];
+      const value = theme[k];
       return value && HEX.test(value) ? `--brand-${k}:${value};` : "";
     })
     .join("");

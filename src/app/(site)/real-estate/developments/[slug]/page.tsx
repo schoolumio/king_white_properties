@@ -70,7 +70,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
       >
         {loc && (
           <p className="flex items-center gap-2 text-white/70">
-            <MapPin className="h-4 w-4 text-gold-soft" aria-hidden /> {loc}
+            <MapPin className="h-4 w-4 text-accent-soft" aria-hidden /> {loc}
           </p>
         )}
       </PageHero>
@@ -86,18 +86,18 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
             <h2 className="eyebrow">Project overview</h2>
             <Markdown className="mt-6">{p.overview}</Markdown>
             {p.developerInfo && (
-              <div className="mt-10 border-l-2 border-gold pl-6">
-                <h3 className="font-display font-semibold text-navy">Developer information</h3>
+              <div className="mt-10 border-l-2 border-accent pl-6">
+                <h3 className="font-display font-semibold text-primary">Developer information</h3>
                 <p className="mt-2 text-ink/70">{p.developerInfo}</p>
               </div>
             )}
           </div>
           <aside className="lg:col-span-4 lg:col-start-9">
-            <dl className="border-t-2 border-navy">
+            <dl className="border-t-2 border-primary">
               {facts.map(([k, v]) => (
                 <div key={k} className="flex justify-between gap-6 border-b border-line py-4 text-[15px]">
                   <dt className="text-ink/55">{k}</dt>
-                  <dd className="text-right font-medium text-navy">{v}</dd>
+                  <dd className="text-right font-medium text-primary">{v}</dd>
                 </div>
               ))}
             </dl>
@@ -105,14 +105,14 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
               <div className="mt-8">
                 <div className="flex justify-between text-sm">
                   <span className="text-ink/60">Construction progress</span>
-                  <span className="font-display font-semibold text-navy">{p.progressPercent}%</span>
+                  <span className="font-display font-semibold text-primary">{p.progressPercent}%</span>
                 </div>
-                <div className="mt-2 h-1.5 bg-ivory-deep" role="progressbar" aria-valuenow={p.progressPercent} aria-valuemin={0} aria-valuemax={100}>
-                  <div className="h-full bg-gold" style={{ width: `${Math.min(100, Math.max(0, p.progressPercent))}%` }} />
+                <div className="mt-2 h-1.5 bg-surface-deep" role="progressbar" aria-valuenow={p.progressPercent} aria-valuemin={0} aria-valuemax={100}>
+                  <div className="h-full bg-accent" style={{ width: `${Math.min(100, Math.max(0, p.progressPercent))}%` }} />
                 </div>
               </div>
             )}
-            <a href="#enquire" className="mt-8 flex h-12 items-center justify-center bg-navy font-display text-sm font-semibold text-white hover:bg-navy-deep">
+            <a href="#enquire" className="mt-8 flex h-12 items-center justify-center bg-primary font-display text-sm font-semibold text-white hover:bg-primary-deep">
               Enquire about this development
             </a>
           </aside>
@@ -120,7 +120,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
       </section>
 
       {gallery.length > 0 && (
-        <section className="bg-ivory py-20">
+        <section className="bg-surface py-20">
           <div className="shell">
             <h2 className="eyebrow">Gallery</h2>
             <div className="mt-8">
@@ -133,11 +133,11 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
       {p.units.length > 0 && (
         <section className="bg-white py-20 sm:py-28">
           <div className="shell">
-            <h2 className="display-md text-navy">Unit availability</h2>
+            <h2 className="display-md text-primary">Unit availability</h2>
             <div className="mt-10 overflow-x-auto">
               <table className="w-full min-w-[640px] text-left text-[15px]">
                 <thead>
-                  <tr className="border-b-2 border-navy text-[11px] tracking-[0.16em] text-steel uppercase">
+                  <tr className="border-b-2 border-primary text-[11px] tracking-[0.16em] text-muted uppercase">
                     <th className="py-3 font-semibold">Unit type</th>
                     <th className="py-3 font-semibold">Bedrooms</th>
                     <th className="py-3 font-semibold">Size</th>
@@ -148,7 +148,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
                 <tbody>
                   {p.units.map((u) => (
                     <tr key={u.id} className="border-b border-line">
-                      <td className="py-4 font-display font-semibold text-navy">{u.name}</td>
+                      <td className="py-4 font-display font-semibold text-primary">{u.name}</td>
                       <td className="py-4">{u.bedrooms ?? "—"}</td>
                       <td className="py-4">{u.floorAreaSqm ? `${formatNumber(u.floorAreaSqm)} m²` : "—"}</td>
                       <td className="py-4">{formatPrice(u)}</td>
@@ -172,11 +172,11 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
       {masterplans.length > 0 && (
         <section className="bg-white py-20">
           <div className="shell">
-            <h2 className="display-md text-navy">Masterplan</h2>
+            <h2 className="display-md text-primary">Masterplan</h2>
             <div className="mt-10 grid gap-6 md:grid-cols-2">
               {masterplans.map((m) => (
                 <figure key={m.id}>
-                  <Photo src={mediaUrl(m.media)} alt={m.caption || `${p.name} masterplan`} className="aspect-[4/3] bg-ivory" imgClassName="!object-contain" tone="ivory" sizes="50vw" />
+                  <Photo src={mediaUrl(m.media)} alt={m.caption || `${p.name} masterplan`} className="aspect-[4/3] bg-surface" imgClassName="!object-contain" tone="surface" sizes="50vw" />
                   {m.caption && <figcaption className="mt-3 text-sm text-ink/60">{m.caption}</figcaption>}
                 </figure>
               ))}
@@ -186,7 +186,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
       )}
 
       {p.updates.length > 0 && (
-        <section className="bg-navy py-20 text-white sm:py-28">
+        <section className="bg-primary py-20 text-white sm:py-28">
           <div className="shell grid gap-12 lg:grid-cols-12">
             <div className="lg:col-span-4">
               <p className="eyebrow eyebrow-light">Progress</p>
@@ -195,8 +195,8 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
             <ol className="relative border-l border-white/15 lg:col-span-7 lg:col-start-6">
               {p.updates.map((u) => (
                 <li key={u.id} className="relative pb-12 pl-8 last:pb-0">
-                  <span className="absolute top-1.5 -left-[5px] h-2.5 w-2.5 bg-gold" aria-hidden />
-                  <time className="text-xs tracking-[0.16em] text-gold-soft uppercase">{formatDate(u.publishedAt)}</time>
+                  <span className="absolute top-1.5 -left-[5px] h-2.5 w-2.5 bg-accent" aria-hidden />
+                  <time className="text-xs tracking-[0.16em] text-accent-soft uppercase">{formatDate(u.publishedAt)}</time>
                   <h3 className="mt-2 font-display text-xl font-semibold">{u.title}</h3>
                   <Markdown invert className="mt-3 text-[15px]">
                     {u.body}
@@ -210,7 +210,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
       )}
 
       {(p.documents.length > 0 || p.opportunities.length > 0 || (p.latitude !== null && p.longitude !== null)) && (
-        <section className="bg-ivory py-20">
+        <section className="bg-surface py-20">
           <div className="shell grid gap-12 lg:grid-cols-2">
             <div className="space-y-10">
               {p.documents.length > 0 && (
@@ -220,9 +220,9 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
                     {p.documents.map((d) => (
                       <li key={d.id}>
                         <a href={downloadUrl(d.media)} className="group flex items-center gap-4 py-4">
-                          <FileText className="h-5 w-5 text-gold-deep" strokeWidth={1.5} aria-hidden />
-                          <span className="flex-1 font-medium text-navy group-hover:underline">{d.title}</span>
-                          <Download className="h-4 w-4 text-navy/40" aria-hidden />
+                          <FileText className="h-5 w-5 text-accent-deep" strokeWidth={1.5} aria-hidden />
+                          <span className="flex-1 font-medium text-primary group-hover:underline">{d.title}</span>
+                          <Download className="h-4 w-4 text-primary/40" aria-hidden />
                         </a>
                       </li>
                     ))}
@@ -235,7 +235,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
                   <ul className="mt-6 space-y-3">
                     {p.opportunities.map((o) => (
                       <li key={o.slug}>
-                        <Link href={opportunityHref(o)} className="font-display font-semibold text-navy underline decoration-gold underline-offset-4">
+                        <Link href={opportunityHref(o)} className="font-display font-semibold text-primary underline decoration-accent underline-offset-4">
                           {o.title}
                         </Link>
                       </li>
@@ -252,7 +252,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
       {p.properties.length > 0 && (
         <section className="bg-white py-20">
           <div className="shell">
-            <h2 className="display-md text-navy">Available within {p.name}</h2>
+            <h2 className="display-md text-primary">Available within {p.name}</h2>
             <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {p.properties.map((pr) => (
                 <PropertyCard key={pr.id} property={pr} />
@@ -266,7 +266,7 @@ export default async function DevelopmentPage({ params }: { params: Promise<{ sl
         <div className="shell grid gap-12 border-t border-line pt-16 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <p className="eyebrow">Enquiries</p>
-            <h2 className="display-md mt-6 text-navy">Acquisition, investment or partnership.</h2>
+            <h2 className="display-md mt-6 text-primary">Acquisition, investment or partnership.</h2>
             <p className="mt-5 text-ink/60">Tell us your interest in {p.name}. Investment and partnership enquiries are routed to the appropriate team.</p>
           </div>
           <div className="lg:col-span-7 lg:col-start-6">

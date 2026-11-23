@@ -48,7 +48,7 @@ export function SiteHeader({ companyName, logo, logoInverse, phone, email }: { c
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,height] duration-500",
-          solid ? "bg-navy/97 shadow-[0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md" : "bg-gradient-to-b from-navy/70 to-transparent",
+          solid ? "bg-primary/97 shadow-[0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-md" : "bg-gradient-to-b from-primary/70 to-transparent",
         )}
       >
         <div className={cn("shell flex items-center justify-between transition-[height] duration-500", solid ? "h-[72px]" : "h-[88px]")}>
@@ -76,7 +76,7 @@ export function SiteHeader({ companyName, logo, logoInverse, phone, email }: { c
                       onClick={() => setOpenMenu(openMenu === item.label ? null : item.label)}
                       className={cn(
                         "flex items-center gap-1.5 px-3.5 py-2 font-display text-[13.5px] font-medium tracking-wide transition-colors",
-                        isActive(item.href) ? "text-gold-soft" : "text-white/85 hover:text-white",
+                        isActive(item.href) ? "text-accent-soft" : "text-white/85 hover:text-white",
                       )}
                     >
                       {item.label}
@@ -87,7 +87,7 @@ export function SiteHeader({ companyName, logo, logoInverse, phone, email }: { c
                       href={item.href}
                       className={cn(
                         "block px-3.5 py-2 font-display text-[13.5px] font-medium tracking-wide transition-colors",
-                        isActive(item.href) ? "text-gold-soft" : "text-white/85 hover:text-white",
+                        isActive(item.href) ? "text-accent-soft" : "text-white/85 hover:text-white",
                       )}
                     >
                       {item.label}
@@ -101,7 +101,7 @@ export function SiteHeader({ companyName, logo, logoInverse, phone, email }: { c
                         openMenu === item.label ? "visible translate-y-0 opacity-100" : "invisible -translate-y-1 opacity-0",
                       )}
                     >
-                      <div className="border border-white/10 bg-navy p-3 shadow-2xl shadow-black/30">
+                      <div className="border border-white/10 bg-primary p-3 shadow-2xl shadow-black/30">
                         <ul>
                           {item.children.map((child) => (
                             <li key={child.href + child.label}>
@@ -113,7 +113,7 @@ export function SiteHeader({ companyName, logo, logoInverse, phone, email }: { c
                                   <span className="block font-display text-sm font-semibold text-white">{child.label}</span>
                                   {child.description && <span className="mt-1 block text-[13px] text-white/50">{child.description}</span>}
                                 </span>
-                                <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-gold-soft opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden />
+                                <ArrowRight className="mt-0.5 h-4 w-4 shrink-0 text-accent-soft opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" aria-hidden />
                               </Link>
                             </li>
                           ))}
@@ -129,7 +129,7 @@ export function SiteHeader({ companyName, logo, logoInverse, phone, email }: { c
           <div className="flex items-center gap-3">
             <Link
               href="/partnerships#proposal"
-              className="hidden h-11 items-center gap-2 border border-gold/70 px-5 font-display text-[13px] font-semibold tracking-wide text-white transition-colors hover:bg-gold hover:text-navy md:inline-flex"
+              className="hidden h-11 items-center gap-2 border border-accent/70 px-5 font-display text-[13px] font-semibold tracking-wide text-white transition-colors hover:bg-accent hover:text-primary md:inline-flex"
             >
               Corporate Enquiry
             </Link>
@@ -148,7 +148,7 @@ export function SiteHeader({ companyName, logo, logoInverse, phone, email }: { c
 
       {/* Mobile navigation — a designed full-screen experience, not a compressed desktop menu */}
       <div
-        className={cn("fixed inset-0 z-[60] bg-navy transition-[opacity,visibility] duration-500 xl:hidden", open ? "visible opacity-100" : "invisible opacity-0")}
+        className={cn("fixed inset-0 z-[60] bg-primary transition-[opacity,visibility] duration-500 xl:hidden", open ? "visible opacity-100" : "invisible opacity-0")}
         role="dialog"
         aria-modal="true"
         aria-label="Site menu"
@@ -174,7 +174,7 @@ export function SiteHeader({ companyName, logo, logoInverse, phone, email }: { c
                         onClick={() => setMobileSection(mobileSection === item.label ? null : item.label)}
                       >
                         {item.label}
-                        <Plus className={cn("h-5 w-5 text-gold-soft transition-transform duration-300", mobileSection === item.label && "rotate-45")} aria-hidden />
+                        <Plus className={cn("h-5 w-5 text-accent-soft transition-transform duration-300", mobileSection === item.label && "rotate-45")} aria-hidden />
                       </button>
                       <div className={cn("grid transition-[grid-template-rows] duration-500", mobileSection === item.label ? "grid-rows-[1fr]" : "grid-rows-[0fr]")}>
                         <ul className="overflow-hidden">
@@ -200,7 +200,7 @@ export function SiteHeader({ companyName, logo, logoInverse, phone, email }: { c
             </ul>
           </nav>
           <div className="shell border-t border-white/10 py-6">
-            <Link href="/partnerships#proposal" onClick={() => setOpen(false)} className="flex h-14 w-full items-center justify-center gap-2 bg-gold font-display text-[15px] font-semibold text-navy">
+            <Link href="/partnerships#proposal" onClick={() => setOpen(false)} className="flex h-14 w-full items-center justify-center gap-2 bg-accent font-display text-[15px] font-semibold text-primary">
               Corporate Enquiry <ArrowRight className="h-4 w-4" aria-hidden />
             </Link>
             {(phone || email) && (

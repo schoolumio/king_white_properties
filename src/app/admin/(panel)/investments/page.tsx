@@ -35,9 +35,9 @@ export default async function AdminInvestments() {
         <tbody>
           {rows.length === 0 && <EmptyRow colSpan={8}>No opportunities yet.</EmptyRow>}
           {rows.map((o) => (
-            <tr key={o.id} className="hover:bg-[#fafaf8]">
+            <tr key={o.id} className="hover:bg-[#f8faf9]">
               <Td>
-                <Link href={`/admin/investments/${o.id}`} className="font-medium text-navy hover:underline">
+                <Link href={`/admin/investments/${o.id}`} className="font-medium text-primary hover:underline">
                   {o.title}
                 </Link>
                 {o.isDemo && <DemoBadge />}

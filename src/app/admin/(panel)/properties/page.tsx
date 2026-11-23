@@ -61,13 +61,13 @@ export default async function AdminProperties({ searchParams }: { searchParams: 
         <tbody>
           {rows.length === 0 && (
             <EmptyRow colSpan={8}>
-              No properties yet. <Link href="/admin/properties/new" className="text-navy underline">Create the first listing</Link>.
+              No properties yet. <Link href="/admin/properties/new" className="text-primary underline">Create the first listing</Link>.
             </EmptyRow>
           )}
           {rows.map((p) => (
-            <tr key={p.id} className="hover:bg-[#fafaf8]">
+            <tr key={p.id} className="hover:bg-[#f8faf9]">
               <Td>
-                <Link href={`/admin/properties/${p.id}`} className="font-medium text-navy hover:underline">
+                <Link href={`/admin/properties/${p.id}`} className="font-medium text-primary hover:underline">
                   {p.title}
                 </Link>
                 <span className="block text-xs text-ink/50">

@@ -31,20 +31,20 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             <h2 className="eyebrow">Head Office</h2>
             <ul className="mt-8 space-y-7">
               <li className="flex gap-4">
-                <MapPin className="mt-1 h-5 w-5 shrink-0 text-gold-deep" strokeWidth={1.5} aria-hidden />
+                <MapPin className="mt-1 h-5 w-5 shrink-0 text-accent-deep" strokeWidth={1.5} aria-hidden />
                 <span className="whitespace-pre-line text-ink/75">{site.address || "Office address to be published."}</span>
               </li>
               {site.phone && (
                 <li className="flex gap-4">
-                  <Phone className="mt-1 h-5 w-5 shrink-0 text-gold-deep" strokeWidth={1.5} aria-hidden />
+                  <Phone className="mt-1 h-5 w-5 shrink-0 text-accent-deep" strokeWidth={1.5} aria-hidden />
                   <span>
-                    <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="text-navy hover:underline">
+                    <a href={`tel:${site.phone.replace(/\s/g, "")}`} className="text-primary hover:underline">
                       {site.phone}
                     </a>
                     {site.phoneSecondary && (
                       <>
                         <br />
-                        <a href={`tel:${site.phoneSecondary.replace(/\s/g, "")}`} className="text-navy hover:underline">
+                        <a href={`tel:${site.phoneSecondary.replace(/\s/g, "")}`} className="text-primary hover:underline">
                           {site.phoneSecondary}
                         </a>
                       </>
@@ -54,8 +54,8 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
               )}
               {site.email && (
                 <li className="flex gap-4">
-                  <Mail className="mt-1 h-5 w-5 shrink-0 text-gold-deep" strokeWidth={1.5} aria-hidden />
-                  <a href={`mailto:${site.email}`} className="text-navy hover:underline">
+                  <Mail className="mt-1 h-5 w-5 shrink-0 text-accent-deep" strokeWidth={1.5} aria-hidden />
+                  <a href={`mailto:${site.email}`} className="text-primary hover:underline">
                     {site.email}
                   </a>
                 </li>
@@ -73,7 +73,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
                   ["Vehicle sourcing", "/automotive/sourcing"],
                 ].map(([l, h]) => (
                   <li key={h}>
-                    <Link href={h} className="text-navy underline decoration-gold underline-offset-4 hover:text-gold-deep">
+                    <Link href={h} className="text-primary underline decoration-accent underline-offset-4 hover:text-accent-deep">
                       {l}
                     </Link>
                   </li>
@@ -82,7 +82,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
             </div>
           </aside>
           <div className="lg:col-span-7 lg:col-start-6">
-            <h2 className="display-md text-navy">Send us a message</h2>
+            <h2 className="display-md text-primary">Send us a message</h2>
             <div className="mt-10">
               <EnquiryForm formType="general" fields={PRESETS.general} defaults={{ topic: topic && TOPICS.includes(topic) ? topic : "GENERAL" }} submitLabel="Send message" />
             </div>
@@ -90,7 +90,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
         </div>
       </section>
       {Number.isFinite(lat) && Number.isFinite(lng) && (
-        <section className="bg-ivory">
+        <section className="bg-surface">
           <MapEmbed lat={lat} lng={lng} title="Head office location" className="h-[420px]" />
         </section>
       )}

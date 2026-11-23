@@ -72,8 +72,8 @@ export default async function VehiclesPage({ searchParams }: { searchParams: Pro
 
   return (
     <>
-      <PageHero eyebrow="Automotive Inventory" title="Vehicles" statement="New and pre-owned vehicles, presented with verified specifications and current availability." crumbs={[{ label: "Automotive", href: "/automotive" }, { label: "Vehicles" }]} size="sm" tone="graphite" />
-      <section className="bg-[#f3f3f1] py-12 sm:py-16">
+      <PageHero eyebrow="Automotive Inventory" title="Vehicles" statement="New and pre-owned vehicles, presented with verified specifications and current availability." crumbs={[{ label: "Automotive", href: "/automotive" }, { label: "Vehicles" }]} size="sm" tone="evergreen" />
+      <section className="bg-surface py-12 sm:py-16">
         <div className="shell">
           <FilterBar
             action="/automotive/vehicles"

@@ -56,15 +56,15 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
 
       <div className="grid grid-cols-2 gap-px border border-line bg-line md:grid-cols-3 xl:grid-cols-9">
         {stats.map((s) => (
-          <Link key={s.label} href={s.href} className="group bg-white p-4 hover:bg-[#fafaf8]">
+          <Link key={s.label} href={s.href} className="group bg-white p-4 hover:bg-[#f8faf9]">
             <p className="text-[11px] leading-tight font-medium text-ink/55">{s.label}</p>
-            <p className={`mt-3 font-display text-3xl font-semibold ${s.accent ? "text-gold-deep" : "text-navy"}`}>{s.value}</p>
+            <p className={`mt-3 font-display text-3xl font-semibold ${s.accent ? "text-accent-deep" : "text-primary"}`}>{s.value}</p>
           </Link>
         ))}
       </div>
 
       <div className="mt-8 grid gap-6 xl:grid-cols-3">
-        <Panel title="Latest enquiries" className="xl:col-span-2" actions={<Link href="/admin/enquiries" className="text-[13px] text-navy underline">View all</Link>}>
+        <Panel title="Latest enquiries" className="xl:col-span-2" actions={<Link href="/admin/enquiries" className="text-[13px] text-primary underline">View all</Link>}>
           {recent.length === 0 ? (
             <p className="py-8 text-center text-sm text-ink/50">No enquiries yet. Submissions from the website will appear here.</p>
           ) : (
@@ -73,10 +73,10 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
                 const st = statusMeta(e.status);
                 return (
                   <li key={e.id}>
-                    <Link href={`/admin/enquiries/${e.id}`} className="flex flex-wrap items-center gap-x-4 gap-y-1 py-3 hover:bg-[#fafaf8]">
+                    <Link href={`/admin/enquiries/${e.id}`} className="flex flex-wrap items-center gap-x-4 gap-y-1 py-3 hover:bg-[#f8faf9]">
                       <span className="w-28 font-mono text-[12px] text-ink/60">{e.reference}</span>
                       <span className="min-w-40 flex-1">
-                        <span className="block text-[14px] font-medium text-navy">{e.organisation || e.name}</span>
+                        <span className="block text-[14px] font-medium text-primary">{e.organisation || e.name}</span>
                         <span className="block text-xs text-ink/50">{ENQUIRY_CATEGORIES[e.category].label}</span>
                       </span>
                       <Pill className={st.tone}>{st.label}</Pill>
@@ -105,7 +105,7 @@ export default async function Dashboard({ searchParams }: { searchParams: Promis
             </ul>
           )}
           {can(user, "audit.view") && (
-            <Link href="/admin/audit" className="mt-5 inline-flex items-center gap-1 text-[13px] text-navy underline">
+            <Link href="/admin/audit" className="mt-5 inline-flex items-center gap-1 text-[13px] text-primary underline">
               Full audit log <ArrowUpRight className="h-3.5 w-3.5" />
             </Link>
           )}

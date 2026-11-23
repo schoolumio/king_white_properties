@@ -2,19 +2,19 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "gold" | "outline" | "outline-light" | "light" | "ghost";
+type Variant = "primary" | "accent" | "outline" | "outline-light" | "light" | "ghost";
 type Size = "sm" | "md" | "lg";
 
 const base =
   "group inline-flex items-center justify-center gap-3 font-display font-semibold tracking-wide transition-all duration-300 disabled:pointer-events-none disabled:opacity-50 whitespace-nowrap";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-navy text-white hover:bg-navy-deep",
-  gold: "bg-gold text-navy hover:bg-gold-soft",
-  outline: "border border-navy/25 text-navy hover:border-navy hover:bg-navy hover:text-white",
-  "outline-light": "border border-white/35 text-white hover:border-white hover:bg-white hover:text-navy",
-  light: "bg-white text-navy hover:bg-ivory",
-  ghost: "text-navy hover:text-gold-deep",
+  primary: "bg-primary text-white hover:bg-primary-deep",
+  accent: "bg-accent text-primary hover:bg-accent-soft",
+  outline: "border border-primary/25 text-primary hover:border-primary hover:bg-primary hover:text-white",
+  "outline-light": "border border-white/35 text-white hover:border-white hover:bg-white hover:text-primary",
+  light: "bg-white text-primary hover:bg-surface",
+  ghost: "text-primary hover:text-accent-deep",
 };
 
 const sizes: Record<Size, string> = {
@@ -67,7 +67,7 @@ export function Button({
 
 export function ArrowLink({ href, children, className, light }: { href: string; children: React.ReactNode; className?: string; light?: boolean }) {
   return (
-    <Link href={href} className={cn("link-arrow", light ? "text-white hover:text-gold-soft" : "text-navy hover:text-gold-deep", className)}>
+    <Link href={href} className={cn("link-arrow", light ? "text-white hover:text-accent-soft" : "text-primary hover:text-accent-deep", className)}>
       <span className="border-b border-current/30 pb-0.5">{children}</span>
       <ArrowRight className="h-4 w-4" aria-hidden />
     </Link>

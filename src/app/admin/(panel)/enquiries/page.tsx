@@ -48,7 +48,7 @@ export default async function EnquiriesPage({ searchParams }: { searchParams: Pr
         description="Central enquiry management across both divisions and corporate channels."
         actions={
           can(user, "enquiry.export") && (
-            <a href={`/api/admin/enquiries/export${qs ? `?${qs}` : ""}`} className="inline-flex h-10 items-center gap-2 border border-line bg-white px-4 text-[13.5px] font-semibold text-navy hover:border-navy">
+            <a href={`/api/admin/enquiries/export${qs ? `?${qs}` : ""}`} className="inline-flex h-10 items-center gap-2 border border-line bg-white px-4 text-[13.5px] font-semibold text-primary hover:border-primary">
               <Download className="h-4 w-4" /> Export CSV
             </a>
           )
@@ -89,14 +89,14 @@ export default async function EnquiriesPage({ searchParams }: { searchParams: Pr
             const st = statusMeta(e.status);
             const related = e.property?.title ?? (e.vehicle ? `${e.vehicle.year} ${e.vehicle.make} ${e.vehicle.model}` : e.project?.name) ?? "—";
             return (
-              <tr key={e.id} className="hover:bg-[#fafaf8]">
+              <tr key={e.id} className="hover:bg-[#f8faf9]">
                 <Td>
-                  <Link href={`/admin/enquiries/${e.id}`} className="font-mono text-[12.5px] font-semibold text-navy underline-offset-2 hover:underline">
+                  <Link href={`/admin/enquiries/${e.id}`} className="font-mono text-[12.5px] font-semibold text-primary underline-offset-2 hover:underline">
                     {e.reference}
                   </Link>
                 </Td>
                 <Td>
-                  <span className="block font-medium text-navy">{e.name}</span>
+                  <span className="block font-medium text-primary">{e.name}</span>
                   <span className="block text-xs text-ink/50">{e.organisation || e.email}</span>
                 </Td>
                 <Td className="text-ink/70">{ENQUIRY_CATEGORIES[e.category].label}</Td>

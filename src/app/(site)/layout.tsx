@@ -15,7 +15,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
   const [site, pages] = await Promise.all([getSite(), legalPages()]);
   return (
     <>
-      <a href="#main" className="sr-only z-[100] bg-gold px-4 py-2 font-semibold text-navy focus:not-sr-only focus:fixed focus:top-3 focus:left-3">
+      <a href="#main" className="sr-only z-[100] bg-accent px-4 py-2 font-semibold text-primary focus:not-sr-only focus:fixed focus:top-3 focus:left-3">
         Skip to content
       </a>
       <SiteHeader companyName={site.companyName} logo={site.logo} logoInverse={site.logoInverse} phone={site.phone} email={site.email} />

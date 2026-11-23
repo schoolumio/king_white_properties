@@ -47,12 +47,12 @@ export default async function InsightsPage({ searchParams }: { searchParams: Pro
               <Link
                 key={t.v}
                 href={t.v ? `/insights?type=${t.v}` : "/insights"}
-                className={cn("border px-4 py-2 text-sm", (type ?? "") === t.v ? "border-navy bg-navy text-white" : "border-line text-ink/70 hover:border-navy")}
+                className={cn("border px-4 py-2 text-sm", (type ?? "") === t.v ? "border-primary bg-primary text-white" : "border-line text-ink/70 hover:border-primary")}
               >
                 {t.l}
               </Link>
             ))}
-            <Link href="/insights/publications" className="ml-auto border border-gold px-4 py-2 text-sm text-navy hover:bg-gold">
+            <Link href="/insights/publications" className="ml-auto border border-accent px-4 py-2 text-sm text-primary hover:bg-accent">
               Publications
             </Link>
           </nav>
@@ -64,12 +64,12 @@ export default async function InsightsPage({ searchParams }: { searchParams: Pro
               <>
                 {lead && page === 1 && (
                   <Link href={`/insights/${lead.slug}`} className="group grid gap-8 border-b border-line pb-14 lg:grid-cols-12">
-                    <Photo src={mediaUrl(lead.cover)} alt={lead.cover?.alt || lead.title} className="aspect-[16/10] bg-ivory-deep lg:col-span-7" tone="ivory" sizes="(min-width:1024px) 58vw, 100vw" priority fallbackLabel={ARTICLE_TYPE_LABELS[lead.type]} />
+                    <Photo src={mediaUrl(lead.cover)} alt={lead.cover?.alt || lead.title} className="aspect-[16/10] bg-surface-deep lg:col-span-7" tone="surface" sizes="(min-width:1024px) 58vw, 100vw" priority fallbackLabel={ARTICLE_TYPE_LABELS[lead.type]} />
                     <div className="lg:col-span-5 lg:pt-6">
-                      <p className="text-[11.5px] font-medium tracking-[0.14em] text-steel uppercase">
+                      <p className="text-[11.5px] font-medium tracking-[0.14em] text-muted uppercase">
                         {ARTICLE_TYPE_LABELS[lead.type]} · {formatDate(lead.publishedAt)}
                       </p>
-                      <h2 className="display-md mt-4 text-navy group-hover:text-gold-deep">{lead.title}</h2>
+                      <h2 className="display-md mt-4 text-primary group-hover:text-accent-deep">{lead.title}</h2>
                       <p className="mt-5 text-lg text-ink/65">{lead.excerpt}</p>
                       {lead.isDemo && <div className="mt-4"><DemoBadge /></div>}
                     </div>
@@ -78,11 +78,11 @@ export default async function InsightsPage({ searchParams }: { searchParams: Pro
                 <div className="mt-14 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
                   {(page === 1 ? rest : articles).map((a) => (
                     <Link key={a.id} href={`/insights/${a.slug}`} className="group block">
-                      <Photo src={mediaUrl(a.cover)} alt={a.cover?.alt || a.title} className="aspect-[16/10] bg-ivory-deep" tone="ivory" sizes="(min-width:1024px) 30vw, 100vw" fallbackLabel={ARTICLE_TYPE_LABELS[a.type]} />
-                      <p className="mt-5 text-[11.5px] font-medium tracking-[0.14em] text-steel uppercase">
+                      <Photo src={mediaUrl(a.cover)} alt={a.cover?.alt || a.title} className="aspect-[16/10] bg-surface-deep" tone="surface" sizes="(min-width:1024px) 30vw, 100vw" fallbackLabel={ARTICLE_TYPE_LABELS[a.type]} />
+                      <p className="mt-5 text-[11.5px] font-medium tracking-[0.14em] text-muted uppercase">
                         {ARTICLE_TYPE_LABELS[a.type]} · {formatDate(a.publishedAt, "short")}
                       </p>
-                      <h3 className="mt-2 font-display text-xl font-semibold text-navy group-hover:text-gold-deep">{a.title}</h3>
+                      <h3 className="mt-2 font-display text-xl font-semibold text-primary group-hover:text-accent-deep">{a.title}</h3>
                       <p className="mt-2 line-clamp-3 text-[15px] text-ink/60">{a.excerpt}</p>
                     </Link>
                   ))}

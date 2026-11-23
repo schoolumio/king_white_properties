@@ -66,7 +66,7 @@ function useFieldError(name: string) {
   return useContext(FieldErrors)[name];
 }
 
-const inputCls = "w-full border border-line bg-white px-3 text-[14px] text-ink outline-none focus:border-navy disabled:bg-slate-50";
+const inputCls = "w-full border border-line bg-white px-3 text-[14px] text-ink outline-none focus:border-primary disabled:bg-slate-50";
 
 export function Field({ label, name, help, children, className }: { label: string; name?: string; help?: string; children: React.ReactNode; className?: string }) {
   const err = useFieldError(name ?? "");
@@ -126,7 +126,7 @@ export function SelectInput({
 export function Checkbox({ label, name, defaultChecked, help, value = "true" }: { label: string; name: string; defaultChecked?: boolean; help?: string; value?: string }) {
   return (
     <label className="flex items-start gap-2.5 text-[13.5px] text-ink/80">
-      <input type="checkbox" name={name} value={value} defaultChecked={defaultChecked} className="mt-0.5 h-4 w-4 accent-[var(--brand-navy)]" />
+      <input type="checkbox" name={name} value={value} defaultChecked={defaultChecked} className="mt-0.5 h-4 w-4 accent-[var(--brand-primary)]" />
       <span>
         {label}
         {help && <span className="block text-xs text-ink/50">{help}</span>}
@@ -145,8 +145,8 @@ export function SubmitButton({ children, variant = "primary", className, name, v
       disabled={pending}
       className={cn(
         "inline-flex h-10 items-center justify-center gap-2 px-5 text-[13.5px] font-semibold disabled:opacity-60",
-        variant === "primary" && "bg-navy text-white hover:bg-navy-deep",
-        variant === "secondary" && "border border-line bg-white text-navy hover:border-navy",
+        variant === "primary" && "bg-primary text-white hover:bg-primary-deep",
+        variant === "secondary" && "border border-line bg-white text-primary hover:border-primary",
         variant === "danger" && "border border-rose-200 bg-white text-rose-700 hover:bg-rose-50",
         className,
       )}
@@ -171,7 +171,7 @@ export function ConfirmSubmit({ children, message, variant = "danger", name, val
       }}
       className={cn(
         "inline-flex h-10 items-center justify-center gap-2 px-4 text-[13.5px] font-semibold disabled:opacity-60",
-        variant === "danger" ? "border border-rose-200 bg-white text-rose-700 hover:bg-rose-50" : variant === "primary" ? "bg-navy text-white" : "border border-line bg-white text-navy",
+        variant === "danger" ? "border border-rose-200 bg-white text-rose-700 hover:bg-rose-50" : variant === "primary" ? "bg-primary text-white" : "border border-line bg-white text-primary",
       )}
     >
       {pending && <Loader2 className="h-4 w-4 animate-spin" />}
@@ -184,7 +184,7 @@ export function FormSection({ title, description, children }: { title: string; d
   return (
     <section className="border border-line bg-white">
       <div className="border-b border-line px-5 py-4">
-        <h2 className="font-display text-[15px] font-semibold text-navy">{title}</h2>
+        <h2 className="font-display text-[15px] font-semibold text-primary">{title}</h2>
         {description && <p className="mt-0.5 text-[13px] text-ink/55">{description}</p>}
       </div>
       <div className="grid gap-5 p-5 sm:grid-cols-2">{children}</div>

@@ -99,30 +99,30 @@ export function EnquiryForm({ formType, fields, defaults = {}, submitLabel = "Su
     });
   });
 
-  const labelCls = cn("mb-2 block font-display text-[12px] font-semibold tracking-[0.12em] uppercase", dark ? "text-white/70" : "text-navy/75");
+  const labelCls = cn("mb-2 block font-display text-[12px] font-semibold tracking-[0.12em] uppercase", dark ? "text-white/70" : "text-primary/75");
   const inputCls = (hasError: boolean) =>
     cn(
       "w-full border-0 border-b bg-transparent px-0 py-3 text-[15.5px] transition-colors outline-none focus:ring-0",
-      dark ? "border-white/25 text-white placeholder:text-white/30 focus:border-gold-soft" : "border-navy/20 text-ink placeholder:text-ink/35 focus:border-navy",
+      dark ? "border-white/25 text-white placeholder:text-white/30 focus:border-accent-soft" : "border-primary/20 text-ink placeholder:text-ink/35 focus:border-primary",
       hasError && (dark ? "border-rose-300" : "border-rose-600"),
     );
 
   if (reference) {
     return (
-      <div role="status" aria-live="polite" className={cn("border p-8 sm:p-12", dark ? "border-white/15 bg-white/[0.03] text-white" : "border-line bg-white text-navy")}>
-        <CheckCircle2 className={cn("h-10 w-10", dark ? "text-gold-soft" : "text-gold-deep")} strokeWidth={1.3} aria-hidden />
+      <div role="status" aria-live="polite" className={cn("border p-8 sm:p-12", dark ? "border-white/15 bg-white/[0.03] text-white" : "border-line bg-white text-primary")}>
+        <CheckCircle2 className={cn("h-10 w-10", dark ? "text-accent-soft" : "text-accent-deep")} strokeWidth={1.3} aria-hidden />
         <h3 className="mt-6 font-display text-2xl font-semibold">{successTitle ?? "Thank you. Your submission has been received."}</h3>
         <p className={cn("mt-3 max-w-lg leading-relaxed", dark ? "text-white/65" : "text-ink/65")}>
           {successMessage ?? "It has been recorded securely and routed to the appropriate team. Please keep your reference number for future correspondence."}
         </p>
-        <div className={cn("mt-8 inline-flex flex-col border-l-2 pl-5", dark ? "border-gold-soft" : "border-gold")}>
-          <span className={cn("text-[11px] font-semibold tracking-[0.2em] uppercase", dark ? "text-white/50" : "text-steel")}>Reference number</span>
+        <div className={cn("mt-8 inline-flex flex-col border-l-2 pl-5", dark ? "border-accent-soft" : "border-accent")}>
+          <span className={cn("text-[11px] font-semibold tracking-[0.2em] uppercase", dark ? "text-white/50" : "text-muted")}>Reference number</span>
           <span className="mt-1 font-display text-2xl font-semibold tracking-wider" data-testid="enquiry-reference">
             {reference}
           </span>
         </div>
         <div className="mt-10">
-          <button type="button" onClick={() => setReference(null)} className={cn("text-sm font-semibold underline underline-offset-4", dark ? "text-white" : "text-navy")}>
+          <button type="button" onClick={() => setReference(null)} className={cn("text-sm font-semibold underline underline-offset-4", dark ? "text-white" : "text-primary")}>
             Submit another enquiry
           </button>
         </div>
@@ -153,7 +153,7 @@ export function EnquiryForm({ formType, fields, defaults = {}, submitLabel = "Su
                   htmlFor={id}
                   className={cn(
                     "flex cursor-pointer items-center gap-4 border border-dashed px-5 py-5 transition-colors",
-                    dark ? "border-white/25 hover:border-gold-soft" : "border-navy/25 hover:border-navy",
+                    dark ? "border-white/25 hover:border-accent-soft" : "border-primary/25 hover:border-primary",
                   )}
                 >
                   <Paperclip className="h-5 w-5 shrink-0 opacity-60" aria-hidden />
@@ -197,8 +197,8 @@ export function EnquiryForm({ formType, fields, defaults = {}, submitLabel = "Su
                         className={cn(
                           "inline-block border px-4 py-2.5 text-[13.5px] transition-colors",
                           dark
-                            ? "border-white/20 text-white/75 peer-checked:border-gold-soft peer-checked:bg-gold-soft peer-checked:text-navy peer-focus-visible:outline-2 peer-focus-visible:outline-gold"
-                            : "border-navy/20 text-ink/75 peer-checked:border-navy peer-checked:bg-navy peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-gold",
+                            ? "border-white/20 text-white/75 peer-checked:border-accent-soft peer-checked:bg-accent-soft peer-checked:text-primary peer-focus-visible:outline-2 peer-focus-visible:outline-accent"
+                            : "border-primary/20 text-ink/75 peer-checked:border-primary peer-checked:bg-primary peer-checked:text-white peer-focus-visible:outline-2 peer-focus-visible:outline-accent",
                         )}
                       >
                         {o.label}
@@ -252,7 +252,7 @@ export function EnquiryForm({ formType, fields, defaults = {}, submitLabel = "Su
 
         <div className="sm:col-span-2">
           <label className="flex cursor-pointer items-start gap-3">
-            <input type="checkbox" className={cn("mt-1 h-4 w-4 shrink-0", dark ? "accent-[var(--brand-gold)]" : "accent-[var(--brand-navy)]")} {...register("consent")} />
+            <input type="checkbox" className={cn("mt-1 h-4 w-4 shrink-0", dark ? "accent-[var(--brand-accent)]" : "accent-[var(--brand-primary)]")} {...register("consent")} />
             <span className={cn("text-[13.5px] leading-relaxed", dark ? "text-white/65" : "text-ink/65")}>
               I consent to my information being processed to respond to this submission, in line with the{" "}
               <Link href="/legal/privacy-policy" className="underline underline-offset-2" target="_blank">
@@ -278,7 +278,7 @@ export function EnquiryForm({ formType, fields, defaults = {}, submitLabel = "Su
           disabled={pending}
           className={cn(
             "inline-flex h-14 items-center justify-center gap-3 px-8 font-display text-[15px] font-semibold tracking-wide transition-colors disabled:opacity-60",
-            dark ? "bg-gold text-navy hover:bg-gold-soft" : "bg-navy text-white hover:bg-navy-deep",
+            dark ? "bg-accent text-primary hover:bg-accent-soft" : "bg-primary text-white hover:bg-primary-deep",
           )}
         >
           {pending && <Loader2 className="h-4 w-4 animate-spin" aria-hidden />}

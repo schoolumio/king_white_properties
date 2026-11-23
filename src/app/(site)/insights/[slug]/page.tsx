@@ -48,7 +48,7 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
           mainEntityOfPage: absoluteUrl(`/insights/${a.slug}`),
         }}
       />
-      <header className="bg-navy pt-32 pb-16 text-white sm:pt-40 sm:pb-20">
+      <header className="bg-primary pt-32 pb-16 text-white sm:pt-40 sm:pb-20">
         <div className="shell max-w-4xl">
           <Breadcrumbs items={[{ label: "Insights", href: "/insights" }, { label: a.title }]} />
           <p className="eyebrow eyebrow-light mt-10">{ARTICLE_TYPE_LABELS[a.type]}</p>
@@ -73,15 +73,15 @@ export default async function ArticlePage({ params }: { params: Promise<{ slug: 
         </div>
       </div>
       {related.length > 0 && (
-        <section className="bg-ivory py-16">
+        <section className="bg-surface py-16">
           <div className="shell">
             <h2 className="eyebrow">Related</h2>
             <ul className="mt-8 grid gap-8 md:grid-cols-3">
               {related.map((r) => (
                 <li key={r.id}>
-                  <Link href={`/insights/${r.slug}`} className="group block border-t border-navy pt-5">
-                    <p className="text-xs tracking-wide text-steel uppercase">{formatDate(r.publishedAt, "short")}</p>
-                    <h3 className="mt-2 font-display text-lg font-semibold text-navy group-hover:text-gold-deep">{r.title}</h3>
+                  <Link href={`/insights/${r.slug}`} className="group block border-t border-primary pt-5">
+                    <p className="text-xs tracking-wide text-muted uppercase">{formatDate(r.publishedAt, "short")}</p>
+                    <h3 className="mt-2 font-display text-lg font-semibold text-primary group-hover:text-accent-deep">{r.title}</h3>
                   </Link>
                 </li>
               ))}

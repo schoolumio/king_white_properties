@@ -50,11 +50,11 @@ export default async function AdminVehicles({ searchParams }: { searchParams: Pr
           </tr>
         </thead>
         <tbody>
-          {rows.length === 0 && <EmptyRow colSpan={9}>No vehicles yet. <Link className="text-navy underline" href="/admin/vehicles/new">Add the first vehicle</Link>.</EmptyRow>}
+          {rows.length === 0 && <EmptyRow colSpan={9}>No vehicles yet. <Link className="text-primary underline" href="/admin/vehicles/new">Add the first vehicle</Link>.</EmptyRow>}
           {rows.map((x) => (
-            <tr key={x.id} className="hover:bg-[#fafaf8]">
+            <tr key={x.id} className="hover:bg-[#f8faf9]">
               <Td>
-                <Link href={`/admin/vehicles/${x.id}`} className="font-medium text-navy hover:underline">
+                <Link href={`/admin/vehicles/${x.id}`} className="font-medium text-primary hover:underline">
                   {x.year} {x.make} {x.model}
                 </Link>
                 <span className="block text-xs text-ink/50">

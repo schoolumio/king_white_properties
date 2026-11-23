@@ -85,7 +85,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
           ...(p.price && !p.priceOnRequest ? { offers: { "@type": "Offer", price: p.price.toString(), priceCurrency: p.currency } } : {}),
         }}
       />
-      <div className="bg-navy pt-28 pb-6 sm:pt-32">
+      <div className="bg-primary pt-28 pb-6 sm:pt-32">
         <div className="shell">
           <Breadcrumbs items={[{ label: "Real Estate", href: "/real-estate" }, { label: "Properties", href: "/real-estate/properties" }, { label: p.title }]} />
         </div>
@@ -96,20 +96,20 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
           <div className="flex flex-col justify-between gap-6 border-b border-line pb-8 lg:flex-row lg:items-end">
             <div>
               <div className="flex flex-wrap items-center gap-2">
-                <span className="bg-navy px-2.5 py-1 font-display text-[10.5px] font-semibold tracking-[0.14em] text-white uppercase">{LISTING_LABELS[p.listingType]}</span>
-                <span className="bg-ivory px-2.5 py-1 font-display text-[10.5px] font-semibold tracking-[0.14em] text-navy uppercase">{PROPERTY_STATUS_LABELS[p.status]}</span>
+                <span className="bg-primary px-2.5 py-1 font-display text-[10.5px] font-semibold tracking-[0.14em] text-white uppercase">{LISTING_LABELS[p.listingType]}</span>
+                <span className="bg-surface px-2.5 py-1 font-display text-[10.5px] font-semibold tracking-[0.14em] text-primary uppercase">{PROPERTY_STATUS_LABELS[p.status]}</span>
                 {p.isDemo && <DemoBadge />}
               </div>
-              <h1 className="display-md mt-5 text-navy">{p.title}</h1>
+              <h1 className="display-md mt-5 text-primary">{p.title}</h1>
               {loc && (
                 <p className="mt-3 flex items-center gap-2 text-ink/60">
-                  <MapPin className="h-4 w-4 text-gold-deep" aria-hidden /> {loc}
+                  <MapPin className="h-4 w-4 text-accent-deep" aria-hidden /> {loc}
                 </p>
               )}
             </div>
             <div className="lg:text-right">
-              <p className="text-[11px] tracking-[0.2em] text-steel uppercase">{p.listingType === "LEASE" ? "Rent" : "Price"}</p>
-              <p className="mt-1 font-display text-3xl font-semibold text-navy">{formatPrice(p)}</p>
+              <p className="text-[11px] tracking-[0.2em] text-muted uppercase">{p.listingType === "LEASE" ? "Rent" : "Price"}</p>
+              <p className="mt-1 font-display text-3xl font-semibold text-primary">{formatPrice(p)}</p>
               {p.availabilityVerifiedAt && (
                 <p className="mt-2 inline-flex items-center gap-1.5 text-xs text-emerald-700">
                   <BadgeCheck className="h-4 w-4" aria-hidden /> Availability verified {formatDate(p.availabilityVerifiedAt, "short")}
@@ -124,7 +124,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
               <div className="mt-14">
                 <h2 className="eyebrow">Description</h2>
-                <p className="mt-6 font-serif text-xl leading-relaxed text-navy/85 italic">{p.summary}</p>
+                <p className="mt-6 font-serif text-xl leading-relaxed text-primary/85 italic">{p.summary}</p>
                 <Markdown className="mt-6">{p.description}</Markdown>
               </div>
 
@@ -134,7 +134,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                   {[...facts, ...specs.map((s) => [s.label, s.value] as [string, string])].map(([k, val]) => (
                     <div key={k} className="flex justify-between gap-6 border-b border-line py-3.5 text-[15px]">
                       <dt className="text-ink/55">{k}</dt>
-                      <dd className="text-right font-medium text-navy">{val}</dd>
+                      <dd className="text-right font-medium text-primary">{val}</dd>
                     </div>
                   ))}
                 </dl>
@@ -152,7 +152,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                         <ul className="mt-6 space-y-3">
                           {(list as string[]).map((f) => (
                             <li key={f} className="flex items-center gap-3 text-ink/80">
-                              <span className="h-px w-4 bg-gold" aria-hidden /> {f}
+                              <span className="h-px w-4 bg-accent" aria-hidden /> {f}
                             </li>
                           ))}
                         </ul>
@@ -182,15 +182,15 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             <aside className="lg:col-span-4">
               <div className="space-y-6 lg:sticky lg:top-28">
                 {p.documents.length > 0 && (
-                  <div className="bg-ivory p-6">
-                    <h2 className="font-display text-sm font-semibold tracking-[0.16em] text-navy uppercase">Brochures & documents</h2>
+                  <div className="bg-surface p-6">
+                    <h2 className="font-display text-sm font-semibold tracking-[0.16em] text-primary uppercase">Brochures & documents</h2>
                     <ul className="mt-4 divide-y divide-line">
                       {p.documents.map((d) => (
                         <li key={d.id}>
                           <a href={downloadUrl(d.media)} className="group flex items-center gap-3 py-3">
-                            <FileText className="h-4 w-4 text-gold-deep" aria-hidden />
-                            <span className="flex-1 text-[15px] text-navy group-hover:underline">{d.title}</span>
-                            <Download className="h-4 w-4 text-navy/40" aria-hidden />
+                            <FileText className="h-4 w-4 text-accent-deep" aria-hidden />
+                            <span className="flex-1 text-[15px] text-primary group-hover:underline">{d.title}</span>
+                            <Download className="h-4 w-4 text-primary/40" aria-hidden />
                           </a>
                         </li>
                       ))}
@@ -198,15 +198,15 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                   </div>
                 )}
                 {p.development && (
-                  <Link href={`/real-estate/developments/${p.development.slug}`} className="block border border-line p-6 hover:border-navy">
-                    <span className="text-[11px] tracking-[0.2em] text-steel uppercase">Part of the development</span>
-                    <span className="mt-1 block font-display text-lg font-semibold text-navy">{p.development.name}</span>
+                  <Link href={`/real-estate/developments/${p.development.slug}`} className="block border border-line p-6 hover:border-primary">
+                    <span className="text-[11px] tracking-[0.2em] text-muted uppercase">Part of the development</span>
+                    <span className="mt-1 block font-display text-lg font-semibold text-primary">{p.development.name}</span>
                   </Link>
                 )}
-                <div className="border-t-2 border-navy pt-6">
+                <div className="border-t-2 border-primary pt-6">
                   <p className="text-sm text-ink/60">Reference listing</p>
-                  <p className="font-display font-semibold text-navy">{p.title}</p>
-                  <a href="#enquire" className="mt-5 flex h-12 items-center justify-center bg-navy font-display text-sm font-semibold text-white hover:bg-navy-deep">
+                  <p className="font-display font-semibold text-primary">{p.title}</p>
+                  <a href="#enquire" className="mt-5 flex h-12 items-center justify-center bg-primary font-display text-sm font-semibold text-white hover:bg-primary-deep">
                     {enquirable ? "Enquire or book an inspection" : "Contact our team"}
                   </a>
                 </div>
@@ -216,11 +216,11 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
-      <section id="enquire" className="bg-ivory py-20 sm:py-28">
+      <section id="enquire" className="bg-surface py-20 sm:py-28">
         <div className="shell grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
             <p className="eyebrow">Next steps</p>
-            <h2 className="display-md mt-6 text-navy">Enquire about this property.</h2>
+            <h2 className="display-md mt-6 text-primary">Enquire about this property.</h2>
             <p className="mt-5 text-ink/60">Send a question or request a viewing. A relationship officer will confirm availability and arrangements.</p>
           </div>
           <div className="bg-white p-6 sm:p-10 lg:col-span-8">
@@ -234,7 +234,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
               />
             ) : (
               <p className="text-ink/70">
-                This property is no longer available. <Link href="/contact?topic=property" className="text-navy underline">Contact our team</Link> for similar options.
+                This property is no longer available. <Link href="/contact?topic=property" className="text-primary underline">Contact our team</Link> for similar options.
               </p>
             )}
           </div>
@@ -244,7 +244,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
       {similar.length > 0 && (
         <section className="bg-white py-20 sm:py-28">
           <div className="shell">
-            <h2 className="display-md text-navy">Similar properties</h2>
+            <h2 className="display-md text-primary">Similar properties</h2>
             <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {similar.map((s) => (
                 <PropertyCard key={s.id} property={s} />

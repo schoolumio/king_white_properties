@@ -23,7 +23,7 @@ export default async function EditArticle({ params, searchParams }: { params: Pr
           <>
             <PublishPill status={a.publishStatus} />
             {a.publishStatus === "PUBLISHED" && (
-              <Link href={`/insights/${a.slug}`} target="_blank" className="text-[13px] text-navy underline">
+              <Link href={`/insights/${a.slug}`} target="_blank" className="text-[13px] text-primary underline">
                 View
               </Link>
             )}

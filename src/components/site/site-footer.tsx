@@ -9,14 +9,14 @@ export function SiteFooter({ site, legalPages }: { site: SiteContent; legalPages
   const socials = Object.entries(site.socials ?? {}).filter(([, url]) => url);
   const year = new Date().getFullYear();
   return (
-    <footer className="relative overflow-hidden bg-navy-deep text-white">
+    <footer className="relative overflow-hidden bg-primary-deep text-white">
       <div className="grain pointer-events-none absolute inset-0 opacity-40" aria-hidden />
       <div className="shell relative">
         <div className="grid gap-14 border-b border-white/10 py-16 lg:grid-cols-12 lg:py-24">
           <div className="lg:col-span-4">
             <Logo companyName={site.companyName} logo={site.logoInverse || site.logo} light />
             <p className="mt-8 max-w-sm text-[15px] leading-relaxed text-white/55">{site.description}</p>
-            <p className="mt-8 font-serif text-lg text-gold-soft italic">{site.tagline}</p>
+            <p className="mt-8 font-serif text-lg text-accent-soft italic">{site.tagline}</p>
           </div>
 
           <div className="grid gap-10 sm:grid-cols-3 lg:col-span-5">
@@ -54,7 +54,7 @@ export function SiteFooter({ site, legalPages }: { site: SiteContent; legalPages
           </div>
 
           <div className="lg:col-span-3">
-            <h2 className="font-display text-[11px] font-semibold tracking-[0.28em] text-gold-soft uppercase">Head Office</h2>
+            <h2 className="font-display text-[11px] font-semibold tracking-[0.28em] text-accent-soft uppercase">Head Office</h2>
             <address className="mt-6 space-y-4 text-[15px] leading-relaxed text-white/70 not-italic">
               {site.address ? <p className="whitespace-pre-line">{site.address}</p> : <p className="text-white/40">Office address to be published.</p>}
               {site.phone && (
@@ -85,7 +85,7 @@ export function SiteFooter({ site, legalPages }: { site: SiteContent; legalPages
               <ul className="mt-8 flex flex-wrap gap-x-5 gap-y-2">
                 {socials.map(([key, url]) => (
                   <li key={key}>
-                    <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-white/60 hover:text-gold-soft">
+                    <a href={url} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-sm text-white/60 hover:text-accent-soft">
                       {SOCIAL_LABELS[key] ?? key}
                       <ArrowUpRight className="h-3.5 w-3.5" aria-hidden />
                     </a>
@@ -124,7 +124,7 @@ export function SiteFooter({ site, legalPages }: { site: SiteContent; legalPages
 function FooterColumn({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
-      <h2 className="font-display text-[11px] font-semibold tracking-[0.28em] text-gold-soft uppercase">{title}</h2>
+      <h2 className="font-display text-[11px] font-semibold tracking-[0.28em] text-accent-soft uppercase">{title}</h2>
       <ul className="mt-6 space-y-3">
         {links.map((l) => (
           <li key={l.href + l.label}>

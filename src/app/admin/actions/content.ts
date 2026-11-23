@@ -51,7 +51,7 @@ function sanitize(fields: FieldDef[], input: any, errors: string[], path = ""): 
       }
       case "color": {
         const s = cleanString(v, 7).trim();
-        if (!/^#[0-9a-fA-F]{6}$/.test(s)) errors.push(`${label}: use a 6-digit hex colour such as #101D32`);
+        if (!/^#[0-9a-fA-F]{6}$/.test(s)) errors.push(`${label}: use a 6-digit hex colour such as #0F3D2E`);
         out[f.name] = s;
         break;
       }

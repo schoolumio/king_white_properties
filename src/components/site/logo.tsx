@@ -28,17 +28,17 @@ export function Logo({
           <span
             className={cn(
               "relative grid h-10 w-10 shrink-0 place-items-center border font-display text-[13px] font-bold tracking-[0.08em] transition-colors",
-              light ? "border-white/40 text-white group-hover:border-gold-soft" : "border-navy/30 text-navy group-hover:border-gold",
+              light ? "border-white/40 text-white group-hover:border-accent-soft" : "border-primary/30 text-primary group-hover:border-accent",
             )}
           >
             {initials(companyName)}
-            <span className={cn("absolute -right-px -bottom-px h-2 w-2", "bg-gold")} />
+            <span className={cn("absolute -right-px -bottom-px h-2 w-2", "bg-accent")} />
           </span>
           <span className="flex flex-col leading-none">
-            <span className={cn("font-display text-[13px] font-bold tracking-[0.22em] uppercase", light ? "text-white" : "text-navy")}>
+            <span className={cn("font-display text-[13px] font-bold tracking-[0.22em] uppercase", light ? "text-white" : "text-primary")}>
               {companyName}
             </span>
-            <span className={cn("mt-1.5 text-[9.5px] font-medium tracking-[0.3em] uppercase", light ? "text-white/50" : "text-steel")}>
+            <span className={cn("mt-1.5 text-[9.5px] font-medium tracking-[0.3em] uppercase", light ? "text-white/50" : "text-muted")}>
               Real Estate · Automotive
             </span>
           </span>
