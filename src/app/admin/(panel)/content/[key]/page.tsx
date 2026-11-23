@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { requireUser } from "@/lib/auth";
 import { getContent } from "@/lib/content";
 import { getSectionDef } from "@/lib/content-schema";
-import { PageHeader } from "@/components/admin/ui";
+import { Notice, PageHeader } from "@/components/admin/ui";
 import { ActionForm, ConfirmSubmit } from "@/components/admin/form";
 import { ContentEditor } from "@/components/admin/content-editor";
 import { resetContent } from "@/app/admin/actions/content";
@@ -30,6 +30,9 @@ export default async function EditContent({ params }: { params: Promise<{ key: s
           </ActionForm>
         }
       />
+      {def.fields.some((f) => f.type === "image" || f.type === "group") && (
+        <Notice tone="warning">Default images (images.unsplash.com) are placeholder stock photography. Replace them with licensed company photography before launch.</Notice>
+      )}
       <div className="max-w-4xl">
         <ContentEditor sectionKey={key} fields={def.fields} initial={value} />
       </div>

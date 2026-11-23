@@ -43,7 +43,7 @@ for (const p of ["/", "/about", "/about/governance", "/real-estate", "/real-esta
 }
 
 async function submit(formPath, fill, label) {
-  await page.goto(BASE + formPath, { waitUntil: "networkidle" });
+  await page.goto(BASE + formPath, { waitUntil: "load" });
   await page.waitForTimeout(2800); // minimum completion time (spam protection)
   await fill();
   await page.getByRole("button", { name: /submit|send/i }).last().click();
@@ -59,7 +59,7 @@ async function submit(formPath, fill, label) {
 
 console.log("Forms");
 // Client-side validation blocks empty submission
-await page.goto(BASE + "/contact", { waitUntil: "networkidle" });
+await page.goto(BASE + "/contact", { waitUntil: "load" });
 await page.getByRole("button", { name: /send message/i }).click();
 (await page.getByText("Full name is required").count()) ? ok("validation messages shown") : fail("validation messages missing");
 
@@ -138,7 +138,7 @@ if (!ADMIN_EMAIL || !ADMIN_PASSWORD) {
     if (await link.count()) {
       ok("enquiry visible in CRM");
       await link.click();
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("load");
       await page.waitForTimeout(1000); // allow hydration
       await page.selectOption("select[name=status]", "CONTACTED");
       await page.locator("form", { has: page.locator("select[name=status]") }).getByRole("button", { name: "Update" }).click();

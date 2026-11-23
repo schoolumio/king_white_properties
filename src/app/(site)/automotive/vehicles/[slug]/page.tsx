@@ -167,16 +167,20 @@ export default async function VehiclePage({ params }: { params: Promise<{ slug: 
             )}
           </div>
           <aside className="lg:col-span-4 lg:col-start-9">
-            <h2 className="eyebrow">Specifications</h2>
-            <dl className="mt-6 border-t-2 border-navy">
-              {detailed.map(([k, val]) => (
-                <div key={k} className="flex justify-between gap-6 border-b border-line py-3.5 text-[15px]">
-                  <dt className="text-ink/55">{k}</dt>
-                  <dd className="text-right font-medium text-navy">{val}</dd>
-                </div>
-              ))}
-            </dl>
-            <div className="mt-10 bg-ivory p-6">
+            {detailed.length > 0 && (
+              <>
+                <h2 className="eyebrow">Specifications</h2>
+                <dl className="mt-6 mb-10 border-t-2 border-navy">
+                  {detailed.map(([k, val]) => (
+                    <div key={k} className="flex justify-between gap-6 border-b border-line py-3.5 text-[15px]">
+                      <dt className="text-ink/55">{k}</dt>
+                      <dd className="text-right font-medium text-navy">{val}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </>
+            )}
+            <div className="bg-ivory p-6">
               <h3 className="flex items-center gap-2 font-display font-semibold text-navy">
                 <ShieldCheck className="h-5 w-5 text-gold-deep" aria-hidden /> Inspection information
               </h3>

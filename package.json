@@ -15,7 +15,8 @@
     "db:seed:demo": "tsx prisma/seed-demo.ts",
     "db:studio": "prisma studio",
     "test:smoke": "node scripts/smoke-test.mjs",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
