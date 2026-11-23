@@ -10,6 +10,9 @@
  */
 import { PrismaClient, type Prisma } from "@prisma/client";
 
+import { ensureDatabaseUrl } from "../src/lib/database-url";
+
+ensureDatabaseUrl();
 const db = new PrismaClient();
 
 if (process.env.NODE_ENV === "production" && process.env.ALLOW_DEMO_SEED !== "true") {

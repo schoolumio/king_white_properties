@@ -159,7 +159,7 @@ See `.env.example` for the full list.
 
 | Variable | Required | Notes |
 | --- | --- | --- |
-| `DATABASE_URL` | Yes | PostgreSQL connection string |
+| `DATABASE_URL` | Yes* | PostgreSQL connection string. *Not needed when a Vercel database integration (Prisma Postgres, Neon) injects `POSTGRES_URL` / `DATABASE_URL_POOLED` — these are detected automatically. |
 | `DIRECT_URL` | Optional | Non-pooled URL used only for migrations when `DATABASE_URL` points at a connection pooler |
 | `NEXT_PUBLIC_SITE_URL` | Yes | Canonical base URL, sitemap, email links |
 | `APP_SECRET` | Yes | Long random string (`openssl rand -hex 32`) — salts hashed IPs used for rate limiting |

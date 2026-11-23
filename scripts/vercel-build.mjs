@@ -12,16 +12,24 @@ const run = (cmd, env = process.env) => execSync(cmd, { stdio: "inherit", env })
 
 run("npx prisma generate");
 
-if (process.env.DATABASE_URL) {
-  const env = { ...process.env, DATABASE_URL: process.env.DIRECT_URL || process.env.DATABASE_URL };
+// Accept the variable names injected by Vercel database integrations (e.g. Prisma Postgres).
+const isPg = (v) => v && /^postgres(ql)?:\/\//.test(v);
+const pick = (...names) => names.map((n) => process.env[n]).find(isPg);
+const runtimeUrl = pick("DATABASE_URL", "DATABASE_URL_POOLED", "POSTGRES_PRISMA_URL", "POSTGRES_URL");
+const migrateUrl = pick("DIRECT_URL", "POSTGRES_URL_NON_POOLING", "POSTGRES_URL", "DATABASE_URL", "DATABASE_URL_POOLED");
+if (runtimeUrl && !process.env.DATABASE_URL) process.env.DATABASE_URL = runtimeUrl;
+
+if (runtimeUrl) {
+  console.log("✓ Database connection found");
+  const env = { ...process.env, DATABASE_URL: migrateUrl || runtimeUrl };
   run("npx prisma migrate deploy", env);
   // Idempotent base seed: roles, permissions, divisions, taxonomies, legal templates and —
   // only when no users exist — the first Super Admin from SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD.
   // Never creates demo or business records.
-  run("npx tsx prisma/seed.ts");
+  run("npx tsx prisma/seed.ts", env);
 } else {
   console.warn(
-    "\n⚠  DATABASE_URL is not set — skipping database migrations.\n" +
+    "\n⚠  No database connection found (DATABASE_URL / POSTGRES_URL) — skipping database migrations.\n" +
       "   The site will build, but it cannot store enquiries or show listings until DATABASE_URL is configured\n" +
       "   in Vercel → Project → Settings → Environment Variables, followed by a redeploy.\n",
   );

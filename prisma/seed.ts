@@ -9,6 +9,9 @@ import { PrismaClient, type PropertySector } from "@prisma/client";
 import bcrypt from "bcryptjs";
 import { PERMISSIONS, DEFAULT_ROLES } from "../src/lib/permissions";
 
+import { ensureDatabaseUrl } from "../src/lib/database-url";
+
+ensureDatabaseUrl();
 const db = new PrismaClient();
 
 const PROPERTY_TYPES: { name: string; sector: PropertySector }[] = [
