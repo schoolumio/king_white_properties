@@ -146,15 +146,19 @@ function ImageField({ field, value, onChange }: { field: FieldDef; value: string
   const [error, setError] = useState<string | null>(null);
   async function upload(file?: File) {
     if (!file) return;
-    setBusy(true);
     setError(null);
+    if (file.size > 4 * 1024 * 1024) {
+      setError("Image is larger than 4 MB — please compress it and try again.");
+      return;
+    }
+    setBusy(true);
     try {
       const fd = new FormData();
       fd.append("file", file);
       fd.append("folder", "brand");
       fd.append("kind", "image");
       const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
-      const json = await res.json();
+      const json = await res.json().catch(() => ({ error: `Upload failed (${res.status}).` }));
       if (!res.ok) throw new Error(json.error);
       onChange(json.url);
     } catch (e) {

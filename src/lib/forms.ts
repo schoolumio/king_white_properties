@@ -206,4 +206,4 @@ export const PARTNERSHIP_DOCUMENT_TYPES = [
   "application/vnd.ms-powerpoint",
   "application/vnd.openxmlformats-officedocument.presentationml.presentation",
 ];
-export const PARTNERSHIP_DOCUMENT_MAX = 10 * 1024 * 1024;
+export const PARTNERSHIP_DOCUMENT_MAX = 4 * 1024 * 1024;

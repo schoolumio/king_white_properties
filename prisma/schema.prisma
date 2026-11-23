@@ -157,10 +157,18 @@ model MediaAsset {
   publicationCovers  Publication[]       @relation("PublicationCover")
   leadershipPhotos   LeadershipProfile[]
   enquiryAttachments EnquiryAttachment[]
+  blob               MediaBlob?
 
   @@index([folder])
   @@index([visibility])
   @@index([storageKey])
+}
+
+/// File contents for the "database" storage driver (zero-configuration fallback on serverless hosts).
+model MediaBlob {
+  mediaId String     @id
+  media   MediaAsset @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  data    Bytes
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

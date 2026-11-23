@@ -164,7 +164,8 @@ See `.env.example` for the full list.
 | `NEXT_PUBLIC_SITE_URL` | Yes | Canonical base URL, sitemap, email links |
 | `APP_SECRET` | Yes | Long random string (`openssl rand -hex 32`) — salts hashed IPs used for rate limiting |
 | `SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD`, `SEED_ADMIN_NAME` | First run | Creates the first Super Admin when no users exist |
-| `STORAGE_DRIVER` | Yes | `local` (dev / single VM) or `cloudinary` |
+| `STORAGE_DRIVER` | Optional | `database` (default on Vercel — files stored in PostgreSQL, no extra account), `local` (default in development) or `cloudinary` (recommended once the media library grows) |
+| `SEED_DEMO_DATA` | Optional | `true` loads clearly labelled sample listings during the Vercel build for client review; remove them in Admin → Settings before launch |
 | `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `CLOUDINARY_FOLDER` | Production | Private files are uploaded as `authenticated` assets and streamed only via `/api/files/[id]` |
 | `EMAIL_PROVIDER` | Yes | `log` (record only) or `resend` |
 | `RESEND_API_KEY`, `EMAIL_FROM` | For delivery | `EMAIL_FROM` must use a domain verified in Resend |
@@ -191,11 +192,11 @@ See `.env.example` for the full list.
 
 1. Create a PostgreSQL database (Neon, Supabase, Vercel Postgres, RDS…). Set `DATABASE_URL` (and optionally `DIRECT_URL` if `DATABASE_URL` is a pooled connection).
 2. Import the repository into Vercel. The `vercel-build` script (`scripts/vercel-build.mjs`) generates the Prisma client, applies migrations when `DATABASE_URL` is set, then builds. Without a database the build still succeeds, but the site cannot store enquiries or show listings until `DATABASE_URL` is added and the project is redeployed.
-3. Set all environment variables above. **`STORAGE_DRIVER` must be `cloudinary`** on Vercel (the filesystem is ephemeral).
+3. Set the environment variables above. File uploads work out of the box on Vercel (stored in the database); switch to `STORAGE_DRIVER=cloudinary` later for faster image delivery.
 4. The build runs the base seed automatically. Set `SEED_ADMIN_EMAIL` and `SEED_ADMIN_PASSWORD` (12+ characters) before the first deploy so the first Super Admin is created; change that password after signing in.
 5. Configure the custom domain and update `NEXT_PUBLIC_SITE_URL`.
 
-Note: Vercel limits request bodies to ~4.5 MB. Uploads are sent one file per request; keep images under that size (or move to direct-to-Cloudinary signed uploads if larger files are required).
+Note: Vercel limits request bodies to ~4.5 MB, so uploads are capped at 4 MB per file (images, brochures and partnership documents).
 
 **Self-hosted:** `npm ci && npx prisma migrate deploy && npm run build && npm start` behind a TLS reverse proxy. `STORAGE_DRIVER=local` is acceptable on a single persistent server (back up `./storage`).
 

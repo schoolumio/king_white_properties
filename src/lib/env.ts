@@ -7,7 +7,8 @@ export const env = {
   appSecret: process.env.APP_SECRET || "development-only-secret",
   isProduction: process.env.NODE_ENV === "production",
   storage: {
-    driver: (process.env.STORAGE_DRIVER || "local") as "local" | "cloudinary",
+    // Default: local disk in development; the database on Vercel (read-only filesystem).
+    driver: (process.env.STORAGE_DRIVER || (process.env.VERCEL ? "database" : "local")) as "local" | "cloudinary" | "database",
     localDir: process.env.LOCAL_STORAGE_DIR || "./storage",
     cloudinary: {
       cloudName: process.env.CLOUDINARY_CLOUD_NAME || "",
@@ -39,11 +40,13 @@ export function integrationStatus() {
     },
     {
       name: "File storage",
-      configured: env.storage.driver === "local" || Boolean(c.cloudName && c.apiKey && c.apiSecret),
+      configured: env.storage.driver !== "cloudinary" || Boolean(c.cloudName && c.apiKey && c.apiSecret),
       detail:
         env.storage.driver === "cloudinary"
           ? "Cloudinary (CLOUDINARY_CLOUD_NAME / API_KEY / API_SECRET)"
-          : "Local disk (development or single-server only — set STORAGE_DRIVER=cloudinary for Vercel)",
+          : env.storage.driver === "database"
+            ? "Database storage — works out of the box; switch to Cloudinary (STORAGE_DRIVER=cloudinary) for large media libraries and faster image delivery"
+            : "Local disk (development or single-server only)",
     },
     {
       name: "Email delivery",

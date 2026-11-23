@@ -19,8 +19,9 @@ export const DOCUMENT_TYPES = [
   "application/vnd.openxmlformats-officedocument.presentationml.presentation",
 ];
 
-export const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
-export const MAX_DOCUMENT_BYTES = 20 * 1024 * 1024;
+// Serverless hosts (Vercel) cap request bodies at ~4.5 MB, so uploads are limited to 4 MB.
+export const MAX_IMAGE_BYTES = 4 * 1024 * 1024;
+export const MAX_DOCUMENT_BYTES = 4 * 1024 * 1024;
 
 export class UploadError extends Error {}
 
@@ -179,10 +180,28 @@ export async function storeFile(
   const buffer = Buffer.from(await file.arrayBuffer());
   if (!sniff(buffer, file.type)) throw new UploadError(`"${file.name}" does not match its declared file type.`);
 
-  const useCloudinary = env.storage.driver === "cloudinary";
-  if (useCloudinary && !cloudinaryConfigured()) {
+  const driver = env.storage.driver;
+  if (driver === "cloudinary" && !cloudinaryConfigured()) {
     throw new UploadError("Cloudinary storage is selected but its credentials are not configured.");
   }
+  if (driver === "database") {
+    return db.mediaAsset.create({
+      data: {
+        driver: "database",
+        storageKey: `db:${randomToken(9)}`,
+        url: null, // always delivered through /api/files/[id]
+        visibility: opts.visibility,
+        mimeType: file.type,
+        size: file.size,
+        originalName: file.name.slice(0, 200),
+        alt: opts.alt ?? null,
+        folder: opts.folder,
+        uploadedById: opts.uploadedById ?? null,
+        blob: { create: { data: new Uint8Array(buffer) } },
+      },
+    });
+  }
+  const useCloudinary = driver === "cloudinary";
   const stored = useCloudinary
     ? await cloudinaryUpload(buffer, file, opts.folder, opts.visibility)
     : await localUpload(buffer, file, opts.folder, opts.visibility);
@@ -205,7 +224,12 @@ export async function storeFile(
   });
 }
 
-export async function readStoredFile(asset: Pick<MediaAsset, "driver" | "storageKey" | "url">) {
+export async function readStoredFile(asset: Pick<MediaAsset, "id" | "driver" | "storageKey" | "url">) {
+  if (asset.driver === "database") {
+    const blob = await db.mediaBlob.findUnique({ where: { mediaId: asset.id } });
+    if (!blob) throw new Error("File unavailable");
+    return Buffer.from(blob.data);
+  }
   if (asset.driver === "remote") {
     if (!asset.url) throw new Error("File unavailable");
     const res = await fetch(asset.url);

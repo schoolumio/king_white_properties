@@ -27,6 +27,9 @@ if (runtimeUrl) {
   // only when no users exist — the first Super Admin from SEED_ADMIN_EMAIL / SEED_ADMIN_PASSWORD.
   // Never creates demo or business records.
   run("npx tsx prisma/seed.ts", env);
+  // Optional: SEED_DEMO_DATA=true loads clearly labelled sample listings for client review.
+  // Safe to leave on — it skips if demo data already exists. Remove demo data from Admin → Settings before launch.
+  if (process.env.SEED_DEMO_DATA === "true") run("npx tsx prisma/seed-demo.ts", { ...env, ALLOW_DEMO_SEED: "true" });
 } else {
   console.warn(
     "\n⚠  No database connection found (DATABASE_URL / POSTGRES_URL) — skipping database migrations.\n" +

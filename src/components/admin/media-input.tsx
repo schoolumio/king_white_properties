@@ -50,6 +50,10 @@ export function MediaInput({ name, label, help, initial = [], accept, folder, vi
     setError(null);
     const list = Array.from(files).slice(0, max ? Math.max(0, max - items.length) || 1 : files.length);
     for (const file of list) {
+      if (file.size > 4 * 1024 * 1024) {
+        setError(`“${file.name}” is larger than 4 MB. Please compress it (e.g. export at 2400px wide, ~80% quality) and try again.`);
+        continue;
+      }
       setBusy((b) => b + 1);
       try {
         const fd = new FormData();
@@ -58,7 +62,7 @@ export function MediaInput({ name, label, help, initial = [], accept, folder, vi
         fd.append("visibility", visibility);
         fd.append("kind", accept);
         const res = await fetch("/api/admin/upload", { method: "POST", body: fd });
-        const json = await res.json();
+        const json = await res.json().catch(() => ({ error: res.status === 413 ? "File too large — maximum 4 MB." : `Upload failed (${res.status}).` }));
         if (!res.ok) throw new Error(json.error || "Upload failed");
         const item: MediaItem = {
           mediaId: json.id,

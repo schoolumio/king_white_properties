@@ -27,7 +27,7 @@ export async function submitEnquiry(formType: FormType, formData: FormData): Pro
     return { ok: false, error: "Please take a moment to review your details, then submit again." };
   }
   const ctx = await clientContext();
-  const limited = await rateLimit(`enquiry:${ctx.ipHash ?? "unknown"}`, 6, 600);
+  const limited = await rateLimit(`enquiry:${ctx.ipHash ?? "unknown"}`, 20, 600);
   if (!limited.ok) {
     return { ok: false, error: "We have received several submissions from your connection. Please try again in a few minutes." };
   }
@@ -241,7 +241,7 @@ export async function submitEnquiry(formType: FormType, formData: FormData): Pro
             return { ok: false, error: "Please correct the highlighted fields.", fieldErrors: { document: "Upload a PDF, Word or PowerPoint document" } };
           }
           if (file.size > PARTNERSHIP_DOCUMENT_MAX) {
-            return { ok: false, error: "Please correct the highlighted fields.", fieldErrors: { document: "The document must be 10 MB or smaller" } };
+            return { ok: false, error: "Please correct the highlighted fields.", fieldErrors: { document: "The document must be 4 MB or smaller" } };
           }
           const asset = await storeFile(file, { folder: "enquiries", visibility: "PRIVATE", kind: "document" });
           attachmentIds.push(asset.id);

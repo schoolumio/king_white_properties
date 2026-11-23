@@ -159,7 +159,7 @@ export function EnquiryForm({ formType, fields, defaults = {}, submitLabel = "Su
                   <Paperclip className="h-5 w-5 shrink-0 opacity-60" aria-hidden />
                   <span className="text-[14.5px]">
                     {fileName ?? "Attach a supporting document"}
-                    <span className={cn("block text-xs", dark ? "text-white/45" : "text-ink/50")}>{f.help ?? "PDF, Word or PowerPoint · max 10 MB"}</span>
+                    <span className={cn("block text-xs", dark ? "text-white/45" : "text-ink/50")}>{f.help ?? "PDF, Word or PowerPoint · max 4 MB"}</span>
                   </span>
                 </label>
                 <input
@@ -171,8 +171,8 @@ export function EnquiryForm({ formType, fields, defaults = {}, submitLabel = "Su
                   onChange={(e) => {
                     const file = e.target.files?.[0];
                     setFileError(null);
-                    if (file && file.size > 10 * 1024 * 1024) {
-                      setFileError("The document must be 10 MB or smaller");
+                    if (file && file.size > 4 * 1024 * 1024) {
+                      setFileError("The document must be 4 MB or smaller");
                       e.target.value = "";
                       setFileName(null);
                       return;
