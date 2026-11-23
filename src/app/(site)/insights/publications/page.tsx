@@ -11,7 +11,7 @@ import { EmptyState } from "@/components/ui/section";
 export const metadata: Metadata = pageMetadata({ title: "Corporate Publications", description: "Download corporate profiles, brochures, reports and policies.", path: "/insights/publications" });
 
 export default async function PublicationsPage() {
-  const pubs = await db.publication.findMany({ where: { publishStatus: "PUBLISHED" }, orderBy: [{ category: "asc" }, { publishedAt: "desc" }], include: { file: true } });
+  const pubs = await db.publication.findMany({ where: { publishStatus: "PUBLISHED" }, orderBy: [{ category: "asc" }, { publishedAt: "desc" }], include: { file: true } }).catch(() => []);
   const groups = Object.entries(PUBLICATION_LABELS)
     .map(([k, label]) => ({ label, items: pubs.filter((p) => p.category === k) }))
     .filter((g) => g.items.length);

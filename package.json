@@ -16,7 +16,7 @@
     "db:studio": "prisma studio",
     "test:smoke": "node scripts/smoke-test.mjs",
     "postinstall": "prisma generate",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build"
+    "vercel-build": "node scripts/vercel-build.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -43,6 +43,6 @@
     "typescript": "^5.9.3"
   },
   "engines": {
-    "node": ">=20.9.0"
+    "node": "22.x"
   }
 }

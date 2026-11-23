@@ -159,7 +159,8 @@ See `.env.example` for the full list.
 
 | Variable | Required | Notes |
 | --- | --- | --- |
-| `DATABASE_URL`, `DIRECT_URL` | Yes | PostgreSQL (pooled / direct). Same value if no pooler. |
+| `DATABASE_URL` | Yes | PostgreSQL connection string |
+| `DIRECT_URL` | Optional | Non-pooled URL used only for migrations when `DATABASE_URL` points at a connection pooler |
 | `NEXT_PUBLIC_SITE_URL` | Yes | Canonical base URL, sitemap, email links |
 | `APP_SECRET` | Yes | Long random string (`openssl rand -hex 32`) — salts hashed IPs used for rate limiting |
 | `SEED_ADMIN_EMAIL`, `SEED_ADMIN_PASSWORD`, `SEED_ADMIN_NAME` | First run | Creates the first Super Admin when no users exist |
@@ -188,8 +189,8 @@ See `.env.example` for the full list.
 
 **Vercel (recommended):**
 
-1. Create a PostgreSQL database (Neon, Supabase, Vercel Postgres, RDS…). Use the pooled URL for `DATABASE_URL` and the direct URL for `DIRECT_URL`.
-2. Import the repository into Vercel. The `vercel-build` script runs `prisma generate && prisma migrate deploy && next build`.
+1. Create a PostgreSQL database (Neon, Supabase, Vercel Postgres, RDS…). Set `DATABASE_URL` (and optionally `DIRECT_URL` if `DATABASE_URL` is a pooled connection).
+2. Import the repository into Vercel. The `vercel-build` script (`scripts/vercel-build.mjs`) generates the Prisma client, applies migrations when `DATABASE_URL` is set, then builds. Without a database the build still succeeds, but the site cannot store enquiries or show listings until `DATABASE_URL` is added and the project is redeployed.
 3. Set all environment variables above. **`STORAGE_DRIVER` must be `cloudinary`** on Vercel (the filesystem is ephemeral).
 4. After the first deploy, run `npm run db:seed` once against the production database (locally with the production `DATABASE_URL`, or from a CI job).
 5. Configure the custom domain and update `NEXT_PUBLIC_SITE_URL`.
