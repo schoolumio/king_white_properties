@@ -1,0 +1,972 @@
+// Enterprise platform — relational schema
+// Shared corporate infrastructure (users, roles, CRM, CMS, media, audit) plus
+// independently managed division catalogues (real estate, automotive).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Identity & access
+// ─────────────────────────────────────────────────────────────────────────────
+
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  name         String
+  position     String?
+  phone        String?
+  passwordHash String
+  active       Boolean   @default(true)
+  roleId       String
+  role         Role      @relation(fields: [roleId], references: [id])
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  sessions          Session[]
+  assignedEnquiries Enquiry[]           @relation("EnquiryAssignee")
+  assignments       EnquiryAssignment[] @relation("AssignmentUser")
+  assignmentsMade   EnquiryAssignment[] @relation("AssignmentBy")
+  activities        EnquiryActivity[]
+  auditLogs         AuditLog[]
+  uploads           MediaAsset[]
+  approvedOpportunities InvestmentOpportunity[] @relation("OpportunityApprover")
+
+  @@index([roleId])
+}
+
+model Role {
+  id          String           @id @default(cuid())
+  key         String           @unique
+  name        String
+  description String?
+  isSystem    Boolean          @default(false)
+  users       User[]
+  permissions RolePermission[]
+  createdAt   DateTime         @default(now())
+  updatedAt   DateTime         @updatedAt
+}
+
+model Permission {
+  id          String           @id @default(cuid())
+  key         String           @unique
+  group       String
+  description String
+  roles       RolePermission[]
+}
+
+model RolePermission {
+  roleId       String
+  permissionId String
+  role         Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  permission   Permission @relation(fields: [permissionId], references: [id], onDelete: Cascade)
+
+  @@id([roleId, permissionId])
+}
+
+model Session {
+  id         String   @id @default(cuid())
+  tokenHash  String   @unique
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt  DateTime
+  ipHash     String?
+  userAgent  String?
+  createdAt  DateTime @default(now())
+  lastSeenAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Corporate structure (extensible — new divisions are rows, not rebuilds)
+// ─────────────────────────────────────────────────────────────────────────────
+
+model Division {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  shortName   String
+  summary     String?
+  description String?
+  path        String // public landing route, e.g. /real-estate
+  order       Int       @default(0)
+  active      Boolean   @default(true)
+  enquiries   Enquiry[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Location {
+  id           String                  @id @default(cuid())
+  slug         String                  @unique
+  name         String // e.g. "Ikoyi"
+  city         String?
+  state        String?
+  country      String                  @default("Nigeria")
+  properties   Property[]
+  projects     DevelopmentProject[]
+  opportunities InvestmentOpportunity[]
+  createdAt    DateTime                @default(now())
+  updatedAt    DateTime                @updatedAt
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Media
+// ─────────────────────────────────────────────────────────────────────────────
+
+enum MediaVisibility {
+  PUBLIC
+  PRIVATE
+}
+
+model MediaAsset {
+  id           String          @id @default(cuid())
+  driver       String // local | cloudinary
+  storageKey   String
+  url          String? // public delivery URL (null for private assets)
+  visibility   MediaVisibility @default(PUBLIC)
+  mimeType     String
+  size         Int
+  width        Int?
+  height       Int?
+  originalName String
+  alt          String?
+  folder       String          @default("general")
+  uploadedById String?
+  uploadedBy   User?           @relation(fields: [uploadedById], references: [id], onDelete: SetNull)
+  createdAt    DateTime        @default(now())
+
+  propertyImages     PropertyImage[]
+  propertyDocuments  PropertyDocument[]
+  projectMedia       ProjectMedia[]
+  projectDocuments   ProjectDocument[]
+  projectUpdates     ProjectUpdate[]
+  vehicleImages      VehicleImage[]
+  opportunityDocs    InvestmentDocument[]
+  opportunityCovers  InvestmentOpportunity[]
+  articleCovers      Article[]
+  publicationFiles   Publication[]       @relation("PublicationFile")
+  publicationCovers  Publication[]       @relation("PublicationCover")
+  leadershipPhotos   LeadershipProfile[]
+  enquiryAttachments EnquiryAttachment[]
+
+  @@index([folder])
+  @@index([visibility])
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Division A — Real Estate & Infrastructure
+// ─────────────────────────────────────────────────────────────────────────────
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum PropertySector {
+  RESIDENTIAL
+  COMMERCIAL
+  INDUSTRIAL
+  LAND
+  MIXED_USE
+}
+
+enum ListingType {
+  SALE
+  LEASE
+  SALE_OR_LEASE
+}
+
+enum PropertyStatus {
+  AVAILABLE
+  UNDER_OFFER
+  SOLD
+  LEASED
+  OFF_MARKET
+}
+
+enum PricePeriod {
+  TOTAL
+  PER_ANNUM
+  PER_MONTH
+  PER_SQM
+}
+
+model PropertyType {
+  id         String         @id @default(cuid())
+  slug       String         @unique
+  name       String // e.g. "Detached Duplex", "Grade A Office"
+  sector     PropertySector
+  order      Int            @default(0)
+  properties Property[]
+}
+
+model Property {
+  id                    String         @id @default(cuid())
+  slug                  String         @unique
+  title                 String
+  summary               String
+  description           String
+  sector                PropertySector
+  propertyTypeId        String?
+  propertyType          PropertyType?  @relation(fields: [propertyTypeId], references: [id], onDelete: SetNull)
+  listingType           ListingType
+  status                PropertyStatus @default(AVAILABLE)
+  availabilityVerifiedAt DateTime?
+  locationId            String?
+  location              Location?      @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  address               String?
+  latitude              Float?
+  longitude             Float?
+  price                 Decimal?       @db.Decimal(18, 2)
+  currency              String         @default("NGN")
+  pricePeriod           PricePeriod    @default(TOTAL)
+  priceOnRequest        Boolean        @default(false)
+  bedrooms              Int?
+  bathrooms             Int?
+  parkingSpaces         Int?
+  floorAreaSqm          Float?
+  landAreaSqm           Float?
+  titleDocument         String? // e.g. "Certificate of Occupancy"
+  yearBuilt             Int?
+  features              String[]
+  amenities             String[]
+  specifications        Json? // [{label, value}]
+  developmentId         String?
+  development           DevelopmentProject? @relation(fields: [developmentId], references: [id], onDelete: SetNull)
+  featured              Boolean        @default(false)
+  publishStatus         PublishStatus  @default(DRAFT)
+  isDemo                Boolean        @default(false)
+  metaTitle             String?
+  metaDescription       String?
+  publishedAt           DateTime?
+  createdAt             DateTime       @default(now())
+  updatedAt             DateTime       @updatedAt
+
+  images    PropertyImage[]
+  documents PropertyDocument[]
+  enquiries Enquiry[]
+
+  @@index([publishStatus, sector])
+  @@index([publishStatus, listingType])
+  @@index([publishStatus, featured])
+  @@index([locationId])
+  @@index([price])
+}
+
+enum PropertyImageKind {
+  PHOTO
+  FLOOR_PLAN
+}
+
+model PropertyImage {
+  id         String            @id @default(cuid())
+  propertyId String
+  property   Property          @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  mediaId    String
+  media      MediaAsset        @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  kind       PropertyImageKind @default(PHOTO)
+  alt        String?
+  order      Int               @default(0)
+
+  @@index([propertyId, kind, order])
+}
+
+model PropertyDocument {
+  id         String     @id @default(cuid())
+  propertyId String
+  property   Property   @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  mediaId    String
+  media      MediaAsset @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  title      String
+  isPublic   Boolean    @default(true)
+  order      Int        @default(0)
+
+  @@index([propertyId])
+}
+
+enum ProjectStatus {
+  UPCOMING
+  UNDER_DEVELOPMENT
+  COMPLETED
+  AVAILABLE_FOR_ACQUISITION
+}
+
+model DevelopmentProject {
+  id              String         @id @default(cuid())
+  slug            String         @unique
+  name            String
+  summary         String
+  overview        String
+  sector          PropertySector
+  projectType     String? // e.g. "Gated residential estate"
+  status          ProjectStatus
+  currentStage    String? // e.g. "Superstructure — Phase 1"
+  progressPercent Int?
+  locationId      String?
+  location        Location?      @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  address         String?
+  latitude        Float?
+  longitude       Float?
+  developerInfo   String?
+  siteAreaSqm     Float?
+  totalUnits      Int?
+  startDate       DateTime?
+  completionDate  DateTime? // expected or actual
+  featured        Boolean        @default(false)
+  publishStatus   PublishStatus  @default(DRAFT)
+  isDemo          Boolean        @default(false)
+  metaTitle       String?
+  metaDescription String?
+  publishedAt     DateTime?
+  createdAt       DateTime       @default(now())
+  updatedAt       DateTime       @updatedAt
+
+  media         ProjectMedia[]
+  documents     ProjectDocument[]
+  updates       ProjectUpdate[]
+  units         DevelopmentUnit[]
+  properties    Property[]
+  opportunities InvestmentOpportunity[]
+  enquiries     Enquiry[]
+
+  @@index([publishStatus, status])
+  @@index([publishStatus, featured])
+}
+
+enum ProjectMediaKind {
+  GALLERY
+  MASTERPLAN
+}
+
+model ProjectMedia {
+  id        String             @id @default(cuid())
+  projectId String
+  project   DevelopmentProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  mediaId   String
+  media     MediaAsset         @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  kind      ProjectMediaKind   @default(GALLERY)
+  caption   String?
+  order     Int                @default(0)
+
+  @@index([projectId, kind, order])
+}
+
+model ProjectDocument {
+  id        String             @id @default(cuid())
+  projectId String
+  project   DevelopmentProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  mediaId   String
+  media     MediaAsset         @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  title     String
+  isPublic  Boolean            @default(true)
+  order     Int                @default(0)
+
+  @@index([projectId])
+}
+
+model ProjectUpdate {
+  id          String             @id @default(cuid())
+  projectId   String
+  project     DevelopmentProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  title       String
+  body        String
+  mediaId     String?
+  media       MediaAsset?        @relation(fields: [mediaId], references: [id], onDelete: SetNull)
+  publishedAt DateTime           @default(now())
+  published   Boolean            @default(true)
+  createdAt   DateTime           @default(now())
+
+  @@index([projectId, publishedAt])
+}
+
+enum UnitStatus {
+  AVAILABLE
+  LIMITED
+  SOLD_OUT
+  COMING_SOON
+}
+
+model DevelopmentUnit {
+  id             String             @id @default(cuid())
+  projectId      String
+  project        DevelopmentProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  name           String // e.g. "4-Bedroom Terrace"
+  bedrooms       Int?
+  floorAreaSqm   Float?
+  price          Decimal?           @db.Decimal(18, 2)
+  currency       String             @default("NGN")
+  priceOnRequest Boolean            @default(true)
+  totalUnits     Int?
+  availableUnits Int?
+  status         UnitStatus         @default(AVAILABLE)
+  order          Int                @default(0)
+
+  @@index([projectId])
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Division B — Automotive & Mobility
+// ─────────────────────────────────────────────────────────────────────────────
+
+enum VehicleCondition {
+  NEW
+  FOREIGN_USED
+  LOCALLY_USED
+  CERTIFIED_PRE_OWNED
+}
+
+enum BodyType {
+  SUV
+  SEDAN
+  COUPE
+  HATCHBACK
+  CONVERTIBLE
+  WAGON
+  PICKUP
+  VAN
+  TRUCK
+  BUS
+  OTHER
+}
+
+enum Transmission {
+  AUTOMATIC
+  MANUAL
+  OTHER
+}
+
+enum FuelType {
+  PETROL
+  DIESEL
+  HYBRID
+  PLUG_IN_HYBRID
+  ELECTRIC
+  CNG
+  OTHER
+}
+
+enum VehicleAvailability {
+  AVAILABLE
+  RESERVED
+  IN_TRANSIT
+  ON_ORDER
+  SOLD
+}
+
+model VehicleCategory {
+  id       String    @id @default(cuid())
+  slug     String    @unique
+  name     String
+  order    Int       @default(0)
+  vehicles Vehicle[]
+}
+
+model Vehicle {
+  id               String              @id @default(cuid())
+  slug             String              @unique
+  make             String
+  model            String
+  variant          String?
+  year             Int
+  price            Decimal?            @db.Decimal(18, 2)
+  currency         String              @default("NGN")
+  priceOnRequest   Boolean             @default(false)
+  condition        VehicleCondition
+  bodyType         BodyType
+  transmission     Transmission
+  fuelType         FuelType
+  mileage          Int?
+  mileageUnit      String              @default("km")
+  engine           String? // e.g. "3.0L twin-turbo inline-6"
+  horsepower       Int?
+  drivetrain       String?
+  seats            Int?
+  exteriorColour   String?
+  interiorColour   String?
+  interiorDetails  String?
+  summary          String?
+  description      String?
+  features         String[]
+  specifications   Json?
+  inspectionInfo   String?
+  vin              String? // internal only — never rendered publicly
+  location         String?
+  availability     VehicleAvailability @default(AVAILABLE)
+  soldAt           DateTime?
+  featured         Boolean             @default(false)
+  publishStatus    PublishStatus       @default(DRAFT)
+  isDemo           Boolean             @default(false)
+  metaTitle        String?
+  metaDescription  String?
+  publishedAt      DateTime?
+  createdAt        DateTime            @default(now())
+  updatedAt        DateTime            @updatedAt
+
+  categories VehicleCategory[]
+  images     VehicleImage[]
+  enquiries  Enquiry[]
+
+  @@index([publishStatus, availability])
+  @@index([publishStatus, featured])
+  @@index([make, model])
+  @@index([year])
+  @@index([price])
+}
+
+model VehicleImage {
+  id        String     @id @default(cuid())
+  vehicleId String
+  vehicle   Vehicle    @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+  mediaId   String
+  media     MediaAsset @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  alt       String?
+  order     Int        @default(0)
+
+  @@index([vehicleId, order])
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Investments
+// ─────────────────────────────────────────────────────────────────────────────
+
+enum OpportunitySector {
+  REAL_ESTATE
+  INFRASTRUCTURE
+  AUTOMOTIVE
+  CORPORATE
+}
+
+enum OpportunityStatus {
+  COMING_SOON
+  OPEN
+  UNDER_REVIEW
+  FULLY_SUBSCRIBED
+  CLOSED
+}
+
+model InvestmentOpportunity {
+  id                String                @id @default(cuid())
+  slug              String                @unique
+  title             String
+  summary           String
+  description       String
+  sector            OpportunitySector
+  investmentStructure String? // e.g. "Joint venture", "Co-development"
+  status            OpportunityStatus     @default(COMING_SOON)
+  locationId        String?
+  location          Location?             @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  projectId         String?
+  project           DevelopmentProject?   @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  coverId           String?
+  cover             MediaAsset?           @relation(fields: [coverId], references: [id], onDelete: SetNull)
+  // Commercial terms — only rendered publicly once approved.
+  minimumParticipation Decimal?           @db.Decimal(18, 2)
+  currency          String                @default("NGN")
+  termsSummary      String?
+  termsApproved     Boolean               @default(false)
+  approvedById      String?
+  approvedBy        User?                 @relation("OpportunityApprover", fields: [approvedById], references: [id], onDelete: SetNull)
+  approvedAt        DateTime?
+  disclaimer        String?
+  featured          Boolean               @default(false)
+  publishStatus     PublishStatus         @default(DRAFT)
+  isDemo            Boolean               @default(false)
+  publishedAt       DateTime?
+  createdAt         DateTime              @default(now())
+  updatedAt         DateTime              @updatedAt
+
+  documents InvestmentDocument[]
+  enquiries Enquiry[]
+
+  @@index([publishStatus, status])
+}
+
+enum DocumentAccess {
+  PUBLIC
+  ON_REQUEST
+}
+
+model InvestmentDocument {
+  id            String                @id @default(cuid())
+  opportunityId String
+  opportunity   InvestmentOpportunity @relation(fields: [opportunityId], references: [id], onDelete: Cascade)
+  mediaId       String
+  media         MediaAsset            @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  title         String
+  access        DocumentAccess        @default(ON_REQUEST)
+  order         Int                   @default(0)
+
+  @@index([opportunityId])
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Central enquiry CRM
+// ─────────────────────────────────────────────────────────────────────────────
+
+enum EnquiryCategory {
+  PROPERTY
+  PROPERTY_INSPECTION
+  DEVELOPMENT
+  AUTOMOTIVE
+  TEST_DRIVE
+  VEHICLE_SOURCING
+  FLEET
+  INVESTMENT
+  PARTNERSHIP
+  GENERAL
+}
+
+enum EnquiryStatus {
+  NEW
+  CONTACTED
+  UNDER_REVIEW
+  QUALIFIED
+  PROPOSAL_SENT
+  NEGOTIATION
+  CONVERTED
+  CLOSED
+  REJECTED
+}
+
+enum EnquiryPriority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+model Enquiry {
+  id            String          @id @default(cuid())
+  reference     String          @unique
+  category      EnquiryCategory
+  status        EnquiryStatus   @default(NEW)
+  priority      EnquiryPriority @default(NORMAL)
+  divisionId    String?
+  division      Division?       @relation(fields: [divisionId], references: [id], onDelete: SetNull)
+
+  // Contact
+  name          String
+  email         String
+  phone         String?
+  organisation  String?
+  position      String?
+  country       String?
+  subject       String?
+  message       String?
+  consent       Boolean         @default(false)
+
+  // Related records
+  propertyId    String?
+  property      Property?              @relation(fields: [propertyId], references: [id], onDelete: SetNull)
+  projectId     String?
+  project       DevelopmentProject?    @relation(fields: [projectId], references: [id], onDelete: SetNull)
+  vehicleId     String?
+  vehicle       Vehicle?               @relation(fields: [vehicleId], references: [id], onDelete: SetNull)
+  opportunityId String?
+  opportunity   InvestmentOpportunity? @relation(fields: [opportunityId], references: [id], onDelete: SetNull)
+
+  assignedToId  String?
+  assignedTo    User?           @relation("EnquiryAssignee", fields: [assignedToId], references: [id], onDelete: SetNull)
+
+  sourcePath    String?
+  ipHash        String?
+  userAgent     String?
+  metadata      Json?
+  lastActivityAt DateTime       @default(now())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  activities    EnquiryActivity[]
+  assignments   EnquiryAssignment[]
+  attachments   EnquiryAttachment[]
+  inspection    InspectionRequest?
+  fleetRequest  FleetRequest?
+  sourcing      VehicleSourcingRequest?
+  partnership   PartnershipProposal?
+  notifications NotificationLog[]
+
+  @@index([category, status])
+  @@index([status, createdAt])
+  @@index([assignedToId, status])
+  @@index([createdAt])
+  @@index([email])
+}
+
+enum ActivityType {
+  CREATED
+  STATUS_CHANGED
+  PRIORITY_CHANGED
+  ASSIGNED
+  UNASSIGNED
+  NOTE
+  EMAIL_SENT
+}
+
+model EnquiryActivity {
+  id        String       @id @default(cuid())
+  enquiryId String
+  enquiry   Enquiry      @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  type      ActivityType
+  message   String?
+  fromValue String?
+  toValue   String?
+  userId    String?
+  user      User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  createdAt DateTime     @default(now())
+
+  @@index([enquiryId, createdAt])
+}
+
+model EnquiryAssignment {
+  id           String    @id @default(cuid())
+  enquiryId    String
+  enquiry      Enquiry   @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User      @relation("AssignmentUser", fields: [userId], references: [id], onDelete: Cascade)
+  assignedById String?
+  assignedBy   User?     @relation("AssignmentBy", fields: [assignedById], references: [id], onDelete: SetNull)
+  assignedAt   DateTime  @default(now())
+  endedAt      DateTime?
+
+  @@index([enquiryId])
+  @@index([userId])
+}
+
+model EnquiryAttachment {
+  id        String     @id @default(cuid())
+  enquiryId String
+  enquiry   Enquiry    @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  mediaId   String
+  media     MediaAsset @relation(fields: [mediaId], references: [id], onDelete: Cascade)
+  createdAt DateTime   @default(now())
+
+  @@index([enquiryId])
+}
+
+enum InspectionType {
+  PROPERTY_INSPECTION
+  VEHICLE_INSPECTION
+  TEST_DRIVE
+}
+
+model InspectionRequest {
+  id            String         @id @default(cuid())
+  enquiryId     String         @unique
+  enquiry       Enquiry        @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  type          InspectionType
+  preferredDate DateTime?
+  preferredTime String? // e.g. "Morning"
+  attendees     Int?
+  createdAt     DateTime       @default(now())
+}
+
+model FleetRequest {
+  id                  String   @id @default(cuid())
+  enquiryId           String   @unique
+  enquiry             Enquiry  @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  organisationName    String
+  vehicleCategory     String
+  quantity            Int
+  budgetRange         String?
+  procurementTimeline String?
+  acquisitionMode     String? // purchase | lease | undecided
+  requirements        String?
+  createdAt           DateTime @default(now())
+}
+
+model VehicleSourcingRequest {
+  id                  String   @id @default(cuid())
+  enquiryId           String   @unique
+  enquiry             Enquiry  @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  make                String
+  model               String
+  yearFrom            Int?
+  yearTo              Int?
+  budget              String?
+  conditionPreference String?
+  countryPreference   String?
+  specifications      String?
+  createdAt           DateTime @default(now())
+}
+
+model PartnershipProposal {
+  id               String   @id @default(cuid())
+  enquiryId        String   @unique
+  enquiry          Enquiry  @relation(fields: [enquiryId], references: [id], onDelete: Cascade)
+  organisationName String
+  organisationType String
+  category         String
+  proposalSummary  String
+  estimatedValue   String?
+  createdAt        DateTime @default(now())
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Corporate content
+// ─────────────────────────────────────────────────────────────────────────────
+
+enum ArticleType {
+  ANNOUNCEMENT
+  COMPANY_NEWS
+  REAL_ESTATE_INSIGHT
+  AUTOMOTIVE_INSIGHT
+  PROJECT_UPDATE
+}
+
+model Article {
+  id              String        @id @default(cuid())
+  slug            String        @unique
+  title           String
+  excerpt         String
+  body            String // Markdown
+  type            ArticleType
+  coverId         String?
+  cover           MediaAsset?   @relation(fields: [coverId], references: [id], onDelete: SetNull)
+  authorName      String?
+  featured        Boolean       @default(false)
+  publishStatus   PublishStatus @default(DRAFT)
+  isDemo          Boolean       @default(false)
+  publishedAt     DateTime?
+  metaTitle       String?
+  metaDescription String?
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@index([publishStatus, publishedAt])
+  @@index([type])
+}
+
+enum PublicationCategory {
+  CORPORATE_PROFILE
+  ANNUAL_REPORT
+  BROCHURE
+  POLICY
+  RESEARCH
+  PRESS_RELEASE
+  OTHER
+}
+
+model Publication {
+  id            String              @id @default(cuid())
+  slug          String              @unique
+  title         String
+  description   String?
+  category      PublicationCategory
+  fileId        String
+  file          MediaAsset          @relation("PublicationFile", fields: [fileId], references: [id], onDelete: Restrict)
+  coverId       String?
+  cover         MediaAsset?         @relation("PublicationCover", fields: [coverId], references: [id], onDelete: SetNull)
+  publishStatus PublishStatus       @default(DRAFT)
+  publishedAt   DateTime?
+  createdAt     DateTime            @default(now())
+  updatedAt     DateTime            @updatedAt
+
+  @@index([publishStatus, category])
+}
+
+enum LeadershipGroup {
+  BOARD
+  EXECUTIVE
+  MANAGEMENT
+}
+
+model LeadershipProfile {
+  id        String          @id @default(cuid())
+  name      String
+  position  String
+  group     LeadershipGroup @default(EXECUTIVE)
+  bio       String?
+  photoId   String?
+  photo     MediaAsset?     @relation(fields: [photoId], references: [id], onDelete: SetNull)
+  linkedin  String?
+  order     Int             @default(0)
+  published Boolean         @default(false)
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@index([published, group, order])
+}
+
+/// Structured, schema-validated content blocks keyed by section (e.g. "home.hero").
+model CorporateContent {
+  key         String   @id
+  value       Json
+  updatedById String?
+  updatedAt   DateTime @updatedAt
+  createdAt   DateTime @default(now())
+}
+
+/// Standalone editorial pages (privacy policy, terms, etc.).
+model Page {
+  id              String   @id @default(cuid())
+  slug            String   @unique
+  title           String
+  body            String // Markdown
+  metaDescription String?
+  published       Boolean  @default(true)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Operations
+// ─────────────────────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id         String   @id @default(cuid())
+  userId     String?
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  action     String // e.g. property.update
+  entityType String?
+  entityId   String?
+  summary    String
+  metadata   Json?
+  ipHash     String?
+  createdAt  DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([entityType, entityId])
+  @@index([userId])
+}
+
+enum NotificationStatus {
+  SENT
+  LOGGED
+  FAILED
+  SKIPPED
+}
+
+model NotificationLog {
+  id        String             @id @default(cuid())
+  enquiryId String?
+  enquiry   Enquiry?           @relation(fields: [enquiryId], references: [id], onDelete: SetNull)
+  channel   String             @default("email")
+  provider  String
+  recipient String
+  subject   String
+  status    NotificationStatus
+  error     String?
+  createdAt DateTime           @default(now())
+
+  @@index([createdAt])
+}
+
+/// Sliding-window counter used for spam protection and login throttling.
+model RateLimitEvent {
+  id        String   @id @default(cuid())
+  key       String
+  createdAt DateTime @default(now())
+
+  @@index([key, createdAt])
+}
